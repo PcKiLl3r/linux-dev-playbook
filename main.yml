@@ -1,0 +1,9 @@
+---
+- name: Setup Linux Development Machine Environment
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Import Utility Packages Install
+      import_tasks:
+        file: ./playbooks/utils.yml

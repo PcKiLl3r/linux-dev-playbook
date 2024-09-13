@@ -10,7 +10,7 @@ lint: |
 platforms:
   - name: instance
     image: geerlingguy/docker-fedora40-ansible
-    command: ""
+    #    command: ""
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     priviliged: true

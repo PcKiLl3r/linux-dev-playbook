@@ -1,0 +1,31 @@
+---
+- name: Install Development Tools
+  dnf:
+    name:
+      - git
+      - docker
+      - docker-compose
+      - python3-pip
+
+- name: Ensure Group "docker" Exists with correct gid
+  group:
+    name: docker
+    state: present
+
+- name: Add User to "docker" Group
+  user:
+    name: "{{ username }}"
+    groups: docker
+    append: true
+
+- name: Add username to git Config
+  git_config:
+    name: user.name
+    scope: global
+    value: "{{ username }}"
+
+- name: Add email to git Config
+  git_config:
+    name: user.email
+    scope: global
+    value: "{{ email }}"

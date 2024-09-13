@@ -1,0 +1,8 @@
+---
+- name: Install nodeJS
+  dnf:
+    name: nodejs
+    state: present
+
+- name: Install C...
+TODO
