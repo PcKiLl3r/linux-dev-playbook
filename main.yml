@@ -1,6 +1,7 @@
 ---
 - name: Setup Linux Development Machine Environment
   hosts: all
+  connection: local
   become: true
 
   tasks:
