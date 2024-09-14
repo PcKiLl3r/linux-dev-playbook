@@ -1,19 +1,22 @@
 ---
+
 - name: Create .ssh directory
-  file:
-    path: "~/.ssh"
+  ansible.builtin.file:
+    path: ~/.ssh
     state: directory
     mode: '0755'
 
 - name: Try to copy existing key from vault if present
-
-
+  ansible.builtin.copy:
+    src: ../vault/id_rsa
+    dest: ~/.ssh/id_rsa
+  when: machine_upgrade | bool
 
 - name: If no key was restored, create a now one.
-  openssh_keypair:
+  community.crypto.openssh_keypair:
     path: "~/.ssh/id_rsa"
     type: rsa
     size: 4096
     state: present
     force: no
-  when:
+  when: not machine_upgrade

@@ -1,4 +1,13 @@
 ---
 - name: Converge
   hosts: all
-- import_playbook: ../../main.yml
+
+  tasks:
+    - name: Update apt cache (on Debian based systems only)
+      apt:
+        update_cache: true
+        cache_valid_time: 3600
+      when: ansible_os_family == 'Debian'
+
+- name: Import Main Playbook
+  import_playbook: ../../main.yml

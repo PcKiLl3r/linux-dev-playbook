@@ -4,7 +4,16 @@
   connection: local
   become: true
 
+  vars:
+    machine_upgrade_play: true
+
   tasks:
+    - name: Import SSH key restore/create
+      ansible.builtin.include_tasks:
+        file: ./playbooks/ssh.yml
+      vars:
+        machine_upgrade: "{{ machine_upgrade_play }}"
+
     - name: Import Utility Packages Install
-      import_tasks:
+      ansible.builtin.import_tasks:
         file: ./playbooks/utils.yml

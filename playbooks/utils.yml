@@ -1,6 +1,6 @@
 ---
 - name: Install Useful Utilities
-  dnf:
+  ansible.builtin.dnf:
     name:
       - fzf
       - ripgrep
