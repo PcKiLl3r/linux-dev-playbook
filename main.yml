@@ -8,7 +8,11 @@
     machine_upgrade_play: true
 
   tasks:
-    - name: Import SSH key restore/create
+    - name: Include Vars
+      ansible.builtin.include_vars:
+        file: ./playbooks/vars.yml
+
+    - name: Include SSH key restore/create
       ansible.builtin.include_tasks:
         file: ./playbooks/ssh.yml
       vars:
@@ -17,3 +21,15 @@
     - name: Import Utility Packages Install
       ansible.builtin.import_tasks:
         file: ./playbooks/utils.yml
+
+    - name: Import Dev-Tools Install
+      ansible.builtin.import_tasks:
+         file: ./playbooks/dev-tools.yml
+
+    - name: Import ZShell Install
+      ansible.builtin.import_tasks:
+        file: ./playbooks/zsh.yml
+
+    - name: Import Programming Languages/Runtimes Install
+      ansible.builtin.import_tasks:
+        file: ./playbooks/prog-lang.yml

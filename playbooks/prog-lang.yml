@@ -1,8 +1,27 @@
 ---
 - name: Install nodeJS
-  dnf:
+  ansible.builtin.dnf:
     name: nodejs
     state: present
 
-- name: Install C...
-TODO
+- name: Install yarn package manager
+  ansible.built.dnf:
+    name: yarnpkg
+    state: present
+
+- name: Install C, C++ Development Tools
+  ansible.built.dnf:
+    name: 
+      - gcc
+      - g++
+      - gdb
+      - glibc-devel
+      - libm
+      - valgrind
+      - gcc-c++
+      - clang
+      - ld
+      - as
+      - objdump
+
+

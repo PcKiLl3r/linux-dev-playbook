@@ -1,6 +1,6 @@
 ---
 - name: Install Development Tools
-  dnf:
+  ansible.builtin.dnf:
     name:
       - git
       - docker
@@ -8,24 +8,24 @@
       - python3-pip
 
 - name: Ensure Group "docker" Exists with correct gid
-  group:
+  ansible.builtin.group:
     name: docker
     state: present
 
 - name: Add User to "docker" Group
-  user:
+  ansible.builtin.user:
     name: "{{ username }}"
     groups: docker
     append: true
 
 - name: Add username to git Config
-  git_config:
+  community.general.git_config:
     name: user.name
     scope: global
     value: "{{ username }}"
 
 - name: Add email to git Config
-  git_config:
+  community.general.git_config:
     name: user.email
     scope: global
     value: "{{ email }}"
