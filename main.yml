@@ -2,7 +2,7 @@
 - name: Setup Linux Development Machine Environment
   hosts: all
   connection: local
-  become: true
+  become: false
 
   vars:
     machine_upgrade_play: true
