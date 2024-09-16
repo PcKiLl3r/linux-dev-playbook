@@ -33,3 +33,19 @@
     - name: Import Programming Languages/Runtimes Install
       ansible.builtin.import_tasks:
         file: ./playbooks/prog-lang.yml
+
+    - name: Import TMux Install
+      ansible.builtin.import_tasks:
+        file: ./playbooks/tmux.yml
+
+    - name: Import NeoVim Install
+      ansible.builtin.import_tasks:
+        file: ./playbooks/neovim.yml
+
+    - name: Import i3 Install
+      ansible.builtin.import_tasks:
+        file: ./playbooks/i3.yml
+
+    - name: Import keyboard setup
+      ansible.builtin.import_tasks:
+        file: ./playbooks/keyboard.yml

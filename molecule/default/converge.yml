@@ -3,6 +3,12 @@
   hosts: all
 
   tasks:
+
+    - name: Clone this repo to mirror real environment
+      ansible.builtin.git:
+        repo: https://github.com/PcKiLl3r/linux-dev-playbook.git
+        dest: ~/personal/
+
     - name: Update apt cache (on Debian based systems only)
       apt:
         update_cache: true
