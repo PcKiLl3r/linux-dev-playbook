@@ -1,0 +1,51 @@
+---
+- name: Setup Linux Development Machine Environment
+  hosts: all
+  connection: local
+  become: false
+
+  vars:
+    machine_upgrade_play: true
+
+  tasks:
+    - name: Include Vars
+      ansible.builtin.include_vars:
+        file: ./playbooks/vars.yml
+
+    - name: Include SSH key restore/create
+      ansible.builtin.include_tasks:
+        file: ./playbooks/ssh.yml
+      vars:
+        machine_upgrade: "{{ machine_upgrade_play }}"
+
+    - name: Import Utility Packages Install
+      ansible.builtin.import_tasks:
+        file: ./playbooks/utils.yml
+
+    - name: Import Dev-Tools Install
+      ansible.builtin.import_tasks:
+         file: ./playbooks/dev-tools.yml
+
+    - name: Import ZShell Install
+      ansible.builtin.import_tasks:
+        file: ./playbooks/zsh.yml
+
+    - name: Import Programming Languages/Runtimes Install
+      ansible.builtin.import_tasks:
+        file: ./playbooks/prog-lang.yml
+
+    - name: Import TMux Install
+      ansible.builtin.import_tasks:
+        file: ./playbooks/tmux.yml
+
+    - name: Import NeoVim Install
+      ansible.builtin.import_tasks:
+        file: ./playbooks/neovim.yml
+
+    - name: Import i3 Install
+      ansible.builtin.import_tasks:
+        file: ./playbooks/i3.yml
+
+    - name: Import keyboard setup
+      ansible.builtin.import_tasks:
+        file: ./playbooks/keyboard.yml

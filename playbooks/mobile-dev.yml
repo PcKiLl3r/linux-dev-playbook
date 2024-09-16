@@ -1,0 +1,10 @@
+---
+- name: Install mobile-dev utils
+  ansible.builtin.dnf:
+    name: scrcpy
+    state: present
+
+- name: Install global npm packages for Native
+  community.general.npm:
+    name: eas-cli
+    global: true

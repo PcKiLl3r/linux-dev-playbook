@@ -1,0 +1,58 @@
+---
+#- name: Check if newer version of NeoVim is available
+# todo - check if newer version with git clone first
+
+- name: Remove old versions of neovim
+  ansible.builtin.file:
+    path: "{{ home }}/neovim"
+    state: absent
+
+- name: Clone neovim
+  ansible.builtin.git:
+    repo: https://github.com/neovim/neovim.git
+    dest: "{{ home }}/neovim"
+    depth: 1
+    version: stable
+
+- name: Install NeoVim Dependencies
+  ansible.builtin.dnf:
+    name:
+      - cmake
+      - gettext
+      - lua5.1
+      - ninja-build
+      - gcc
+      - make
+      - unzip
+      - curl
+      - glibc-gconv-extra
+
+- name: Plenary
+  ansible.builtin.git:
+    repo: "https://github.com/nvim-lua/plenary.nvim.git"
+    dest: "{{ personal }}/plenary.nvim"
+    depth: 1
+
+- name: Install NeoVim with Make
+  ansible.builtin.command: sudo make install
+  args: 
+    chdir: "{{ home }}/neovim"
+
+- name: Install Rust
+  ansible.builtin.dnf:
+    name:
+      - rust
+      - cargo
+
+- name: Install Stylua
+  ansible.builtin.shell:
+    cmd: cargo install stylua
+
+- name: Install LuaRocks
+  ansible.builtin.shell:
+    chdir: "{{ dev }}"
+    cmd: ./resources/luarocks
+
+- name: Install LuaCheck
+  ansible.builtin.shell:
+    cmd: luarocks install luacheck

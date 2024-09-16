@@ -1,0 +1,22 @@
+---
+- name: Install nodeJS
+  ansible.builtin.dnf:
+    name: nodejs
+    state: present
+
+- name: Install yarn package manager
+  ansible.builtin.dnf:
+    name: yarnpkg
+    state: present
+
+- name: Install C, C++ Development Tools
+  ansible.builtin.dnf:
+    name: 
+      - gcc
+      - g++
+      - gdb
+      - glibc-devel
+      - valgrind
+      - gcc-c++
+      - clang
+      - cpp

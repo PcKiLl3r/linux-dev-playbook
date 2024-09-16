@@ -1,0 +1,46 @@
+---
+- name: Install dependencies
+  ansible.builtin.dnf:
+    name:
+      - dnf-plugins-core
+    state: present
+
+- name: Add GUI Apps Repos
+  ansible.builtin.yum_repository:
+    name: brave-browser
+    description: Brave browser repo
+    baseurl: 'https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo'
+
+- name: Enable Brave repo
+  community.general.dnf_config_manager:
+    name: brave-browser
+    state: enabled
+
+- name: Add rpm_key
+  ansible.builtin.rpm_key:
+    key: 'https://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-nonfree-fedora-2020'
+    state: present
+
+- name: Add brave rpm key
+  ansible.builtin.rpm_key:
+    key: 'https://brave-browser-rpm-release.s3.brave.com/brave-core.asc'
+    state: present
+
+- name: update
+  ansible.builtin.dnf:
+    name: "*"
+    state: latest
+
+- name: Install GUI software
+  ansible.builtin.dnf:
+    name:
+      - 'https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_distribution_major_version }}.noarch.rpm'
+      - discord
+    state: present
+    update_cache: true
+
+- name: Install Brave
+  ansible.builtin.yum:
+    name: brave-browser
+    state: present
+    update_cache: true

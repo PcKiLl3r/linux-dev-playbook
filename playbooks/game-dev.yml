@@ -1,0 +1,5 @@
+---
+- name: Install Godot GameEngine
+  ansible.builtin.dnf:
+    name: godot
+    state: present

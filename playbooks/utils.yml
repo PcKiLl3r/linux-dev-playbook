@@ -1,0 +1,12 @@
+---
+- name: Install Useful Utilities
+  ansible.builtin.dnf:
+    name:
+      - fzf
+      - ripgrep
+      - pavucontrol
+      - xclip
+      - jq
+      - tldr
+      - shutter
+    state: present
