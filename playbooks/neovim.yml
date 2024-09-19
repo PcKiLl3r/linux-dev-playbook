@@ -2,10 +2,10 @@
 #- name: Check if newer version of NeoVim is available
 # todo - check if newer version with git clone first
 
-- name: Remove old versions of neovim
-  ansible.builtin.file:
-    path: "{{ home }}/neovim"
-    state: absent
+#- name: Remove old versions of neovim
+#  ansible.builtin.file:
+#    path: "{{ home }}/neovim"
+#    state: absent
 
 - name: Clone neovim
   ansible.builtin.git:
@@ -13,6 +13,7 @@
     dest: "{{ home }}/neovim"
     depth: 1
     version: stable
+  register: gitclone_result
 
 - name: Install NeoVim Dependencies
   ansible.builtin.dnf:
@@ -26,6 +27,10 @@
       - unzip
       - curl
       - glibc-gconv-extra
+      - wget
+      - libevent-devel
+      - readline-devel
+      - ncurses-devel
 
 - name: Plenary
   ansible.builtin.git:
@@ -37,6 +42,7 @@
   ansible.builtin.command: sudo make install
   args: 
     chdir: "{{ home }}/neovim"
+  when: gitclone_result.changed
 
 - name: Install Rust
   ansible.builtin.dnf:
@@ -48,10 +54,15 @@
   ansible.builtin.shell:
     cmd: cargo install stylua
 
+#- name: Install LuaRocks
+#  ansible.builtin.shell:
+#    chdir: "{{ dev }}"
+#    cmd: ./resources/luarocks.sh
+#  become: false
 - name: Install LuaRocks
-  ansible.builtin.shell:
-    chdir: "{{ dev }}"
-    cmd: ./resources/luarocks
+  ansible.builtin.dnf:
+    name: luarocks
+    state: present
 
 - name: Install LuaCheck
   ansible.builtin.shell:

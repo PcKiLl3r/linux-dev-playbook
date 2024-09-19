@@ -2,21 +2,29 @@
 - name: Setup Linux Development Machine Environment
   hosts: all
   connection: local
-  become: false
 
   vars:
-    machine_upgrade_play: true
+    restore_last_ssh: true
 
-  tasks:
+  pre_tasks:
     - name: Include Vars
       ansible.builtin.include_vars:
         file: ./playbooks/vars.yml
 
+    - name: Include Core init tasks
+      ansible.builtin.include_tasks:
+        file: ./playbooks/core.yml
+    
+    - name: Import GUI Apps Install
+      ansible.builtin.include_tasks:
+        file: ./playbooks/gui-software.yml
+
+  tasks:
     - name: Include SSH key restore/create
       ansible.builtin.include_tasks:
         file: ./playbooks/ssh.yml
       vars:
-        machine_upgrade: "{{ machine_upgrade_play }}"
+        machine_upgrade: "{{ restore_last_ssh }}"
 
     - name: Import Utility Packages Install
       ansible.builtin.import_tasks:
