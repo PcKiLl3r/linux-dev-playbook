@@ -1,0 +1,65 @@
+---
+# Install VirtualBox - dependencies
+- name: Install Kernel Dependencies
+  ansible.builtin.dnf:
+    name: @development-tools
+    state: present
+
+- name: Install Kernel Packages
+  ansible.builtin.dnf:
+    name:
+      - kernel-headers
+      - kernel-devel
+      - dkms
+    state: present
+
+- name: Add VirtualBox Repository
+  ansible.builtin.blockinfile:
+    path: /etc/yum.repos.d/virtualbox.repo
+    block: |
+      [virtualbox]
+      name=Fedora $releasever - $basearch - VirtualBox
+      baseurl=http://download.virtualbox.org/virtualbox/rpm/fedora/$releasever/$basearch
+      enabled=1
+      gpgcheck=1
+      repo_gpgcheck=1
+      gpgkey=https://www.virtualbox.org/download/oracle_vbox_2016.asc
+
+- name: Refresh Package List
+  ansible.builtin.dnf:
+    name: "*"
+    state: latest
+
+- name: Install VirtualBox
+  ansible.builtin.dnf:
+    name: VirtualBox-7.1
+
+- name: Download VirtualBox Extension Pack
+  ansible.builtin.get_url:
+    url: "https://download.virtualbox.org/virtualbox/7.1.0/Oracle_VirtualBox_Extension_Pack-7.1.0.vbox-extpack"
+    dest: /tmp/Oracle_VirtualBox_Extension_Pack-7.1.0.vbox-extpack
+
+- name: Install VirtualBox Extension Pack
+  ansible.builtin.command:
+    cmd: sudo vboxmanage extpack install Oracle_VirtualBox_Extension_Pack-7.1.0.vbox-extpack
+
+- name: Add user to vboxusers group
+  ansible.builtin.user:
+    name: "{{ username }}"
+    group: vboxusers
+
+# Install Vagrant
+- name: Install Dependencies
+  ansible.builtin.dnf:
+    name: dnf-plugins-core
+    state: present
+
+- name: Enable Vagrant Repo
+  community.general.dnf_config_manager:
+    name: "https://rpm.releases.hashicorp.com/fedora/hashicorp.repo"
+    state: enabled
+
+- name: Install Vagrant
+  ansible.builtin.dnf:
+    name: vagrant
+    state: present
