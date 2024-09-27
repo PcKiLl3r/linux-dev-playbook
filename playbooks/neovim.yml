@@ -31,6 +31,7 @@
       - libevent-devel
       - readline-devel
       - ncurses-devel
+  become: true
 
 - name: Plenary
   ansible.builtin.git:
@@ -49,6 +50,7 @@
     name:
       - rust
       - cargo
+  become: true
 
 - name: Install Stylua
   ansible.builtin.shell:
@@ -63,6 +65,7 @@
   ansible.builtin.dnf:
     name: luarocks
     state: present
+  become: true
 
 - name: Install LuaCheck
   ansible.builtin.shell:

@@ -3,6 +3,7 @@
   dnf:
     name: zsh
     state: present
+  become: true
 
 - name: Ensure zsh is the default shell
   user:

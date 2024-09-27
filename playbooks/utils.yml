@@ -10,3 +10,4 @@
       - tldr
       - shutter
     state: present
+  become: true

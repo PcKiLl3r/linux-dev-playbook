@@ -10,3 +10,4 @@
       - feh
       - conky
     state: present
+  become: true

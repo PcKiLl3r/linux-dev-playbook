@@ -3,11 +3,13 @@
   ansible.builtin.dnf:
     name: nodejs
     state: present
+  become: true
 
 - name: Install yarn package manager
   ansible.builtin.dnf:
     name: yarnpkg
     state: present
+  become: true
 
 - name: Install C, C++ Development Tools
   ansible.builtin.dnf:
@@ -20,3 +22,4 @@
       - gcc-c++
       - clang
       - cpp
+  become: true
