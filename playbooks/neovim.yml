@@ -70,3 +70,4 @@
 - name: Install LuaCheck
   ansible.builtin.shell:
     cmd: luarocks install luacheck
+  become: true
