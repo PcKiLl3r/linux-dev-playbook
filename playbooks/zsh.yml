@@ -9,6 +9,7 @@
   user:
     name: "{{ username }}"
     shell: "/usr/bin/zsh"
+  become: true
 
 - name: Download Oh My Zsh installation script
   get_url:
