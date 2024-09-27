@@ -26,4 +26,4 @@
   command: chsh -s /usr/bin/zsh
   register: chsh_result
   changed_when: "'Shell not changed.' not in chsh_result.stderr"
-  become: false
+  become: true
