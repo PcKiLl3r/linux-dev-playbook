@@ -32,9 +32,11 @@
     name: "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ansible_distribution_major_version}}.noarch.rpm"
     state: present
   when: ansible_distribution == 'Fedora'
+  become: true
 
 - name: Enchance dnf
   ansible.builtin.dnf:
     name: dnf-plugins-core
     state: present
+
 
