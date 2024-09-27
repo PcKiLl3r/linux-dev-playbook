@@ -15,9 +15,9 @@
       ansible.builtin.include_tasks:
         file: ./playbooks/core.yml
     
-    - name: Import GUI Apps Install
-      ansible.builtin.include_tasks:
-        file: ./playbooks/gui-software.yml
+        #    - name: Import GUI Apps Install
+        #      ansible.builtin.include_tasks:
+        #        file: ./playbooks/gui-software.yml
 
   tasks:
     - name: Include SSH key restore/create
