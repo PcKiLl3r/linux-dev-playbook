@@ -12,6 +12,7 @@
     name:
       - git
     state: present
+  become: true
 
 - name: Clone this repo to mirror real environment
   ansible.builtin.git:
