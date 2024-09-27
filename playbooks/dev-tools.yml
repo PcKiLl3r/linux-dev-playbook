@@ -18,7 +18,7 @@
     name: "{{ username }}"
     groups: docker
     append: true
-  become_user: root
+  become: true
 
 - name: Add username to git Config
   community.general.git_config:
