@@ -6,3 +6,10 @@
     dest: ~/.dotfiles
   become: true
   become_user: "{{ username }}"
+
+- name: Stow .dotfiles
+  ansible.builtin.command:
+    cmd: ./run
+    # creates:
+  args:
+    chdir: "/home/{{ username }}/.dotfiles
