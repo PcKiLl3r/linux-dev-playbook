@@ -52,3 +52,26 @@
 - name: Import install Brave browser role
   import_role:
     name: staticdev.brave
+
+- name: Install Blender
+  ansible.builtin.dnf:
+    name: blender
+    state: present
+
+- name: Install Postman dependencies
+  ansible.builtin.dnf:
+    name: openssl
+    state: present
+
+- name: Download Postman
+  ansible.builtin.get_url:
+    url: https://dl.pstmn.io/download/latest/linux_64
+    dest: /tmp/postman.tar.gz
+
+- name: Install Postman
+  ansible.builtin.unarchive:
+    src: /tmp/postman.tar.gz
+    dest: /opt/postman
+
+- name: Add Postman to path... TODO
+  debug: TODO

@@ -1,0 +1,8 @@
+---
+
+- name: Clone dotfiles repo 
+  ansible.builtin.git:
+    repo: https://github.com/PcKiLl3r/.dotfiles
+    dest: ~/.dotfiles
+  become: true
+  become_user: "{{ username }}"
