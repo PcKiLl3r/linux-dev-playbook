@@ -12,4 +12,4 @@
     cmd: ./run
     # creates:
   args:
-    chdir: "/home/{{ username }}/.dotfiles
+    chdir: "/home/{{ username }}/.dotfiles"
