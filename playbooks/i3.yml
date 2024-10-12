@@ -7,7 +7,7 @@
       - dmenu
       - i3lock
       - xbacklight
-      - feh
+      - nitrogen
       - conky
     state: present
   become: true
