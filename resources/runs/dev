@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # rust btw
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s - -q
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s - -y
 
 # lua btw
 cargo install stylua
