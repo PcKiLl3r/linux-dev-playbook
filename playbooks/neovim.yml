@@ -20,7 +20,9 @@
     name:
       - cmake
       - gettext
-      - lua5.1
+      #- lua5.1
+      - lua
+      - lua-devel
       - ninja-build
       - gcc
       - make
@@ -41,7 +43,7 @@
 
 - name: Install NeoVim with Make
   ansible.builtin.command: sudo make install
-  args: 
+  args:
     chdir: "{{ home }}/neovim"
   when: gitclone_result.changed
 
