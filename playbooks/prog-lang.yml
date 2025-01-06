@@ -29,11 +29,13 @@
   ansible.builtin.dnf:
       name:
         - python3-pip
+  become: true
 
 - name: Install GO
   ansible.builtin.dnf:
     name:
       - go
+  become: true
 
 - name: Install Lua
   ansible.builtin.dnf:
@@ -41,3 +43,4 @@
       - lua5.1
       - lua5.1-devel
       - luarocks
+  become: true
