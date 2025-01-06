@@ -19,7 +19,7 @@
     ```
 5. Run Ansible setup script:
     ```
-    ansible-playbook main.yml --vault-password-file vault_pass.txt
+    ansible-playbook main.yml --vault-password-file vault_pass.txt --ask-become-pass
     ```
 
 ## Todo
