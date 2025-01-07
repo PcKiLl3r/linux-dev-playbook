@@ -6,3 +6,15 @@ make another vault in personal dotfiles
     for backup codes
     keys
     secrets,...
+
+
+# TODO should install neovim with:
+    # make CMAKE_BUILD_TYPE=RelWithDebInfo
+    # git checkout stable
+    # then make install
+    #
+    # also change install location...
+
+# TODO fix zsh not stowing propperly
+    #  remove .zshrc then stow
+    #  source .zshrc and zsh_profile after
