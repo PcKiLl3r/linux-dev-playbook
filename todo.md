@@ -18,3 +18,6 @@ make another vault in personal dotfiles
 # TODO fix zsh not stowing propperly
     #  remove .zshrc then stow
     #  source .zshrc and zsh_profile after
+
+todo make ssh key premissions more secure
+add key (ssh-add)
