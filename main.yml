@@ -3,6 +3,9 @@
   hosts: localhost
   connection: local
 
+  vars_files:
+    - vault/become_pass.yml
+
   vars:
     use_on_tv: false
     restore_last_ssh: true
@@ -15,7 +18,7 @@
     - name: Include Core init tasks
       ansible.builtin.include_tasks:
         file: ./playbooks/core.yml
-    
+
         #    - name: Import GUI Apps Install
         #      ansible.builtin.include_tasks:
         #        file: ./playbooks/gui-software.yml
