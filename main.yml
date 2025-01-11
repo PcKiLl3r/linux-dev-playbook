@@ -5,7 +5,7 @@
   become: true
   vars_files:
     - vault/become_pass.yml
-  become_pass: "{{ become_pass }}"
+  become_pass: "{{ ansible_become_pass }}"
 
   vars:
     use_on_tv: false
