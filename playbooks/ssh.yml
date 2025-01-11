@@ -5,12 +5,14 @@
     path: ~/.ssh
     state: directory
     mode: '0755'
+  become: false
 
 - name: Try to copy existing key from vault if present
   ansible.builtin.copy:
     src: ../vault/id_rsa
     dest: ~/.ssh/id_rsa
   when: machine_upgrade | bool
+  become: false
 
 - name: If no key was restored, create a now one.
   community.crypto.openssh_keypair:
@@ -20,3 +22,4 @@
     state: present
     force: no
   when: not machine_upgrade
+  become: false

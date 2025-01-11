@@ -28,6 +28,8 @@
         #     ansible.builtin.include_tasks:
         #       file: ./playbooks/mobile-dev.yml
         #     become: false
+        #
+        #   TODE make more plays instead of 1 play with many tasks
 
   tasks:
     - name: Include SSH key restore/create
@@ -35,7 +37,6 @@
         file: ./playbooks/ssh.yml
       vars:
         machine_upgrade: "{{ restore_last_ssh }}"
-      become: false
 
     - name: Import Utility Packages Install
       ansible.builtin.import_tasks:
