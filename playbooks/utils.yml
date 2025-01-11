@@ -9,5 +9,6 @@
       - jq
       - tldr
       - shutter
+      - trash-cli
     state: present
   become: true
