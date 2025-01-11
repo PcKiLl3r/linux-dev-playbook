@@ -5,6 +5,7 @@
   become: true
   vars_files:
     - vault/become_pass.yml
+  become_pass: "{{ become_pass }}"
 
   vars:
     use_on_tv: false
@@ -22,6 +23,12 @@
         #    - name: Import GUI Apps Install
         #      ansible.builtin.include_tasks:
         #        file: ./playbooks/gui-software.yml
+        #      become: false
+        #
+        #   - name: Import Mobile Dev Install
+        #     ansible.builtin.include_tasks:
+        #       file: ./playbooks/mobile-dev.yml
+        #     become: false
 
   tasks:
     - name: Include SSH key restore/create
@@ -29,6 +36,7 @@
         file: ./playbooks/ssh.yml
       vars:
         machine_upgrade: "{{ restore_last_ssh }}"
+      become: false
 
     - name: Import Utility Packages Install
       ansible.builtin.import_tasks:

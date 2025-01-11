@@ -2,4 +2,3 @@
 - name: Setup Keyboard
   shell: |
     ./resources/keyboard
-  become: true

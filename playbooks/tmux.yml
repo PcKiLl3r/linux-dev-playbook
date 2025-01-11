@@ -3,4 +3,3 @@
   dnf:
     name: tmux
     state: present
-  become: true

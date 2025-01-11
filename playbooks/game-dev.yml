@@ -3,3 +3,4 @@
   ansible.builtin.dnf:
     name: godot
     state: present
+  become: false

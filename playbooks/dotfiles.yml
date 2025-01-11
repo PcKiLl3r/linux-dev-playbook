@@ -4,13 +4,11 @@
   ansible.builtin.dnf:
     name: stow
     state: present
-  become: true
 
 - name: Clone dotfiles repo
   ansible.builtin.git:
     repo: https://github.com/PcKiLl3r/.dotfiles.git
     dest: ~/.dotfiles
-  become: true
   become_user: "{{ username }}"
 
 - name: Stow .dotfiles
@@ -19,3 +17,4 @@
     # creates:
   args:
     chdir: "/home/{{ username }}/.dotfiles"
+  become: false

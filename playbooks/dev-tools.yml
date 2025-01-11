@@ -6,28 +6,28 @@
       - docker
       - docker-compose
       - python3-pip
-  become: true
 
 - name: Ensure Group "docker" Exists with correct gid
   ansible.builtin.group:
     name: docker
     state: present
+  become: false
 
 - name: Add User to "docker" Group
   ansible.builtin.user:
     name: "{{ username }}"
     groups: docker
-    append: true
-  become: true
 
 - name: Add username to git Config
   community.general.git_config:
     name: user.name
     scope: global
     value: "{{ username }}"
+  become: false
 
 - name: Add email to git Config
   community.general.git_config:
     name: user.email
     scope: global
     value: "{{ email }}"
+  become: false

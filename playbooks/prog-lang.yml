@@ -3,13 +3,11 @@
   ansible.builtin.dnf:
     name: nodejs
     state: present
-  become: true
 
 - name: Install yarn package manager
   ansible.builtin.dnf:
     name: yarnpkg
     state: present
-  become: true
 
 - name: Install C, C++ Development Tools
   ansible.builtin.dnf:
@@ -23,19 +21,16 @@
       - clang
       - cpp
       - clang
-  become: true
 
 - name: Install Python Dev Tools
   ansible.builtin.dnf:
       name:
         - python3-pip
-  become: true
 
 - name: Install GO
   ansible.builtin.dnf:
     name:
       - go
-  become: true
 
 - name: Install Lua
   ansible.builtin.dnf:
@@ -43,4 +38,3 @@
       - lua5.1
       - lua5.1-devel
       - luarocks
-  become: true

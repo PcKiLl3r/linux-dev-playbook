@@ -24,6 +24,7 @@
       gpgcheck=1
       repo_gpgcheck=1
       gpgkey=https://www.virtualbox.org/download/oracle_vbox_2016.asc
+  become: false
 
 - name: Refresh Package List
   ansible.builtin.dnf:
@@ -38,6 +39,7 @@
   ansible.builtin.get_url:
     url: "https://download.virtualbox.org/virtualbox/7.1.0/Oracle_VirtualBox_Extension_Pack-7.1.0.vbox-extpack"
     dest: /tmp/Oracle_VirtualBox_Extension_Pack-7.1.0.vbox-extpack
+  become: false
 
 - name: Install VirtualBox Extension Pack
   ansible.builtin.command:
@@ -47,6 +49,7 @@
   ansible.builtin.user:
     name: "{{ username }}"
     group: vboxusers
+  become: false
 
 # Install Vagrant
 - name: Install Dependencies

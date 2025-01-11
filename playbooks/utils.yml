@@ -11,4 +11,3 @@
       - shutter
       - trash-cli
     state: present
-  become: true

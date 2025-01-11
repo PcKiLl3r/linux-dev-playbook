@@ -14,6 +14,7 @@
     depth: 1
     version: stable
   register: gitclone_result
+  become: false
 
 - name: Install NeoVim Dependencies
   ansible.builtin.dnf:
@@ -33,13 +34,13 @@
       - libevent-devel
       - readline-devel
       - ncurses-devel
-  become: true
 
 - name: Plenary
   ansible.builtin.git:
     repo: "https://github.com/nvim-lua/plenary.nvim.git"
     dest: "{{ personal }}/plenary.nvim"
     depth: 1
+  become: false
 
 # TODO should install neovim with:
     # make CMAKE_BUILD_TYPE=RelWithDebInfo
@@ -57,17 +58,18 @@
   args:
     chdir: "{{ home }}/neovim"
   when: gitclone_result.changed
+  become: false
 
 - name: Install Rust
   ansible.builtin.dnf:
     name:
       - rust
       - cargo
-  become: true
 
 - name: Install Stylua
   ansible.builtin.shell:
     cmd: cargo install stylua
+  become: false
 
 #- name: Install LuaRocks
 #  ansible.builtin.shell:
@@ -78,9 +80,7 @@
   ansible.builtin.dnf:
     name: luarocks
     state: present
-  become: true
 
 - name: Install LuaCheck
   ansible.builtin.shell:
     cmd: luarocks install luacheck
-  become: true

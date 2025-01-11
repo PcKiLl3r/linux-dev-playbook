@@ -4,7 +4,6 @@
     name: "{{ username }}"
     state: present
     createhome: true
-  become: true
   become_method: "sudo"
 
 - name: Install setup dependencies
@@ -12,13 +11,11 @@
     name:
       - git
     state: present
-  become: true
 
 - name: Clone this repo to mirror real environment
   ansible.builtin.git:
     repo: https://github.com/PcKiLl3r/linux-dev-playbook.git
     dest: ~/personal/linux-dev-playbook
-  become: true
   become_user: "{{ username }}"
 
 - name: Update apt cache (on Debian based systems only)
@@ -38,5 +35,4 @@
   ansible.builtin.dnf:
     name: dnf-plugins-core
     state: present
-  become: true
 

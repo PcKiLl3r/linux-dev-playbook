@@ -1,7 +1,7 @@
 ---
-- name: 
+- name:
   dnf:
-    name: 
+    name:
       - i3
       - i3status
       - dmenu
@@ -10,4 +10,3 @@
       - nitrogen
       - conky
     state: present
-  become: true
