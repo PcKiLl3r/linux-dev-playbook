@@ -21,3 +21,14 @@ make another vault in personal dotfiles
 
 todo make ssh key premissions more secure
 add key (ssh-add)
+
+set dmenu use friendly names
+install libreoffice
+install codecs for movies
+
+# Install ghostty
+dnf copr enable pgdev/ghostty
+dnf install ghostty
+
+## Set ghostty as default terminal
+i3config
