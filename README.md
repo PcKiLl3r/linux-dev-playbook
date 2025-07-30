@@ -1,12 +1,12 @@
 ## How To Setup Env
 1. Install dependencies:
     ```
-    sudo dnf install git ansible
+    sudo pacman -S --needed git ansible
     ```
 2. Make personal dir
     ```
     mkdir personal
-    cd presonal
+    cd personal
     ```
 3. Clone repo:
     ```
@@ -31,5 +31,5 @@ curl https://dev.todo.com | sh
 ```
 mkdir personal
 cd personal
-curl https://raw.githubusercontent.com/PcKiLl3r/linux-dev-playbook/master/resources/setup | sh
+curl https://raw.githubusercontent.com/PcKiLl3r/linux-dev-playbook/master/resources/setup.sh | sh
 ```

@@ -1,11 +1,11 @@
 ---
 - name: Install Development Tools
-  ansible.builtin.dnf:
+  ansible.builtin.pacman:
     name:
       - git
       - docker
       - docker-compose
-      - python3-pip
+      - python-pip
 
 - name: Ensure Group "docker" Exists with correct gid
   ansible.builtin.group:

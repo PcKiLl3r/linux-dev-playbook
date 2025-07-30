@@ -29,7 +29,7 @@ lint:
 	@echo "Running yamllint..."
 	yamllint .
 	@echo "Running ansible-playbook syntax check..."
-	$(ANSIBLE_PLAYBOOK) --syntax-check site.yml
+	$(ANSIBLE_PLAYBOOK) --syntax-check main.yml
 	@echo "Running ansible-lint..."
 	ansible-lint
 

@@ -1,6 +1,6 @@
 ---
 - name: Install mobile-dev utils
-  ansible.builtin.dnf:
+  ansible.builtin.pacman:
     name: scrcpy
     state: present
 

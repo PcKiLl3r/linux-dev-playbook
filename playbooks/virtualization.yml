@@ -1,39 +1,38 @@
 ---
 # Install VirtualBox - dependencies
 - name: Install Kernel Dependencies
-  ansible.builtin.dnf:
-    name: @development-tools
+  ansible.builtin.pacman:
+    name: base-devel
     state: present
 
 - name: Install Kernel Packages
-  ansible.builtin.dnf:
+  ansible.builtin.pacman:
     name:
-      - kernel-headers
-      - kernel-devel
+      - linux-headers
       - dkms
     state: present
 
-- name: Add VirtualBox Repository
-  ansible.builtin.blockinfile:
-    path: /etc/yum.repos.d/virtualbox.repo
-    block: |
-      [virtualbox]
-      name=Fedora $releasever - $basearch - VirtualBox
-      baseurl=http://download.virtualbox.org/virtualbox/rpm/fedora/$releasever/$basearch
-      enabled=1
-      gpgcheck=1
-      repo_gpgcheck=1
-      gpgkey=https://www.virtualbox.org/download/oracle_vbox_2016.asc
-  become: false
-
-- name: Refresh Package List
-  ansible.builtin.dnf:
-    name: "*"
-    state: latest
-
-- name: Install VirtualBox
-  ansible.builtin.dnf:
-    name: VirtualBox-7.1
+#- name: Add VirtualBox Repository
+#  ansible.builtin.blockinfile:
+#    path: /etc/yum.repos.d/virtualbox.repo
+#    block: |
+#      [virtualbox]
+#      name=Fedora $releasever - $basearch - VirtualBox
+#      baseurl=http://download.virtualbox.org/virtualbox/rpm/fedora/$releasever/$basearch
+#      enabled=1
+#      gpgcheck=1
+#      repo_gpgcheck=1
+#      gpgkey=https://www.virtualbox.org/download/oracle_vbox_2016.asc
+#  become: false
+#
+#- name: Refresh Package List
+#  ansible.builtin.pacman:
+#    name: "*"
+#    state: latest
+#
+#- name: Install VirtualBox
+  ansible.builtin.pacman:
+    name: virtualbox
 
 - name: Download VirtualBox Extension Pack
   ansible.builtin.get_url:
@@ -53,16 +52,16 @@
 
 # Install Vagrant
 - name: Install Dependencies
-  ansible.builtin.dnf:
-    name: dnf-plugins-core
+  ansible.builtin.pacman:
+    name: base-devel
     state: present
 
-- name: Enable Vagrant Repo
-  community.general.dnf_config_manager:
-    name: "https://rpm.releases.hashicorp.com/fedora/hashicorp.repo"
-    state: enabled
+#- name: Enable Vagrant Repo
+#  community.general.dnf_config_manager:
+#    name: "https://rpm.releases.hashicorp.com/fedora/hashicorp.repo"
+#    state: enabled
 
 - name: Install Vagrant
-  ansible.builtin.dnf:
+  ansible.builtin.pacman:
     name: vagrant
     state: present

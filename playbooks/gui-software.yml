@@ -1,8 +1,8 @@
 ---
 - name: Install dependencies
-  ansible.builtin.dnf:
+  ansible.builtin.pacman:
     name:
-      - dnf-plugins-core
+      - base-devel
     state: present
 
 #- name: Add GUI Apps Repos
@@ -16,31 +16,28 @@
 #    name: brave-browser
 #    state: enabled
 #
-- name: Add rpm_key
-  ansible.builtin.rpm_key:
-    key: 'https://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-nonfree-fedora-2020'
-    state: present
+#- name: Add rpm_key
+#  ansible.builtin.rpm_key:
+#    state: present
 #
 #- name: Add brave rpm key
 #  ansible.builtin.rpm_key:
 #    key: 'https://brave-browser-rpm-release.s3.brave.com/brave-core.asc'
 #    state: present
-
-- name: update
-  ansible.builtin.dnf:
-    name: "*"
-    state: latest
-
+#
+#- name: update
+#  ansible.builtin.pacman:
+#    name: "*"
+#    state: latest
+#
 - name: Install GUI software
-  ansible.builtin.dnf:
+  ansible.builtin.pacman:
     name:
-      - 'https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_distribution_major_version }}.noarch.rpm'
-#      - discord
+      - discord
     state: present
-    update_cache: true
 
 - name: Ensure dependency for brave installer is present
-  ansible.builtin.dnf:
+  ansible.builtin.pacman:
     name: acl
     state: present
 
@@ -48,18 +45,17 @@
 #  ansible.builtin.yum:
 #    name: brave-browser
 #    state: present
-#    update_cache: true
 - name: Import install Brave browser role
   import_role:
     name: staticdev.brave
 
 - name: Install Blender
-  ansible.builtin.dnf:
+  ansible.builtin.pacman:
     name: blender
     state: present
 
 - name: Install Postman dependencies
-  ansible.builtin.dnf:
+  ansible.builtin.pacman:
     name: openssl
     state: present
 
