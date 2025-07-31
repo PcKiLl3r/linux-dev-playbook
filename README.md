@@ -17,9 +17,18 @@
     ```
     vi vault/vault_pass.txt
     ```
-5. Run Ansible setup script:
+5. Create a vault file for your Bluetooth device addresses:
+    ```bash
+    ansible-vault edit vault/bluetooth.yml --vault-password-file vault/vault_pass.txt
     ```
-    ansible-playbook main.yml --vault-password-file vault_pass.txt --ask-become-pass
+    Example content:
+    ```yaml
+    kinesis_mac: "AA:BB:CC:DD:EE:FF"
+    sony_mac: "11:22:33:44:55:66"
+    ```
+6. Run Ansible setup script:
+    ```
+    ansible-playbook main.yml --vault-password-file vault/vault_pass.txt --ask-become-pass
     ```
 
 ## Todo

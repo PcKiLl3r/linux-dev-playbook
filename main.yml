@@ -5,6 +5,7 @@
   become: true
   vars_files:
     - vault/become_pass.yml
+    - vault/bluetooth.yml
 
   vars:
     use_on_tv: false
@@ -69,6 +70,10 @@
     - name: Import keyboard setup
       ansible.builtin.import_tasks:
         file: ./playbooks/keyboard.yml
+
+    - name: Import Bluetooth & audio setup
+      ansible.builtin.import_tasks:
+        file: ./playbooks/bluetooth.yml
 
     - name: Import dotfiles setup
       ansible.builtin.import_tasks:
