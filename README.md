@@ -19,8 +19,11 @@
     ```
 5. Run Ansible setup script:
     ```
-    ansible-playbook main.yml --vault-password-file vault_pass.txt --ask-become-pass
-    ```
+ansible-playbook main.yml --vault-password-file vault_pass.txt --ask-become-pass
+```
+
+### Inventory
+This playbook runs against `localhost`, so no inventory file is needed. Ansible uses its default inventory when executing `main.yml`.
 
 ## Todo
 Make a script hosted on web to allow usage like:
