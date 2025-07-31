@@ -91,3 +91,8 @@
     - name: Import dotfiles setup
       ansible.builtin.import_tasks:
         file: ./playbooks/dotfiles.yml
+
+    - name: Import machine preset overrides
+      ansible.builtin.import_tasks:
+        file: ./playbooks/presets.yml
+
