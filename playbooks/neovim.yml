@@ -59,6 +59,13 @@
   when: gitclone_result.changed
   become: false
 
+- name: Verify NeoVim installation
+  ansible.builtin.command: nvim --version
+  register: nvim_check
+  changed_when: false
+  failed_when: nvim_check.rc != 0
+  become: false
+
 - name: Install Rust
   ansible.builtin.pacman:
     name:
