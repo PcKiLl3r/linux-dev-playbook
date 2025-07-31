@@ -1,8 +1,9 @@
 ## How To Setup Env
-1. Install dependencies:
+1. Install dependencies and clone the repo using the provided setup script:
+    ```bash
+    curl -L https://raw.githubusercontent.com/PcKiLl3r/linux-dev-playbook/master/resources/setup.sh | OS_OVERRIDE=<your_os> bash
     ```
-    sudo pacman -S --needed git ansible
-    ```
+    The `OS_OVERRIDE` environment variable is optional and allows you to force a distribution when autodetection fails.
 2. Make personal dir
     ```
     mkdir personal
@@ -26,8 +27,9 @@
     kinesis_mac: "AA:BB:CC:DD:EE:FF"
     sony_mac: "11:22:33:44:55:66"
     ```
-6. Run Ansible setup script:
-    ```
+6. Edit `config.yml` to customise which browsers are installed or to override OS detection.
+7. Run the playbook manually if desired:
+    ```bash
     ansible-playbook main.yml --vault-password-file vault/vault_pass.txt --ask-become-pass
     ```
 

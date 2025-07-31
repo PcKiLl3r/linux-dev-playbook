@@ -6,6 +6,7 @@
   vars_files:
     - vault/become_pass.yml
     - vault/bluetooth.yml
+    - config.yml
 
   vars:
     use_on_tv: false
@@ -15,6 +16,14 @@
     - name: Include Vars
       ansible.builtin.include_vars:
         file: ./playbooks/vars.yml
+
+    - name: Determine target operating system
+      ansible.builtin.set_fact:
+        target_os: "{{ os_override | default(ansible_distribution | lower) }}"
+
+    - name: Show detected operating system
+      ansible.builtin.debug:
+        msg: "Installing for OS: {{ target_os }}"
 
     - name: Include Core init tasks
       ansible.builtin.include_tasks:
@@ -46,6 +55,10 @@
     - name: Import Dev-Tools Install
       ansible.builtin.import_tasks:
          file: ./playbooks/dev-tools.yml
+
+    - name: Import Browser Install
+      ansible.builtin.import_tasks:
+         file: ./playbooks/browsers.yml
 
     - name: Import ZShell Install
       ansible.builtin.import_tasks:
