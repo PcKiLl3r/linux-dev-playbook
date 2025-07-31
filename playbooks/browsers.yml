@@ -4,6 +4,13 @@
     name: staticdev.brave
   when: install_brave | bool
 
+- name: Verify Brave installation
+  ansible.builtin.command: brave-browser --version
+  register: brave_check
+  changed_when: false
+  failed_when: brave_check.rc != 0
+  when: install_brave | bool
+
 - name: Install Firefox browser
   ansible.builtin.package:
     name: firefox
