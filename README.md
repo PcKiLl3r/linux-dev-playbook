@@ -22,6 +22,17 @@
     ansible-playbook main.yml --vault-password-file vault_pass.txt --ask-become-pass
     ```
 
+## Linting and tests
+Run the linting tools before invoking any of the Makefile targets:
+```bash
+make install-lint
+```
+After the tools are installed you can run the usual checks:
+```bash
+make lint
+make test
+```
+
 ## Todo
 Make a script hosted on web to allow usage like:
 ```
