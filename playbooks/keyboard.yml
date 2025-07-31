@@ -1,4 +1,4 @@
 ---
 - name: Setup Keyboard
   shell: |
-    ./resources/keyboard
+    ./resources/keyboard_setup.sh
