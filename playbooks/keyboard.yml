@@ -1,4 +1,66 @@
 ---
-- name: Setup Keyboard
-  shell: |
-    ./resources/keyboard
+- name: Ensure real-prog-dvorak symbol file exists
+  ansible.builtin.copy:
+    src: "{{ playbook_dir }}/resources/real-prog-dvorak"
+    dest: /usr/share/X11/xkb/symbols/real-prog-dvorak
+    owner: root
+    group: root
+    mode: "0644"
+    force: false
+  become: true
+
+- name: Ensure real-prog-dvo-k symbol file exists
+  ansible.builtin.copy:
+    src: "{{ playbook_dir }}/resources/real-prog-dvo-k"
+    dest: /usr/share/X11/xkb/symbols/real-prog-dvo-k
+    owner: root
+    group: root
+    mode: "0644"
+    force: false
+  become: true
+
+- name: Check for real-prog-dvorak layout
+  ansible.builtin.shell: grep -q 'real-prog-dvorak' /usr/share/X11/xkb/rules/evdev.xml
+  register: dvorak_exists
+  ignore_errors: true
+  changed_when: false
+  become: true
+
+- name: Check for real-prog-dvo-k layout
+  ansible.builtin.shell: grep -q 'real-prog-dvo-k' /usr/share/X11/xkb/rules/evdev.xml
+  register: dvo_k_exists
+  ignore_errors: true
+  changed_when: false
+  become: true
+
+- name: Insert real-prog layouts into evdev.xml
+  ansible.builtin.blockinfile:
+    path: /usr/share/X11/xkb/rules/evdev.xml
+    insertafter: "<layoutList>"
+    marker: "<!-- {mark} ANSIBLE MANAGED BLOCK real-prog layouts -->"
+    block: |
+      <layout>
+        <configItem>
+          <name>real-prog-layout</name>
+          <shortDescription>epd</shortDescription>
+          <description>Prime English (US)</description>
+        </configItem>
+        <variantList>
+          <variant>
+            <configItem>
+              <name>real-prog-dvorak</name>
+              <description>English (Real Programmers Dvorak)</description>
+              <vendor>MichaelPaulson</vendor>
+            </configItem>
+          </variant>
+          <variant>
+            <configItem>
+              <name>real-prog-dvo-k</name>
+              <description>English (Real Programmers Dvorak Kinesis Remapped)</description>
+              <vendor>MichaelPaulson</vendor>
+            </configItem>
+          </variant>
+        </variantList>
+      </layout>
+  when: dvorak_exists.rc != 0 or dvo_k_exists.rc != 0
+  become: true
