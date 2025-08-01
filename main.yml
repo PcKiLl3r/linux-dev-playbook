@@ -54,11 +54,11 @@
 
     - name: Import Dev-Tools Install
       ansible.builtin.import_tasks:
-         file: ./playbooks/dev-tools.yml
+        file: ./playbooks/dev-tools.yml
 
     - name: Import Browser Install
       ansible.builtin.import_tasks:
-         file: ./playbooks/browsers.yml
+        file: ./playbooks/browsers.yml
 
     - name: Import ZShell Install
       ansible.builtin.import_tasks:
@@ -95,4 +95,3 @@
     - name: Import machine preset overrides
       ansible.builtin.import_tasks:
         file: ./playbooks/presets.yml
-

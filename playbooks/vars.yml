@@ -6,4 +6,3 @@ ssh_key_filename: "id_pckill3r_rsa"
 home: "/home/{{ username }}"
 personal: "{{ home }}/personal"
 dev: "{{ personal }}/linux-dev-playbook"
-

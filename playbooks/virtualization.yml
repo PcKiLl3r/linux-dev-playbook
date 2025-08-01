@@ -31,8 +31,8 @@
 #    state: latest
 #
 #- name: Install VirtualBox
-  ansible.builtin.pacman:
-    name: virtualbox
+#  ansible.builtin.pacman:
+#    name: virtualbox
 
 - name: Download VirtualBox Extension Pack
   ansible.builtin.get_url:

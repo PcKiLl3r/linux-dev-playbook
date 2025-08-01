@@ -20,6 +20,6 @@
     type: rsa
     size: 4096
     state: present
-    force: no
+    force: false
   when: not machine_upgrade
   become: false

@@ -7,4 +7,3 @@
     group: "{{ username }}"
     mode: preserve
   when: machine_preset != ""
-
