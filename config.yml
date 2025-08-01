@@ -1,3 +1,4 @@
+---
 # Default installation configuration
 # Set os_override to force a distribution (e.g. manjaro, fedora, ubuntu)
 os_override: ""
