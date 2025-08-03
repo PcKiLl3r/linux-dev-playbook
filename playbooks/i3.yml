@@ -1,12 +1,12 @@
 ---
 - name:
-  dnf:
+  ansible.builtin.pacman:
     name:
-      - i3
+      - i3-wm
       - i3status
       - dmenu
       - i3lock
-      - xbacklight
+      - xorg-xbacklight
       - nitrogen
       - conky
     state: present

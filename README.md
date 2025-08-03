@@ -1,8 +1,9 @@
 ## How To Setup Env
-1. Install dependencies:
+1. Install dependencies and clone the repo using the provided setup script:
+    ```bash
+    curl -L https://raw.githubusercontent.com/PcKiLl3r/linux-dev-playbook/master/resources/setup.sh | OS_OVERRIDE=<your_os> bash
     ```
-    sudo dnf install git ansible
-    ```
+    The `OS_OVERRIDE` environment variable is optional and allows you to force a distribution when autodetection fails.
 2. Make personal dir
     ```
     mkdir personal
@@ -17,10 +18,21 @@
     ```
     vi vault/vault_pass.txt
     ```
-5. Run Ansible setup script:
+5. Create a vault file for your Bluetooth device addresses:
+    ```bash
+    ansible-vault edit vault/bluetooth.yml --vault-password-file vault/vault_pass.txt
     ```
-ansible-playbook main.yml --vault-password-file vault_pass.txt --ask-become-pass
-```
+    Example content:
+    ```yaml
+    kinesis_mac: "AA:BB:CC:DD:EE:FF"
+    sony_mac: "11:22:33:44:55:66"
+    ```
+
+6. Edit `config.yml` to customise which browsers are installed or to override OS detection.
+7. Run the playbook manually if desired:
+    ```bash
+    ansible-playbook main.yml --vault-password-file vault/vault_pass.txt --ask-become-pass
+    ```
 
 ### Inventory
 This playbook runs against `localhost`, so no inventory file is needed. Ansible uses its default inventory when executing `main.yml`.

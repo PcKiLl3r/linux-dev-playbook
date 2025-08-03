@@ -1,6 +1,6 @@
 ---
 - name: Ensure Zsh with dependencies are installed
-  dnf:
+  ansible.builtin.pacman:
     name: zsh
     state: present
 

@@ -1,0 +1,9 @@
+---
+- name: Apply machine specific preset overrides
+  ansible.builtin.copy:
+    src: "resources/presets/{{ machine_preset }}/"
+    dest: "{{ home }}/"
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: preserve
+  when: machine_preset != ""

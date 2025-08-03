@@ -1,0 +1,24 @@
+---
+- name: Install Brave browser
+  import_role:
+    name: staticdev.brave
+  when: install_brave | bool
+
+- name: Verify Brave installation
+  ansible.builtin.command: brave-browser --version
+  register: brave_check
+  changed_when: false
+  failed_when: brave_check.rc != 0
+  when: install_brave | bool
+
+- name: Install Firefox browser
+  ansible.builtin.package:
+    name: firefox
+    state: present
+  when: install_firefox | bool
+
+- name: Install Chromium browser
+  ansible.builtin.package:
+    name: "{{ 'chromium-browser' if target_os == 'ubuntu' else 'chromium' }}"
+    state: present
+  when: install_chromium | bool

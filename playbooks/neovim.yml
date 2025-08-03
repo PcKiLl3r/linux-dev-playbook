@@ -17,23 +17,22 @@
   become: false
 
 - name: Install NeoVim Dependencies
-  ansible.builtin.dnf:
+  ansible.builtin.pacman:
     name:
       - cmake
       - gettext
       #- lua5.1
       - lua
-      - lua-devel
       - ninja-build
       - gcc
       - make
       - unzip
       - curl
-      - glibc-gconv-extra
+      - glibc
       - wget
-      - libevent-devel
-      - readline-devel
-      - ncurses-devel
+      - libevent
+      - readline
+      - ncurses
 
 - name: Plenary
   ansible.builtin.git:
@@ -60,8 +59,15 @@
   when: gitclone_result.changed
   become: false
 
+- name: Verify NeoVim installation
+  ansible.builtin.command: nvim --version
+  register: nvim_check
+  changed_when: false
+  failed_when: nvim_check.rc != 0
+  become: false
+
 - name: Install Rust
-  ansible.builtin.dnf:
+  ansible.builtin.pacman:
     name:
       - rust
       - cargo
@@ -77,7 +83,7 @@
 #    cmd: ./resources/luarocks.sh
 #  become: false
 - name: Install LuaRocks
-  ansible.builtin.dnf:
+  ansible.builtin.pacman:
     name: luarocks
     state: present
 

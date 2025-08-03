@@ -1,40 +1,34 @@
 ---
 - name: Install nodeJS
-  ansible.builtin.dnf:
+  ansible.builtin.pacman:
     name: nodejs
     state: present
 
 - name: Install yarn package manager
-  ansible.builtin.dnf:
-    name: yarnpkg
+  ansible.builtin.pacman:
+    name: yarn
     state: present
 
 - name: Install C, C++ Development Tools
-  ansible.builtin.dnf:
+  ansible.builtin.pacman:
     name:
-      - gcc
-      - g++
+      - base-devel
       - gdb
-      - glibc-devel
       - valgrind
-      - gcc-c++
-      - clang
-      - cpp
       - clang
 
 - name: Install Python Dev Tools
-  ansible.builtin.dnf:
-      name:
-        - python3-pip
+  ansible.builtin.pacman:
+    name:
+      - python-pip
 
 - name: Install GO
-  ansible.builtin.dnf:
+  ansible.builtin.pacman:
     name:
       - go
 
 - name: Install Lua
-  ansible.builtin.dnf:
+  ansible.builtin.pacman:
     name:
-      - lua5.1
-      - lua5.1-devel
+      - lua
       - luarocks

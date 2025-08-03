@@ -1,11 +1,17 @@
 ---
 - name: Install Development Tools
-  ansible.builtin.dnf:
+  ansible.builtin.pacman:
     name:
       - git
       - docker
       - docker-compose
-      - python3-pip
+      - python-pip
+
+- name: Verify Docker installation
+  ansible.builtin.command: docker --version
+  register: docker_check
+  changed_when: false
+  failed_when: docker_check.rc != 0
 
 - name: Ensure Group "docker" Exists with correct gid
   ansible.builtin.group:

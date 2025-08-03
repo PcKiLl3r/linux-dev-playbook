@@ -27,8 +27,8 @@ install libreoffice
 install codecs for movies
 
 # Install ghostty
-dnf copr enable pgdev/ghostty
-dnf install ghostty
+pamac build pgdev/ghostty
+pacman -S ghostty
 
 ## Set ghostty as default terminal
 i3config

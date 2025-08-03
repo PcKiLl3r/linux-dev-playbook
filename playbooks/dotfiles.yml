@@ -1,7 +1,7 @@
 ---
 
 - name: Install stow
-  ansible.builtin.dnf:
+  ansible.builtin.pacman:
     name: stow
     state: present
 

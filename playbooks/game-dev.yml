@@ -1,6 +1,6 @@
 ---
 - name: Install Godot GameEngine
-  ansible.builtin.dnf:
+  ansible.builtin.pacman:
     name: godot
     state: present
   become: false

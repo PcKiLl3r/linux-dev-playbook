@@ -1,0 +1,2 @@
+# Machine preset for 4K scaling
+exec --no-startup-id xrandr --output eDP1 --scale 0.5x0.5

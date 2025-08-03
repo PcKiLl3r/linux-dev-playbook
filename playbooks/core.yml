@@ -7,7 +7,7 @@
   become_method: "sudo"
 
 - name: Install setup dependencies
-  ansible.builtin.dnf:
+  ansible.builtin.pacman:
     name:
       - git
     state: present
@@ -25,14 +25,13 @@
   when: ansible_os_family == 'Debian'
 
   #- name: Enable Additional Repos for Fedora (Free)
-  #  ansible.builtin.dnf:
+  #  ansible.builtin.pacman:
   #    name: "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ansible_distribution_major_version}}.noarch.rpm"
   #    state: present
   #  when: ansible_distribution == 'Fedora'
   #  become: true
 
-- name: Enchance dnf
-  ansible.builtin.dnf:
-    name: dnf-plugins-core
+- name: Ensure pacman contrib utilities
+  ansible.builtin.pacman:
+    name: pacman-contrib
     state: present
-
