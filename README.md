@@ -27,11 +27,26 @@
     kinesis_mac: "AA:BB:CC:DD:EE:FF"
     sony_mac: "11:22:33:44:55:66"
     ```
+
 6. Edit `config.yml` to customise which browsers are installed or to override OS detection.
 7. Run the playbook manually if desired:
     ```bash
     ansible-playbook main.yml --vault-password-file vault/vault_pass.txt --ask-become-pass
     ```
+
+### Inventory
+This playbook runs against `localhost`, so no inventory file is needed. Ansible uses its default inventory when executing `main.yml`.
+
+## Linting and tests
+Run the linting tools before invoking any of the Makefile targets:
+```bash
+make install-lint
+```
+After the tools are installed you can run the usual checks:
+```bash
+make lint
+make test
+```
 
 ## Todo
 Make a script hosted on web to allow usage like:
