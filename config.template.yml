@@ -1,6 +1,6 @@
 ---
-# Example configuration for linux-dev-playbook
-# This file mirrors config.template.yml. Adjust values as needed.
+# Configuration template for linux-dev-playbook
+# Copy this file to config.yml and adjust values as needed.
 
 # Force a specific distribution (e.g., 'manjaro', 'fedora', 'ubuntu').
 # Leave empty to use the detected distribution.
