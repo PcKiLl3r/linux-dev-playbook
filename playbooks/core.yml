@@ -7,10 +7,10 @@
   become_method: "sudo"
 
 - name: Install setup dependencies
-  ansible.builtin.pacman:
-    name:
-      - git
+  ansible.builtin.package:
+    name: "{{ core_packages }}"
     state: present
+    use: "{{ pkg_mgr }}"
 
 - name: Clone this repo to mirror real environment
   ansible.builtin.git:
@@ -32,6 +32,8 @@
   #  become: true
 
 - name: Ensure pacman contrib utilities
-  ansible.builtin.pacman:
-    name: pacman-contrib
+  ansible.builtin.package:
+    name: "{{ core_pacman_contrib_package }}"
     state: present
+    use: "{{ pkg_mgr }}"
+  when: target_os == 'arch'

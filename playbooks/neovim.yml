@@ -17,22 +17,10 @@
   become: false
 
 - name: Install NeoVim Dependencies
-  ansible.builtin.pacman:
-    name:
-      - cmake
-      - gettext
-      #- lua5.1
-      - lua
-      - ninja-build
-      - gcc
-      - make
-      - unzip
-      - curl
-      - glibc
-      - wget
-      - libevent
-      - readline
-      - ncurses
+  ansible.builtin.package:
+    name: "{{ neovim_dependencies_packages }}"
+    state: present
+    use: "{{ pkg_mgr }}"
 
 - name: Plenary
   ansible.builtin.git:
@@ -67,10 +55,10 @@
   become: false
 
 - name: Install Rust
-  ansible.builtin.pacman:
-    name:
-      - rust
-      - cargo
+  ansible.builtin.package:
+    name: "{{ neovim_rust_packages }}"
+    state: present
+    use: "{{ pkg_mgr }}"
 
 - name: Install Stylua
   ansible.builtin.shell:
@@ -83,9 +71,10 @@
 #    cmd: ./resources/luarocks.sh
 #  become: false
 - name: Install LuaRocks
-  ansible.builtin.pacman:
-    name: luarocks
+  ansible.builtin.package:
+    name: "{{ neovim_luarocks_package }}"
     state: present
+    use: "{{ pkg_mgr }}"
 
 - name: Install LuaCheck
   ansible.builtin.shell:

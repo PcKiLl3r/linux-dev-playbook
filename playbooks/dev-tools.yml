@@ -1,11 +1,9 @@
 ---
 - name: Install Development Tools
-  ansible.builtin.pacman:
-    name:
-      - git
-      - docker
-      - docker-compose
-      - python-pip
+  ansible.builtin.package:
+    name: "{{ dev_tools_packages }}"
+    state: present
+    use: "{{ pkg_mgr }}"
 
 - name: Verify Docker installation
   ansible.builtin.command: docker --version

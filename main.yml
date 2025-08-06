@@ -21,6 +21,10 @@
       ansible.builtin.set_fact:
         target_os: "{{ os_override | default(ansible_distribution | lower) }}"
 
+    - name: Include distro vars
+      ansible.builtin.include_vars:
+        file: "./playbooks/vars/{{ target_os }}.yml"
+
     - name: Show detected operating system
       ansible.builtin.debug:
         msg: "Installing for OS: {{ target_os }}"

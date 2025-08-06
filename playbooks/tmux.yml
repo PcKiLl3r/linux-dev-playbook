@@ -1,5 +1,6 @@
 ---
 - name: Install Tmux
-  ansible.builtin.pacman:
-    name: tmux
+  ansible.builtin.package:
+    name: "{{ tmux_packages }}"
     state: present
+    use: "{{ pkg_mgr }}"
