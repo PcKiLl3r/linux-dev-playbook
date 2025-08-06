@@ -2,7 +2,8 @@
 # Configuration template for linux-dev-playbook
 # Copy this file to config.yml and adjust values as needed.
 
-# Force a specific distribution (e.g., 'manjaro', 'fedora', 'ubuntu').
+# Force a specific distribution (e.g., 'manjaro', 'fedora', 'ubuntu') to
+# override automatic package manager detection.
 # Leave empty to use the detected distribution.
 os_override: ""
 
@@ -11,12 +12,14 @@ os_override: ""
 machine_preset: ""
 
 # Choose which window manager to install: 'i3' or 'hyprland'.
+# Set to 'hyprland' to install the Hyprland compositor and enable the
+# optional Wayland features below.
 window_manager: i3
 
 # Install Bluetooth and audio support.
 install_bluetooth: false
 
-# Hyprland optional feature flags
+# Hyprland optional feature flags (effective only when window_manager is 'hyprland')
 
 # Add the current user to the input group (required for some input devices).
 add_input_group: false
