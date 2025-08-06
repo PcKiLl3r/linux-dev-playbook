@@ -1,0 +1,9 @@
+---
+drivers:
+  - nvidia-driver
+  - nvidia-utils
+power_management:
+  - powertop
+hardware_packages:
+  - nvidia-settings
+  - vulkan-tools

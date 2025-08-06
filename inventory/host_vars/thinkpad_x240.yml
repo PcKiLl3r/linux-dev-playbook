@@ -1,0 +1,10 @@
+---
+drivers:
+  - intel-microcode
+power_management:
+  - tlp
+  - powertop
+hardware_packages:
+  - tp-smapi-dkms
+  - acpi-call-dkms
+  - hdapsd

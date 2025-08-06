@@ -1,0 +1,9 @@
+---
+drivers:
+  - intel-microcode
+power_management:
+  - tlp
+  - powertop
+hardware_packages:
+  - fwupd
+  - thinkfan
