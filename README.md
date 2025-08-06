@@ -40,8 +40,10 @@ ansible-playbook main.yml --vault-password-file vault/vault_pass.txt -e os_overr
     ```
     Example content:
     ```yaml
-    kinesis_mac: "AA:BB:CC:DD:EE:FF"
-    sony_mac: "11:22:33:44:55:66"
+    bluetooth_macs:
+      - "AA:BB:CC:DD:EE:FF"  # Kinesis keyboard
+      - "11:22:33:44:55:66"  # Sony headset
+      - "22:33:44:55:66:77"  # Logitech TKL keyboard
     ```
 
 6. Edit `config.yml` to customise which browsers are installed or to override OS detection.
