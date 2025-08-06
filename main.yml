@@ -64,6 +64,11 @@
       ansible.builtin.import_tasks:
         file: ./playbooks/browsers.yml
 
+    - name: Import Codecs Install
+      ansible.builtin.import_tasks:
+        file: ./playbooks/codecs.yml
+      when: install_codecs | bool
+
     - name: Import ZShell Install
       ansible.builtin.import_tasks:
         file: ./playbooks/zsh.yml
