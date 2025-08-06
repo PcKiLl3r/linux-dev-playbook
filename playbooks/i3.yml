@@ -1,12 +1,6 @@
 ---
 - name:
-  ansible.builtin.pacman:
-    name:
-      - i3-wm
-      - i3status
-      - dmenu
-      - i3lock
-      - xorg-xbacklight
-      - nitrogen
-      - conky
+  ansible.builtin.package:
+    name: "{{ i3_packages }}"
     state: present
+    use: "{{ pkg_mgr }}"

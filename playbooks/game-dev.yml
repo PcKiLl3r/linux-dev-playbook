@@ -1,6 +1,7 @@
 ---
 - name: Install Godot GameEngine
-  ansible.builtin.pacman:
-    name: godot
+  ansible.builtin.package:
+    name: "{{ game_dev_packages }}"
     state: present
+    use: "{{ pkg_mgr }}"
   become: false

@@ -1,9 +1,9 @@
 ---
 - name: Install dependencies
-  ansible.builtin.pacman:
-    name:
-      - base-devel
+  ansible.builtin.package:
+    name: "{{ gui_dependencies_packages }}"
     state: present
+    use: "{{ pkg_mgr }}"
 
 #- name: Add GUI Apps Repos
 #  ansible.builtin.yum_repository:
@@ -31,15 +31,16 @@
 #    state: latest
 #
 - name: Install GUI software
-  ansible.builtin.pacman:
-    name:
-      - discord
+  ansible.builtin.package:
+    name: "{{ gui_software_packages }}"
     state: present
+    use: "{{ pkg_mgr }}"
 
 - name: Ensure dependency for brave installer is present
-  ansible.builtin.pacman:
-    name: acl
+  ansible.builtin.package:
+    name: "{{ brave_dependency_packages }}"
     state: present
+    use: "{{ pkg_mgr }}"
 
 #- name: Install Brave
 #  ansible.builtin.yum:
@@ -50,14 +51,16 @@
     name: staticdev.brave
 
 - name: Install Blender
-  ansible.builtin.pacman:
-    name: blender
+  ansible.builtin.package:
+    name: "{{ blender_package }}"
     state: present
+    use: "{{ pkg_mgr }}"
 
 - name: Install Postman dependencies
-  ansible.builtin.pacman:
-    name: openssl
+  ansible.builtin.package:
+    name: "{{ postman_dependency_packages }}"
     state: present
+    use: "{{ pkg_mgr }}"
 
 - name: Download Postman
   ansible.builtin.get_url:

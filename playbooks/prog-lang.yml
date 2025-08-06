@@ -1,34 +1,36 @@
 ---
 - name: Install nodeJS
-  ansible.builtin.pacman:
-    name: nodejs
+  ansible.builtin.package:
+    name: "{{ prog_lang_nodejs_packages }}"
     state: present
+    use: "{{ pkg_mgr }}"
 
 - name: Install yarn package manager
-  ansible.builtin.pacman:
-    name: yarn
+  ansible.builtin.package:
+    name: "{{ prog_lang_yarn_packages }}"
     state: present
+    use: "{{ pkg_mgr }}"
 
 - name: Install C, C++ Development Tools
-  ansible.builtin.pacman:
-    name:
-      - base-devel
-      - gdb
-      - valgrind
-      - clang
+  ansible.builtin.package:
+    name: "{{ prog_lang_cdev_packages }}"
+    state: present
+    use: "{{ pkg_mgr }}"
 
 - name: Install Python Dev Tools
-  ansible.builtin.pacman:
-    name:
-      - python-pip
+  ansible.builtin.package:
+    name: "{{ prog_lang_python_packages }}"
+    state: present
+    use: "{{ pkg_mgr }}"
 
 - name: Install GO
-  ansible.builtin.pacman:
-    name:
-      - go
+  ansible.builtin.package:
+    name: "{{ prog_lang_go_packages }}"
+    state: present
+    use: "{{ pkg_mgr }}"
 
 - name: Install Lua
-  ansible.builtin.pacman:
-    name:
-      - lua
-      - luarocks
+  ansible.builtin.package:
+    name: "{{ prog_lang_lua_packages }}"
+    state: present
+    use: "{{ pkg_mgr }}"

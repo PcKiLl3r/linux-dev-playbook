@@ -1,0 +1,125 @@
+---
+pkg_mgr: pacman
+
+core_packages:
+  - git
+core_pacman_contrib_package: pacman-contrib
+
+bluetooth_packages:
+  - pipewire
+  - pipewire-audio
+  - pipewire-alsa
+  - pipewire-pulse
+  - wireplumber
+  - bluez
+  - bluez-utils
+  - blueman
+
+mobile_dev_packages:
+  - scrcpy
+
+game_dev_packages:
+  - godot
+
+utils_packages:
+  - fzf
+  - ripgrep
+  - pavucontrol
+  - xclip
+  - jq
+  - tldr
+  - shutter
+  - trash-cli
+
+virtualization_kernel_deps_packages:
+  - base-devel
+virtualization_kernel_packages:
+  - linux-headers
+  - dkms
+virtualization_vagrant_dependencies:
+  - base-devel
+virtualization_vagrant_package:
+  - vagrant
+
+dotfiles_packages:
+  - stow
+
+zsh_packages:
+  - zsh
+
+i3_packages:
+  - i3-wm
+  - i3status
+  - dmenu
+  - i3lock
+  - xorg-xbacklight
+  - nitrogen
+  - conky
+
+tmux_packages:
+  - tmux
+
+dev_tools_packages:
+  - git
+  - docker
+  - docker-compose
+  - python-pip
+
+neovim_dependencies_packages:
+  - cmake
+  - gettext
+  - lua
+  - ninja-build
+  - gcc
+  - make
+  - unzip
+  - curl
+  - glibc
+  - wget
+  - libevent
+  - readline
+  - ncurses
+
+neovim_rust_packages:
+  - rust
+  - cargo
+
+neovim_luarocks_package:
+  - luarocks
+
+gui_dependencies_packages:
+  - base-devel
+
+gui_software_packages:
+  - discord
+
+brave_dependency_packages:
+  - acl
+
+blender_package:
+  - blender
+
+postman_dependency_packages:
+  - openssl
+
+prog_lang_nodejs_packages:
+  - nodejs
+
+prog_lang_yarn_packages:
+  - yarn
+
+prog_lang_cdev_packages:
+  - base-devel
+  - gdb
+  - valgrind
+  - clang
+
+prog_lang_python_packages:
+  - python-pip
+
+prog_lang_go_packages:
+  - go
+
+prog_lang_lua_packages:
+  - lua
+  - luarocks

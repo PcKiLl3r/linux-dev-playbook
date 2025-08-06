@@ -1,16 +1,16 @@
 ---
 # Install VirtualBox - dependencies
 - name: Install Kernel Dependencies
-  ansible.builtin.pacman:
-    name: base-devel
+  ansible.builtin.package:
+    name: "{{ virtualization_kernel_deps_packages }}"
     state: present
+    use: "{{ pkg_mgr }}"
 
 - name: Install Kernel Packages
-  ansible.builtin.pacman:
-    name:
-      - linux-headers
-      - dkms
+  ansible.builtin.package:
+    name: "{{ virtualization_kernel_packages }}"
     state: present
+    use: "{{ pkg_mgr }}"
 
 #- name: Add VirtualBox Repository
 #  ansible.builtin.blockinfile:
@@ -52,9 +52,10 @@
 
 # Install Vagrant
 - name: Install Dependencies
-  ansible.builtin.pacman:
-    name: base-devel
+  ansible.builtin.package:
+    name: "{{ virtualization_vagrant_dependencies }}"
     state: present
+    use: "{{ pkg_mgr }}"
 
 #- name: Enable Vagrant Repo
 #  community.general.dnf_config_manager:
@@ -62,6 +63,7 @@
 #    state: enabled
 
 - name: Install Vagrant
-  ansible.builtin.pacman:
-    name: vagrant
+  ansible.builtin.package:
+    name: "{{ virtualization_vagrant_package }}"
     state: present
+    use: "{{ pkg_mgr }}"

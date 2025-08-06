@@ -1,16 +1,9 @@
 ---
 - name: Install Bluetooth and audio packages
-  ansible.builtin.pacman:
-    name:
-      - pipewire
-      - pipewire-audio
-      - pipewire-alsa
-      - pipewire-pulse
-      - wireplumber
-      - bluez
-      - bluez-utils
-      - blueman
+  ansible.builtin.package:
+    name: "{{ bluetooth_packages }}"
     state: present
+    use: "{{ pkg_mgr }}"
 
 - name: Enable and start bluetooth service
   ansible.builtin.service:

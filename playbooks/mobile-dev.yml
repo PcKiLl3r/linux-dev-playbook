@@ -1,8 +1,9 @@
 ---
 - name: Install mobile-dev utils
-  ansible.builtin.pacman:
-    name: scrcpy
+  ansible.builtin.package:
+    name: "{{ mobile_dev_packages }}"
     state: present
+    use: "{{ pkg_mgr }}"
 
 - name: Install global npm packages for Native
   community.general.npm:
