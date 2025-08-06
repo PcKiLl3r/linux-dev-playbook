@@ -28,8 +28,9 @@
     mode: '0755'
     content: |
       #!/usr/bin/env bash
-      bluetoothctl connect {{ kinesis_mac }}
-      bluetoothctl connect {{ sony_mac }}
+      {% for mac in bluetooth_macs %}
+      bluetoothctl connect {{ mac }}
+      {% endfor %}
 
 - name: Create systemd user service for reconnect
   ansible.builtin.copy:
