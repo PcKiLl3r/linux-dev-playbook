@@ -17,7 +17,7 @@
       become_method: "sudo"
 
     - name: Install dependencies to mirror real environment
-      ansible.builtin.pacman:
+      ansible.builtin.package:
         name:
           - git
         state: present
