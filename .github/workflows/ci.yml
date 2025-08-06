@@ -18,8 +18,10 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install ansible ansible-lint yamllint molecule
+          pip install ansible ansible-lint yamllint molecule pre-commit detect-secrets
           ansible-galaxy install -r requirements.yml
+      - name: Run pre-commit
+        run: pre-commit run --all-files
       - name: Run make lint
         run: make lint
       - name: Run make test
