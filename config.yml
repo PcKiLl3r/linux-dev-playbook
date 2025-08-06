@@ -3,6 +3,16 @@
 # Set os_override to force a distribution (e.g. manjaro, fedora, ubuntu)
 os_override: ""
 machine_preset: ""
+window_manager: i3
+
+# Hyprland optional feature flags
+add_input_group: false
+install_sddm: false
+install_gtk_themes: false
+setup_bluetooth: false
+install_thunar: false
+install_quickshell: false
+install_rog_packages: false
 
 # Browser installation flags
 install_brave: true
