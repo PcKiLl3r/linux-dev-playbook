@@ -83,6 +83,12 @@
     - name: Import i3 Install
       ansible.builtin.import_tasks:
         file: ./playbooks/i3.yml
+      when: window_manager == 'i3'
+
+    - name: Import Hyprland Install
+      ansible.builtin.import_tasks:
+        file: ./playbooks/hyprland.yml
+      when: window_manager == 'hyprland'
 
     - name: Import keyboard setup
       ansible.builtin.import_tasks:
@@ -91,6 +97,7 @@
     - name: Import Bluetooth & audio setup
       ansible.builtin.import_tasks:
         file: ./playbooks/bluetooth.yml
+      when: setup_bluetooth | bool and window_manager != 'hyprland'
 
     - name: Import dotfiles setup
       ansible.builtin.import_tasks:

@@ -55,6 +55,27 @@ i3_packages:
   - nitrogen
   - conky
 
+hyprland_packages:
+  - hyprland
+  - xdg-desktop-portal-hyprland
+
+hyprland_sddm_packages:
+  - sddm
+
+hyprland_gtk_packages:
+  - gtk-murrine-engine
+
+hyprland_thunar_packages:
+  - thunar
+  - thunar-volman
+
+hyprland_quickshell_packages:
+  - quickshell
+
+hyprland_rog_packages:
+  - asusctl
+  - supergfxctl
+
 tmux_packages:
   - tmux
 
