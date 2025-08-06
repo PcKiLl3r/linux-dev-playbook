@@ -21,6 +21,15 @@ mobile_dev_packages:
 game_dev_packages:
   - godot
 
+codecs_packages:
+  - ffmpeg
+  - gstreamer
+  - gst-libav
+  - gst-plugins-base
+  - gst-plugins-good
+  - gst-plugins-bad
+  - gst-plugins-ugly
+
 utils_packages:
   - fzf
   - ripgrep
