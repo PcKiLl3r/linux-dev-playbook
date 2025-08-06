@@ -50,6 +50,13 @@ ansible-playbook main.yml --vault-password-file vault/vault_pass.txt -e os_overr
     ansible-playbook main.yml --vault-password-file vault/vault_pass.txt --ask-become-pass
     ```
 
+### Bootstrap script
+Use the helper script to apply secrets and dotfiles:
+```bash
+./scripts/bootstrap.sh
+```
+The script prompts for your Ansible Vault passphrase, runs the playbook, and re-encrypts vault files.
+
 ### Configuration
 Copy `config.template.yml` to `config.yml` and adjust values as needed:
 
