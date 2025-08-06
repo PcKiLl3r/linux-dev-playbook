@@ -25,12 +25,6 @@
     state: present
     use: "{{ pkg_mgr }}"
   when: install_gtk_themes | bool
-
-- name: Include Bluetooth & audio setup
-  ansible.builtin.import_tasks:
-    file: bluetooth.yml
-  when: setup_bluetooth | bool
-
 - name: Install Thunar file manager
   ansible.builtin.package:
     name: "{{ hyprland_thunar_packages }}"
