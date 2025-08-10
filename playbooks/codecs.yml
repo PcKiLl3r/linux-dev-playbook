@@ -1,0 +1,6 @@
+---
+- name: Install multimedia codecs
+  ansible.builtin.package:
+    name: "{{ codecs_packages }}"
+    state: present
+    use: "{{ pkg_mgr }}"

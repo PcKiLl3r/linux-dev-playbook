@@ -19,6 +19,9 @@ window_manager: i3
 # Install Bluetooth and audio support.
 install_bluetooth: false
 
+# Install multimedia codecs like ffmpeg and gstreamer.
+install_codecs: false
+
 # Hyprland optional feature flags (effective only when window_manager is 'hyprland')
 
 # Add the current user to the input group (required for some input devices).

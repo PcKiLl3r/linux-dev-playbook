@@ -76,7 +76,7 @@ Key options available in the configuration file:
   - `install_thunar`: install the Thunar file manager.
   - `install_quickshell`: install the Quickshell Wayland panel.
   - `install_rog_packages`: install ROG-specific packages.
-- Other flags: `install_bluetooth`, `install_brave`, `install_firefox`, `install_chromium`.
+- Other flags: `install_bluetooth`, `install_codecs`, `install_brave`, `install_firefox`, `install_chromium`.
 
 To override automatic package manager detection, set `os_override` in `config.yml` or pass `-e os_override=<distro>` when running `ansible-playbook`.
 
