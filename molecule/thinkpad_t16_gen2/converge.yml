@@ -1,0 +1,41 @@
+---
+- name: Converge
+  hosts: all
+
+  tasks:
+
+    - name: Include vars
+      ansible.builtin.include_vars:
+        file: ../../playbooks/vars.yml
+
+    - name: Create user
+      ansible.builtin.user:
+        name: "{{ username }}"
+        state: present
+        createhome: true
+      become: true
+      become_method: "sudo"
+
+    - name: Install dependencies to mirror real environment
+      ansible.builtin.dnf:
+        name:
+          - git
+        state: present
+
+    - name: Clone this repo to mirror real environment
+      ansible.builtin.git:
+        repo: https://github.com/PcKiLl3r/linux-dev-playbook.git
+        dest: ~/personal/linux-dev-playbook
+      become: true
+      become_user: "{{ username }}"
+
+    - name: Update apt cache (on Debian based systems only)
+      apt:
+        update_cache: true
+        cache_valid_time: 3600
+      when: ansible_os_family == 'Debian'
+
+- name: Import Main Playbook
+  import_playbook: ../../main.yml
+  vars:
+    machine: thinkpad_t16_gen2

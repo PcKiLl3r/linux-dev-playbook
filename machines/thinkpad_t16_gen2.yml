@@ -1,0 +1,8 @@
+# Machine-specific settings for ThinkPad T16 Gen2
+---
+# Whether to enable TV output tweaks
+use_on_tv: false
+# Restore SSH keys from backup
+restore_last_ssh: true
+# Default window manager
+window_manager: hyprland

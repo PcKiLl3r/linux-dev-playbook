@@ -1,0 +1,13 @@
+---
+- name: Install Hyprland packages
+  ansible.builtin.dnf:
+    name:
+      - hyprland
+      - waybar
+    state: present
+  ignore_errors: true
+  register: hyprland_install
+- name: Warn if Hyprland packages missing
+  ansible.builtin.debug:
+    msg: "Hyprland packages not installed: {{ hyprland_install.msg }}"
+  when: hyprland_install is failed

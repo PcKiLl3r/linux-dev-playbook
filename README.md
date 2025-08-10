@@ -19,7 +19,41 @@
     ```
 5. Run Ansible setup script:
     ```
-ansible-playbook main.yml --vault-password-file vault_pass.txt --ask-become-pass
+ansible-playbook main.yml -e machine=thinkpad_t16_gen2 --vault-password-file vault_pass.txt --ask-become-pass
+```
+
+### Machine presets
+Machine-specific defaults live in the `machines/` directory. Each file contains
+all variables that can be tuned for a particular host. Two examples are
+included:
+
+- `thinkpad_t16_gen2.yml` – uses **Hyprland** as the default window manager.
+- `thinkpad_x240.yml` – uses **i3** as the default window manager.
+
+To add a new machine, copy one of these files, adjust any variables (such as
+`window_manager`, `use_on_tv`, or `restore_last_ssh`), and pass the new machine
+name with the `machine` extra variable:
+
+```bash
+ansible-playbook main.yml -e machine=my_new_host --vault-password-file vault_pass.txt --ask-become-pass
+```
+
+### Molecule testing
+Each machine has a matching Molecule scenario. Install Molecule and the Docker
+driver first:
+
+```bash
+pip install molecule molecule-plugins[docker]
+```
+
+Run the tests or converge steps with the scenario name to validate your settings
+in a container:
+
+```bash
+molecule test -s thinkpad_t16_gen2
+molecule test -s thinkpad_x240
+# Or converge only
+molecule converge -s thinkpad_t16_gen2
 ```
 
 ### Inventory

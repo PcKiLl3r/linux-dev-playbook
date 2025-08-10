@@ -5,10 +5,7 @@
   become: true
   vars_files:
     - vault/become_pass.yml
-
-  vars:
-    use_on_tv: false
-    restore_last_ssh: true
+    - "machines/{{ machine | default('thinkpad_t16_gen2') }}.yml"
 
   pre_tasks:
     - name: Include Vars
@@ -62,9 +59,9 @@
       ansible.builtin.import_tasks:
         file: ./playbooks/neovim.yml
 
-    - name: Import i3 Install
+    - name: Import window manager tasks
       ansible.builtin.import_tasks:
-        file: ./playbooks/i3.yml
+        file: "./playbooks/{{ window_manager }}.yml"
 
     - name: Import keyboard setup
       ansible.builtin.import_tasks:
