@@ -3,7 +3,7 @@
     ```bash
     curl -L https://raw.githubusercontent.com/PcKiLl3r/linux-dev-playbook/master/resources/setup.sh | OS_OVERRIDE=<your_os> bash
     ```
-    The `OS_OVERRIDE` environment variable is optional and allows you to force a distribution when autodetection fails.
+    The `OS_OVERRIDE` environment variable is optional and allows you to force a distribution when autodetection fails. Valid values are `arch` (for Arch Linux and derivatives such as Manjaro) and `fedora`.
 
 ### Running on minimal Fedora
 On a minimal Fedora installation, install the required packages first:
@@ -68,7 +68,8 @@ cp config.template.yml config.yml
 
 Key options available in the configuration file:
 
-- `os_override`: force a specific distribution instead of auto-detection.
+- `os_override`: force a specific distribution instead of auto-detection. Supported values: `arch` (also for Arch-based systems like Manjaro) and `fedora`.
+
 - `machine_preset`: name of a preset under `resources/presets/` to copy machine-specific files.
 - `window_manager`: choose `i3` or `hyprland`.
 - Hyprland extras (effective only when `window_manager` is `hyprland`):
@@ -86,7 +87,7 @@ into your home directory. Create a directory under `resources/presets/` with the
 name of your preset, add any files you want to override, then set
 `machine_preset` to that name in `config.yml`.
 
-To override automatic package manager detection, set `os_override` in `config.yml` or pass `-e os_override=<distro>` when running `ansible-playbook`.
+To override automatic package manager detection, set `os_override` in `config.yml` or pass `-e os_override=<arch|fedora>` when running `ansible-playbook`.
 
 ### Inventory
 To manage multiple machines, add them to `inventory/hosts.yml` and provide
@@ -114,6 +115,8 @@ destroying the test container. When you're satisfied with the result, run
 cycle. The Docker images used for Molecule are available from
 [Jeff Geerling's collection](https://ansible.jeffgeerling.com/).
 Use `molecule destroy` to remove the test container when you're finished.
+
+Molecule is currently configured to run only on Fedora 41 (`geerlingguy/docker-fedora41-ansible:latest`), so Fedora is the only distribution covered by automated tests. The playbook also ships with an Arch variables file, so Arch and Arch-based systems (e.g., Manjaro) are expected to work even though they are not part of the Molecule scenario. Debian or Ubuntu may require additional variables and remain untested.
 
 To test on additional distributions, edit
 `molecule/default/molecule.yml` and add another entry under `platforms` using
