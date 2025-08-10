@@ -69,6 +69,7 @@ cp config.template.yml config.yml
 Key options available in the configuration file:
 
 - `os_override`: force a specific distribution instead of auto-detection. Supported values: `arch` (also for Arch-based systems like Manjaro) and `fedora`.
+
 - `machine_preset`: name of a preset under `resources/presets/` to copy machine-specific files.
 - `window_manager`: choose `i3` or `hyprland`.
 - Hyprland extras (effective only when `window_manager` is `hyprland`):
