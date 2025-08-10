@@ -1,10 +1,11 @@
-
 # Variables
 PYTHON = python3
 PIP = $(PYTHON) -m pip
 MOLECULE = molecule
 ANSIBLE_PLAYBOOK = ansible-playbook
+ANSIBLE_GALAXY = ansible-galaxy
 LINT_TOOLS = yamllint ansible-lint
+VAULT_PASSWORD_FILE ?= vault/vault_pass.txt
 
 # Default target
 .DEFAULT_GOAL := help
@@ -15,7 +16,10 @@ help:
 	@echo "  make lint            - Run all linters and syntax checks (yamllint, ansible-playbook syntax check, ansible-lint)"
 	@echo "  make test            - Run linting and Molecule tests"
 	@echo "  make converge        - Run linting and Molecule converge"
+	@echo "  make run             - Execute the main Ansible playbook"
+	@echo "  make install         - Install lint tools and Ansible requirements"
 	@echo "  make install-lint    - Install all linting tools"
+	@echo "  make install-requirements - Install Ansible roles and collections"
 	@echo "  make clean           - Clean up temporary files"
 	@echo "  make all             - Run linting, syntax checks, and Molecule tests"
 
@@ -23,6 +27,14 @@ help:
 install-lint:
 	@echo "Installing linting tools..."
 	$(PIP) install $(LINT_TOOLS)
+
+# Install Ansible roles and collections
+install-requirements:
+	@echo "Installing Ansible roles and collections..."
+	$(ANSIBLE_GALAXY) install -r requirements.yml
+
+# Install lint tools and Ansible requirements
+install: install-lint install-requirements
 
 # Run linters and syntax checks in the specified order
 lint:
@@ -32,6 +44,11 @@ lint:
 	$(ANSIBLE_PLAYBOOK) --syntax-check main.yml
 	@echo "Running ansible-lint..."
 	ansible-lint
+
+# Execute the main playbook
+run:
+	@echo "Running main playbook..."
+	$(ANSIBLE_PLAYBOOK) main.yml --vault-password-file $(VAULT_PASSWORD_FILE) --ask-become-pass
 
 # Run Molecule tests, always running lint first
 test: lint
