@@ -51,6 +51,8 @@ ansible-playbook main.yml --vault-password-file .ansible_vault_pass -e os_overri
     ```bash
     ansible-playbook main.yml --vault-password-file .ansible_vault_pass --ask-become-pass
     ```
+    make run
+    ```
 
 ### Bootstrap script
 Use the helper script to apply secrets and dotfiles:
@@ -98,16 +100,33 @@ against one or more hosts using:
 ansible-playbook -i inventory/hosts.yml main.yml --limit <hostname>
 ```
 
+## Linting and tests
+Run the linting tools and install role requirements before invoking any of the Makefile targets:
+
 ## Development and tests
 Run the linting tools before invoking any of the Makefile targets:
 ```bash
-make install-lint
+make install
 ```
-After the tools are installed you can run the usual checks:
+After the dependencies are installed you can run the usual checks:
 ```bash
 make lint
 make test
 ```
+
+### Makefile commands
+The Makefile exposes several common development tasks:
+
+- `make run` – Execute the main Ansible playbook (uses `vault/vault_pass.txt` by default)
+- `make lint` – Run yamllint, ansible-playbook syntax check, and ansible-lint
+- `make test` – Run linting and Molecule tests
+- `make converge` – Run linting and Molecule converge
+- `make install` – Install lint tools and Ansible requirements
+- `make install-lint` – Install all linting tools
+- `make install-requirements` – Install Ansible roles and collections
+- `make clean` – Clean up temporary files
+- `make all` – Run linting, syntax checks, and Molecule tests
+- `make help` – List available commands
 
 Use `make converge` (or `molecule converge`) for a quick iterative run without
 destroying the test container. When you're satisfied with the result, run
