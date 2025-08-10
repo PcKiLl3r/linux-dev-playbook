@@ -1,0 +1,47 @@
+---
+- name: Install Hyprland packages
+  ansible.builtin.package:
+    name: "{{ hyprland_packages }}"
+    state: present
+    use: "{{ pkg_mgr }}"
+
+- name: Add user to input group
+  ansible.builtin.user:
+    name: "{{ username }}"
+    groups: input
+    append: true
+  when: add_input_group | bool
+
+- name: Install SDDM and themes
+  ansible.builtin.package:
+    name: "{{ hyprland_sddm_packages }}"
+    state: present
+    use: "{{ pkg_mgr }}"
+  when: install_sddm | bool
+
+- name: Install GTK themes
+  ansible.builtin.package:
+    name: "{{ hyprland_gtk_packages }}"
+    state: present
+    use: "{{ pkg_mgr }}"
+  when: install_gtk_themes | bool
+- name: Install Thunar file manager
+  ansible.builtin.package:
+    name: "{{ hyprland_thunar_packages }}"
+    state: present
+    use: "{{ pkg_mgr }}"
+  when: install_thunar | bool
+
+- name: Install Quickshell
+  ansible.builtin.package:
+    name: "{{ hyprland_quickshell_packages }}"
+    state: present
+    use: "{{ pkg_mgr }}"
+  when: install_quickshell | bool
+
+- name: Install ROG-specific packages
+  ansible.builtin.package:
+    name: "{{ hyprland_rog_packages }}"
+    state: present
+    use: "{{ pkg_mgr }}"
+  when: install_rog_packages | bool

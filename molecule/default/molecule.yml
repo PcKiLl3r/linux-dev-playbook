@@ -8,13 +8,21 @@ lint: |
   yamllint .
   ansible-lint
 platforms:
-  - name: instance
-    image: "geerlingguy/docker-fedora40-ansible:latest"
+  # - name: arch
+  #   image: "geerlingguy/docker-archlinux-ansible:latest"
+  #   command: ""
+  #   volumes:
+  #     - /sys/fs/cgroup:/sys/fs/cgroup:rw
+  #   cgroupns_mode: host
+  #   privileged: true
+  #   pre_build_image: true
+  - name: fedora
+    image: "geerlingguy/docker-fedora41-ansible:latest"
     command: ""
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
     cgroupns_mode: host
-    priviliged: true
+    privileged: true
     pre_build_image: true
 provisioner:
   name: ansible

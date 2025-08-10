@@ -1,6 +1,6 @@
 ---
-- name: Install Tmux
+- name: Install multimedia codecs
   ansible.builtin.package:
-    name: "{{ tmux_packages }}"
+    name: "{{ codecs_packages }}"
     state: present
     use: "{{ pkg_mgr }}"

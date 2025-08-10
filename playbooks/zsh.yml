@@ -1,8 +1,9 @@
 ---
 - name: Ensure Zsh with dependencies are installed
-  dnf:
-    name: zsh
+  ansible.builtin.package:
+    name: "{{ zsh_packages }}"
     state: present
+    use: "{{ pkg_mgr }}"
 
 - name: Ensure zsh is the default shell
   user:

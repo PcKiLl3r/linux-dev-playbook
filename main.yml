@@ -5,6 +5,8 @@
   become: true
   vars_files:
     - vault/become_pass.yml
+    - vault/bluetooth.yml
+    - config.yml
 
   vars:
     use_on_tv: false
@@ -14,6 +16,18 @@
     - name: Include Vars
       ansible.builtin.include_vars:
         file: ./playbooks/vars.yml
+
+    - name: Determine target operating system
+      ansible.builtin.set_fact:
+        target_os: "{{ os_override | default(ansible_distribution | lower) }}"
+
+    - name: Include distro vars
+      ansible.builtin.include_vars:
+        file: "./playbooks/vars/{{ target_os }}.yml"
+
+    - name: Show detected operating system
+      ansible.builtin.debug:
+        msg: "Installing for OS: {{ target_os }}"
 
     - name: Include Core init tasks
       ansible.builtin.include_tasks:
@@ -44,7 +58,16 @@
 
     - name: Import Dev-Tools Install
       ansible.builtin.import_tasks:
-         file: ./playbooks/dev-tools.yml
+        file: ./playbooks/dev-tools.yml
+
+    - name: Import Browser Install
+      ansible.builtin.import_tasks:
+        file: ./playbooks/browsers.yml
+
+    - name: Import Codecs Install
+      ansible.builtin.import_tasks:
+        file: ./playbooks/codecs.yml
+      when: install_codecs | bool
 
     - name: Import ZShell Install
       ansible.builtin.import_tasks:
@@ -65,11 +88,26 @@
     - name: Import i3 Install
       ansible.builtin.import_tasks:
         file: ./playbooks/i3.yml
+      when: window_manager == 'i3'
+
+    - name: Import Hyprland Install
+      ansible.builtin.import_tasks:
+        file: ./playbooks/hyprland.yml
+      when: window_manager == 'hyprland'
 
     - name: Import keyboard setup
       ansible.builtin.import_tasks:
         file: ./playbooks/keyboard.yml
 
+    - name: Import Bluetooth & audio setup
+      ansible.builtin.import_tasks:
+        file: ./playbooks/bluetooth.yml
+      when: install_bluetooth | bool
+
     - name: Import dotfiles setup
       ansible.builtin.import_tasks:
         file: ./playbooks/dotfiles.yml
+
+    - name: Import machine preset overrides
+      ansible.builtin.import_tasks:
+        file: ./playbooks/presets.yml

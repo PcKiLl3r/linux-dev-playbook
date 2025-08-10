@@ -17,23 +17,10 @@
   become: false
 
 - name: Install NeoVim Dependencies
-  ansible.builtin.dnf:
-    name:
-      - cmake
-      - gettext
-      #- lua5.1
-      - lua
-      - lua-devel
-      - ninja-build
-      - gcc
-      - make
-      - unzip
-      - curl
-      - glibc-gconv-extra
-      - wget
-      - libevent-devel
-      - readline-devel
-      - ncurses-devel
+  ansible.builtin.package:
+    name: "{{ neovim_dependencies_packages }}"
+    state: present
+    use: "{{ pkg_mgr }}"
 
 - name: Plenary
   ansible.builtin.git:
@@ -60,11 +47,18 @@
   when: gitclone_result.changed
   become: false
 
+- name: Verify NeoVim installation
+  ansible.builtin.command: nvim --version
+  register: nvim_check
+  changed_when: false
+  failed_when: nvim_check.rc != 0
+  become: false
+
 - name: Install Rust
-  ansible.builtin.dnf:
-    name:
-      - rust
-      - cargo
+  ansible.builtin.package:
+    name: "{{ neovim_rust_packages }}"
+    state: present
+    use: "{{ pkg_mgr }}"
 
 - name: Install Stylua
   ansible.builtin.shell:
@@ -77,9 +71,10 @@
 #    cmd: ./resources/luarocks.sh
 #  become: false
 - name: Install LuaRocks
-  ansible.builtin.dnf:
-    name: luarocks
+  ansible.builtin.package:
+    name: "{{ neovim_luarocks_package }}"
     state: present
+    use: "{{ pkg_mgr }}"
 
 - name: Install LuaCheck
   ansible.builtin.shell:

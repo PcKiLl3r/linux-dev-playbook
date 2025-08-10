@@ -1,0 +1,48 @@
+---
+# Configuration template for linux-dev-playbook
+# Copy this file to config.yml and adjust values as needed.
+
+# Force a specific distribution ('arch' or 'fedora') to
+# override automatic package manager detection. Use 'arch' for Arch-based
+# systems such as Manjaro. Leave empty to use the detected distribution.
+os_override: ""
+
+# Optional machine preset overrides for targeted machines.
+# Leave empty for generic setup.
+machine_preset: ""
+
+# Choose which window manager to install: 'i3' or 'hyprland'.
+# Set to 'hyprland' to install the Hyprland compositor and enable the
+# optional Wayland features below.
+window_manager: i3
+
+# Install Bluetooth and audio support.
+install_bluetooth: false
+
+# Install multimedia codecs like ffmpeg and gstreamer.
+install_codecs: false
+
+# Hyprland optional feature flags (effective only when window_manager is 'hyprland')
+
+# Add the current user to the input group (required for some input devices).
+add_input_group: false
+
+# Install the SDDM display manager and themes.
+install_sddm: false
+
+# Install additional GTK themes for aesthetic customization.
+install_gtk_themes: false
+
+# Install the Thunar file manager.
+install_thunar: false
+
+# Install the Quickshell Wayland panel.
+install_quickshell: false
+
+# Install ROG-specific packages for ASUS ROG devices.
+install_rog_packages: false
+
+# Browser installation flags
+install_brave: true
+install_firefox: true
+install_chromium: false

@@ -1,12 +1,6 @@
 ---
 - name:
-  dnf:
-    name:
-      - i3
-      - i3status
-      - dmenu
-      - i3lock
-      - xbacklight
-      - nitrogen
-      - conky
+  ansible.builtin.package:
+    name: "{{ i3_packages }}"
     state: present
+    use: "{{ pkg_mgr }}"

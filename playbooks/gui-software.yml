@@ -1,9 +1,9 @@
 ---
 - name: Install dependencies
-  ansible.builtin.dnf:
-    name:
-      - dnf-plugins-core
+  ansible.builtin.package:
+    name: "{{ gui_dependencies_packages }}"
     state: present
+    use: "{{ pkg_mgr }}"
 
 #- name: Add GUI Apps Repos
 #  ansible.builtin.yum_repository:
@@ -16,52 +16,51 @@
 #    name: brave-browser
 #    state: enabled
 #
-- name: Add rpm_key
-  ansible.builtin.rpm_key:
-    key: 'https://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-nonfree-fedora-2020'
-    state: present
+#- name: Add rpm_key
+#  ansible.builtin.rpm_key:
+#    state: present
 #
 #- name: Add brave rpm key
 #  ansible.builtin.rpm_key:
 #    key: 'https://brave-browser-rpm-release.s3.brave.com/brave-core.asc'
 #    state: present
-
-- name: update
-  ansible.builtin.dnf:
-    name: "*"
-    state: latest
-
+#
+#- name: update
+#  ansible.builtin.pacman:
+#    name: "*"
+#    state: latest
+#
 - name: Install GUI software
-  ansible.builtin.dnf:
-    name:
-      - 'https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_distribution_major_version }}.noarch.rpm'
-#      - discord
+  ansible.builtin.package:
+    name: "{{ gui_software_packages }}"
     state: present
-    update_cache: true
+    use: "{{ pkg_mgr }}"
 
 - name: Ensure dependency for brave installer is present
-  ansible.builtin.dnf:
-    name: acl
+  ansible.builtin.package:
+    name: "{{ brave_dependency_packages }}"
     state: present
+    use: "{{ pkg_mgr }}"
 
 #- name: Install Brave
 #  ansible.builtin.yum:
 #    name: brave-browser
 #    state: present
-#    update_cache: true
 - name: Import install Brave browser role
   import_role:
     name: staticdev.brave
 
 - name: Install Blender
-  ansible.builtin.dnf:
-    name: blender
+  ansible.builtin.package:
+    name: "{{ blender_package }}"
     state: present
+    use: "{{ pkg_mgr }}"
 
 - name: Install Postman dependencies
-  ansible.builtin.dnf:
-    name: openssl
+  ansible.builtin.package:
+    name: "{{ postman_dependency_packages }}"
     state: present
+    use: "{{ pkg_mgr }}"
 
 - name: Download Postman
   ansible.builtin.get_url:

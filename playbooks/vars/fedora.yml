@@ -1,0 +1,153 @@
+---
+pkg_mgr: dnf
+
+core_packages:
+  - git
+core_pacman_contrib_package: null
+
+bluetooth_packages:
+  - pipewire
+  - pipewire-alsa
+  - pipewire-pulseaudio
+  - wireplumber
+  - bluez
+  - bluez-tools
+  - blueman
+
+mobile_dev_packages:
+  - scrcpy
+
+game_dev_packages:
+  - godot
+
+codecs_packages:
+  - ffmpeg
+  - gstreamer1-plugins-base
+  - gstreamer1-plugins-good
+  - gstreamer1-plugins-bad-free
+  - gstreamer1-plugins-ugly
+  - gstreamer1-libav
+
+utils_packages:
+  - fzf
+  - ripgrep
+  - pavucontrol
+  - xclip
+  - jq
+  - tldr
+  - shutter
+  - trash-cli
+
+virtualization_kernel_deps_packages:
+  - "@development-tools"
+virtualization_kernel_packages:
+  - kernel-headers
+  - dkms
+virtualization_vagrant_dependencies:
+  - "@development-tools"
+virtualization_vagrant_package:
+  - vagrant
+
+dotfiles_packages:
+  - stow
+
+zsh_packages:
+  - zsh
+
+i3_packages:
+  - i3
+  - i3status
+  - dmenu
+  - i3lock
+  - xbacklight
+  - nitrogen
+  - conky
+
+hyprland_packages:
+  - hyprland
+  - xdg-desktop-portal-hyprland
+
+hyprland_sddm_packages:
+  - sddm
+
+hyprland_gtk_packages:
+  - gtk-murrine-engine
+
+hyprland_thunar_packages:
+  - thunar
+  - thunar-volman
+
+hyprland_quickshell_packages:
+  - quickshell
+
+hyprland_rog_packages:
+  - asusctl
+  - supergfxctl
+
+tmux_packages:
+  - tmux
+
+dev_tools_packages:
+  - git
+  - docker
+  - docker-compose
+  - python3-pip
+
+neovim_dependencies_packages:
+  - cmake
+  - gettext
+  - lua
+  - ninja-build
+  - gcc
+  - make
+  - unzip
+  - curl
+  - glibc
+  - wget
+  - libevent
+  - readline
+  - ncurses
+
+neovim_rust_packages:
+  - rust
+  - cargo
+
+neovim_luarocks_package:
+  - luarocks
+
+gui_dependencies_packages:
+  - "@development-tools"
+
+gui_software_packages:
+  - discord
+
+brave_dependency_packages:
+  - acl
+
+blender_package:
+  - blender
+
+postman_dependency_packages:
+  - openssl
+
+prog_lang_nodejs_packages:
+  - nodejs
+
+prog_lang_yarn_packages:
+  - yarn
+
+prog_lang_cdev_packages:
+  - gcc
+  - gdb
+  - valgrind
+  - clang
+
+prog_lang_python_packages:
+  - python3-pip
+
+prog_lang_go_packages:
+  - golang
+
+prog_lang_lua_packages:
+  - lua
+  - luarocks

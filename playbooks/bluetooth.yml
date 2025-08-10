@@ -1,0 +1,56 @@
+---
+- name: Install Bluetooth and audio packages
+  ansible.builtin.package:
+    name: "{{ bluetooth_packages }}"
+    state: present
+    use: "{{ pkg_mgr }}"
+
+- name: Enable and start bluetooth service
+  ansible.builtin.service:
+    name: bluetooth
+    state: started
+    enabled: true
+
+- name: Enable PipeWire user services
+  ansible.builtin.systemd:
+    name: "{{ item }}"
+    state: started
+    enabled: true
+    scope: user
+  loop:
+    - pipewire.socket
+    - pipewire-pulse.socket
+    - wireplumber.service
+
+- name: Create bluetooth reconnect script
+  ansible.builtin.copy:
+    dest: /usr/local/bin/bluetooth-reconnect.sh
+    mode: '0755'
+    content: |
+      #!/usr/bin/env bash
+      {% for mac in bluetooth_macs %}
+      bluetoothctl connect {{ mac }}
+      {% endfor %}
+
+- name: Create systemd user service for reconnect
+  ansible.builtin.copy:
+    dest: ~/.config/systemd/user/bluetooth-reconnect.service
+    mode: '0644'
+    content: |
+      [Unit]
+      Description=Auto-connect Bluetooth devices
+
+      [Service]
+      ExecStart=/usr/local/bin/bluetooth-reconnect.sh
+
+      [Install]
+      WantedBy=default.target
+  become: false
+
+- name: Enable bluetooth reconnect service
+  ansible.builtin.systemd:
+    name: bluetooth-reconnect.service
+    scope: user
+    enabled: true
+    state: started
+  become: false
