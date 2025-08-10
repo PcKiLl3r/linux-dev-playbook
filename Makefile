@@ -5,6 +5,7 @@ PYTHON = python3
 MOLECULE = molecule
 ANSIBLE_PLAYBOOK = ansible-playbook
 LINT_TOOLS = yamllint ansible-lint
+TEST_DEPS = molecule molecule-plugins[docker] yamllint ansible-lint
 
 # Default target
 .DEFAULT_GOAL := help
@@ -24,6 +25,10 @@ install-lint:
 	@echo "Installing linting tools..."
 	$(PIP) install $(LINT_TOOLS)
 
+# Install Molecule and other testing tools
+install-test-tools:
+	$(PIP) install --user $(TEST_DEPS)
+
 # Run linters and syntax checks in the specified order
 lint:
 	@echo "Running yamllint..."
@@ -35,13 +40,13 @@ lint:
 #	ansible-lint
 	@echo "Skipping ansible-lint due to environment limitations..."
 
-# Run Molecule tests, always running lint first
-test: lint
+# Run Molecule tests, ensuring dependencies are installed and linting runs first
+test: install-test-tools lint
 	@echo "Running Molecule tests..."
 	$(MOLECULE) test
 
-# Run Molecule converge, always running lint first
-converge: lint
+# Run Molecule converge, ensuring dependencies are installed and linting runs first
+converge: install-test-tools lint
 	@echo "Running Molecule converge..."
 	$(MOLECULE) converge
 
