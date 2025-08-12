@@ -8,8 +8,8 @@ lint: |
   yamllint .
   ansible-lint
 platforms:
-  - name: "{{ lookup('env', 'MOLECULE_DISTRO') | default('fedora') }}"
-    image: "{{ lookup('env', 'MOLECULE_IMAGE') | default('geerlingguy/docker-fedora41-ansible:latest') }}"
+  - name: "${MOLECULE_DISTRO:-fedora}"
+    image: "${MOLECULE_IMAGE:-geerlingguy/docker-fedora41-ansible:latest}"
     command: ""
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
