@@ -16,11 +16,12 @@
   ansible.builtin.git:
     repo: https://github.com/PcKiLl3r/linux-dev-playbook.git
     dest: ~/personal/linux-dev-playbook
+    version: main
   become_user: "{{ username }}"
   become: true
 
 - name: Update apt cache (on Debian based systems only)
-  apt:
+  ansible.builtin.apt:
     update_cache: true
     cache_valid_time: 3600
   when: ansible_os_family == 'Debian'
