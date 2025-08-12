@@ -16,7 +16,7 @@
   ansible.builtin.git:
     repo: https://github.com/PcKiLl3r/linux-dev-playbook.git
     dest: ~/personal/linux-dev-playbook
-    version: main
+    version: master
   become_user: "{{ username }}"
   become: true
 
