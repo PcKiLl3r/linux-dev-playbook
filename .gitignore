@@ -1,2 +1,3 @@
 vault/vault_pass.txt
 .ansible_vault_pass
+collections/ansible_collections/

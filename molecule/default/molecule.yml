@@ -1,6 +1,10 @@
 ---
 dependency:
   name: galaxy
+  options:
+    role-file: ../../requirements.yml
+    requirements-file: ../../collections/requirements.yml
+    collections-path: ../../collections
 driver:
   name: docker
 lint: |
@@ -18,5 +22,8 @@ platforms:
     pre_build_image: true
 provisioner:
   name: ansible
+  playbooks:
+    prepare: prepare.yml
+    cleanup: cleanup.yml
 verifier:
   name: ansible

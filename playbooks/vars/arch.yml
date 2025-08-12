@@ -135,8 +135,8 @@ postman_dependency_packages:
 prog_lang_nodejs_packages:
   - nodejs
 
-prog_lang_yarn_packages:
-  - yarn
+prog_lang_pnpm_packages:
+  - pnpm
 
 prog_lang_cdev_packages:
   - base-devel

@@ -34,6 +34,7 @@ install-lint:
 install-requirements:
 	@echo "Installing Ansible roles and collections..."
 	$(ANSIBLE_GALAXY) install -r requirements.yml
+	$(ANSIBLE_GALAXY) collection install -r collections/requirements.yml -p ./collections
 
 # Install lint tools and Ansible requirements
 install: install-lint install-requirements
@@ -43,10 +44,11 @@ install-test-tools:
 	$(PIP) install --user $(TEST_DEPS)
 
 # Run linters and syntax checks in the specified order
-lint:
+lint: install-requirements
 	@echo "Running yamllint..."
 	yamllint .
-	@echo "Skipping ansible-lint due to environment limitations..."
+	@echo "Running ansible-lint..."
+	ansible-lint
 
 # Execute the main playbook
 run:
