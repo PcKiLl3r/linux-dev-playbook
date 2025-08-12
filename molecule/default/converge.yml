@@ -40,6 +40,8 @@
         path: "{{ playbook_dir }}/../../config.yml"
         regexp: '^machine_preset:'
         line: "machine_preset: \"{{ lookup('ansible.builtin.env', 'MOLECULE_MACHINE_PRESET') }}\""
+      delegate_to: localhost
+      run_once: true
       when: lookup('ansible.builtin.env', 'MOLECULE_MACHINE_PRESET') | length > 0
 
 - name: Import Main Playbook
