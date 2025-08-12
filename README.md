@@ -135,20 +135,40 @@ cycle. The Docker images used for Molecule are available from
 [Jeff Geerling's collection](https://ansible.jeffgeerling.com/).
 Use `molecule destroy` to remove the test container when you're finished.
 
-Molecule is currently configured to run only on Fedora 41 (`geerlingguy/docker-fedora41-ansible:latest`), so Fedora is the only distribution covered by automated tests. The playbook also ships with an Arch variables file, so Arch and Arch-based systems (e.g., Manjaro) are expected to work even though they are not part of the Molecule scenario. Debian or Ubuntu may require additional variables and remain untested.
+Molecule defaults to Fedora 41 (`geerlingguy/docker-fedora41-ansible:latest`), but you can test other distributions by setting the `MOLECULE_DISTRO` and `MOLECULE_IMAGE` environment variables. The playbook also ships with an Arch variables file, so Arch and Arch-based systems (e.g., Manjaro) are expected to work even though they are not part of the default scenario. Debian or Ubuntu may require additional variables and remain untested.
 
-To test on additional distributions, edit
-`molecule/default/molecule.yml` and add another entry under `platforms` using
-one of the images above, for example:
+For example, to run the scenario against Ubuntu 20.04:
 
-```yaml
-platforms:
-  - name: ubuntu
-    image: geerlingguy/docker-ubuntu2004-ansible:latest
+```bash
+MOLECULE_DISTRO=ubuntu \
+MOLECULE_IMAGE=geerlingguy/docker-ubuntu2004-ansible:latest \
+make test
 ```
 
-Running Molecule with multiple platforms will execute the playbook against each
-listed distribution.
+Running Molecule with multiple platforms will execute the playbook against each listed distribution.
+
+### Testing presets with Molecule
+
+You can run Molecule against a specific hardware preset by setting the
+`MOLECULE_MACHINE_PRESET` environment variable. The playbook will still detect
+the operating system inside the container automatically.
+
+Run the ThinkPad T16 Gen 2 preset on the default Fedora image:
+
+```bash
+MOLECULE_MACHINE_PRESET=thinkpad_t16_gen2 make test
+```
+
+To test a different distribution, override the Docker image and container name:
+
+```bash
+MOLECULE_DISTRO=arch \
+MOLECULE_IMAGE=geerlingguy/docker-archlinux-ansible:latest \
+MOLECULE_MACHINE_PRESET=thinkpad_t16_gen2 make test
+```
+
+`MOLECULE_DISTRO` controls the container name, while `MOLECULE_IMAGE` selects
+the base image used for the scenario.
 
 ## Todo
 Make a script hosted on web to allow usage like:

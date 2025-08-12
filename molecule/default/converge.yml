@@ -35,5 +35,12 @@
         cache_valid_time: 3600
       when: ansible_os_family == 'Debian'
 
+    - name: Set machine preset for tests
+      ansible.builtin.lineinfile:
+        path: "{{ playbook_dir }}/../../config.yml"
+        regexp: '^machine_preset:'
+        line: "machine_preset: \"{{ lookup('ansible.builtin.env', 'MOLECULE_MACHINE_PRESET') }}\""
+      when: lookup('ansible.builtin.env', 'MOLECULE_MACHINE_PRESET') | length > 0
+
 - name: Import Main Playbook
   import_playbook: ../../main.yml
