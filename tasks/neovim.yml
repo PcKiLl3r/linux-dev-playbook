@@ -83,7 +83,9 @@
     use: "{{ pkg_mgr }}"
 
 - name: Install LuaCheck
-  ansible.builtin.command: luarocks install luacheck
+  ansible.builtin.command: luarocks --local install luacheck
+  args:
+    creates: "{{ home }}/.luarocks/bin/luacheck"
   changed_when: false
   become: true
   become_user: "{{ username }}"
