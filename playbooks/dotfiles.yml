@@ -10,6 +10,8 @@
   ansible.builtin.git:
     repo: https://github.com/PcKiLl3r/.dotfiles.git
     dest: ~/.dotfiles
+    version: main
+  become: true
   become_user: "{{ username }}"
 
 - name: Stow .dotfiles
@@ -18,4 +20,5 @@
     # creates:
   args:
     chdir: "/home/{{ username }}/.dotfiles"
+  changed_when: false
   become: false

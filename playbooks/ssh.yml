@@ -4,13 +4,14 @@
   ansible.builtin.file:
     path: ~/.ssh
     state: directory
-    mode: '0755'
+    mode: '0700'
   become: false
 
 - name: Try to copy existing key from vault if present
   ansible.builtin.copy:
     src: ../vault/id_rsa
     dest: ~/.ssh/id_rsa
+    mode: '0600'
   when: machine_upgrade | bool
   become: false
 
