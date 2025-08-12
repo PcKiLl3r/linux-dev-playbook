@@ -47,9 +47,9 @@
 #    name: brave-browser
 #    state: present
 - name: Import install Brave browser role
-  import_role:
+  ansible.builtin.import_role:
     name: staticdev.brave
-  when: install_brave | bool and target_os in ['debian', 'ubuntu']
+    when: install_brave | bool and target_os in ['debian', 'ubuntu']
 
 - name: Install Blender
   ansible.builtin.package:
@@ -67,6 +67,7 @@
   ansible.builtin.get_url:
     url: https://dl.pstmn.io/download/latest/linux_64
     dest: /tmp/postman.tar.gz
+    mode: '0644'
 
 - name: Install Postman
   ansible.builtin.unarchive:
@@ -74,4 +75,5 @@
     dest: /opt/postman
 
 - name: Add Postman to path... TODO
-  debug: TODO
+  ansible.builtin.debug:
+    msg: "TODO: Add Postman to path"
