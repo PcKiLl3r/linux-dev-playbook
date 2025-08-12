@@ -4,7 +4,7 @@
     name: "{{ username }}"
     state: present
     createhome: true
-  become_method: "sudo"
+  become_method: ansible.builtin.sudo
 
 - name: Install setup dependencies
   ansible.builtin.package:
@@ -17,6 +17,7 @@
     repo: https://github.com/PcKiLl3r/linux-dev-playbook.git
     dest: ~/personal/linux-dev-playbook
   become_user: "{{ username }}"
+  become: true
 
 - name: Update apt cache (on Debian based systems only)
   apt:
