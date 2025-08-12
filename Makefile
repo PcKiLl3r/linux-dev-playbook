@@ -48,7 +48,7 @@ lint: install-requirements
 	@echo "Running yamllint..."
 	yamllint .
 	@echo "Running ansible-lint..."
-	ansible-lint
+	ansible-lint main.yml tasks/
 
 # Execute the main playbook
 run:

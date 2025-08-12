@@ -15,7 +15,7 @@
   pre_tasks:
     - name: Include Vars
       ansible.builtin.include_vars:
-        file: ./playbooks/vars.yml
+        file: ./vars/common.yml
 
     - name: Determine target operating system
       ansible.builtin.set_fact:
@@ -23,7 +23,7 @@
 
     - name: Include distro vars
       ansible.builtin.include_vars:
-        file: "./playbooks/vars/{{ target_os }}.yml"
+        file: "./vars/{{ target_os }}.yml"
 
     - name: Show detected operating system
       ansible.builtin.debug:
@@ -31,16 +31,16 @@
 
     - name: Include Core init tasks
       ansible.builtin.include_tasks:
-        file: ./playbooks/core.yml
+        file: ./tasks/core.yml
 
         #    - name: Import GUI Apps Install
         #      ansible.builtin.include_tasks:
-        #        file: ./playbooks/gui-software.yml
+        #        file: ./tasks/gui-software.yml
         #      become: false
         #
         #   - name: Import Mobile Dev Install
         #     ansible.builtin.include_tasks:
-        #       file: ./playbooks/mobile-dev.yml
+        #       file: ./tasks/mobile-dev.yml
         #     become: false
         #
         #   TODE make more plays instead of 1 play with many tasks
@@ -48,66 +48,66 @@
   tasks:
     - name: Include SSH key restore/create
       ansible.builtin.include_tasks:
-        file: ./playbooks/ssh.yml
+        file: ./tasks/ssh.yml
       vars:
         machine_upgrade: "{{ restore_last_ssh }}"
 
     - name: Import Utility Packages Install
       ansible.builtin.import_tasks:
-        file: ./playbooks/utils.yml
+        file: ./tasks/utils.yml
 
     - name: Import Dev-Tools Install
       ansible.builtin.import_tasks:
-        file: ./playbooks/dev-tools.yml
+        file: ./tasks/dev-tools.yml
 
     - name: Import Browser Install
       ansible.builtin.import_tasks:
-        file: ./playbooks/browsers.yml
+        file: ./tasks/browsers.yml
 
     - name: Import Codecs Install
       ansible.builtin.import_tasks:
-        file: ./playbooks/codecs.yml
+        file: ./tasks/codecs.yml
       when: install_codecs | bool
 
     - name: Import ZShell Install
       ansible.builtin.import_tasks:
-        file: ./playbooks/zsh.yml
+        file: ./tasks/zsh.yml
 
     - name: Import Programming Languages/Runtimes Install
       ansible.builtin.import_tasks:
-        file: ./playbooks/prog-lang.yml
+        file: ./tasks/prog-lang.yml
 
     - name: Import TMux Install
       ansible.builtin.import_tasks:
-        file: ./playbooks/tmux.yml
+        file: ./tasks/tmux.yml
 
     - name: Import NeoVim Install
       ansible.builtin.import_tasks:
-        file: ./playbooks/neovim.yml
+        file: ./tasks/neovim.yml
 
     - name: Import i3 Install
       ansible.builtin.import_tasks:
-        file: ./playbooks/i3.yml
+        file: ./tasks/i3.yml
       when: window_manager == 'i3'
 
     - name: Import Hyprland Install
       ansible.builtin.import_tasks:
-        file: ./playbooks/hyprland.yml
+        file: ./tasks/hyprland.yml
       when: window_manager == 'hyprland'
 
     - name: Import keyboard setup
       ansible.builtin.import_tasks:
-        file: ./playbooks/keyboard.yml
+        file: ./tasks/keyboard.yml
 
     - name: Import Bluetooth & audio setup
       ansible.builtin.import_tasks:
-        file: ./playbooks/bluetooth.yml
+        file: ./tasks/bluetooth.yml
       when: install_bluetooth | bool
 
     - name: Import dotfiles setup
       ansible.builtin.import_tasks:
-        file: ./playbooks/dotfiles.yml
+        file: ./tasks/dotfiles.yml
 
     - name: Import machine preset overrides
       ansible.builtin.import_tasks:
-        file: ./playbooks/presets.yml
+        file: ./tasks/presets.yml

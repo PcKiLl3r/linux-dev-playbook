@@ -6,7 +6,7 @@
 
     - name: Include vars
       ansible.builtin.include_vars:
-        file: ../../playbooks/vars.yml
+        file: ../../vars/common.yml
 
     - name: Create user
       ansible.builtin.user:
