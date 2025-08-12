@@ -1,11 +1,12 @@
 # Variables
 PYTHON = python3
-	PIP = $(PYTHON) -m pip
+PIP = $(PYTHON) -m pip
 MOLECULE = molecule
 ANSIBLE_PLAYBOOK = ansible-playbook
 ANSIBLE_GALAXY = ansible-galaxy
 LINT_TOOLS = yamllint ansible-lint
-VAULT_PASSWORD_FILE ?= vault/vault_pass.txt
+ANSIBLE_VAULT_PASSWORD_FILE ?= $(CURDIR)/.ansible_vault_pass
+export ANSIBLE_VAULT_PASSWORD_FILE
 TEST_DEPS = molecule molecule-plugins[docker] yamllint ansible-lint
 
 # Default target
@@ -50,7 +51,7 @@ lint:
 # Execute the main playbook
 run:
 	@echo "Running main playbook..."
-	$(ANSIBLE_PLAYBOOK) main.yml --vault-password-file $(VAULT_PASSWORD_FILE) --ask-become-pass
+	$(ANSIBLE_PLAYBOOK) main.yml --vault-password-file $(ANSIBLE_VAULT_PASSWORD_FILE) --ask-become-pass
 
 #	@echo "Running ansible-playbook syntax check..."
 #	$(ANSIBLE_PLAYBOOK) --syntax-check main.yml
