@@ -18,3 +18,4 @@ rules:
     max: 1
 ignore: |
   vault/*
+  .ansible/**
