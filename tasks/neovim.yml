@@ -14,7 +14,8 @@
     depth: 1
     version: stable
   register: gitclone_result
-  become: false
+  become: true
+  become_user: "{{ username }}"
 
 - name: Install NeoVim Dependencies
   ansible.builtin.package:
@@ -28,7 +29,8 @@
     dest: "{{ personal }}/plenary.nvim"
     depth: 1
     version: master
-  become: false
+  become: true
+  become_user: "{{ username }}"
 
 # TODO should install neovim with:
     # make CMAKE_BUILD_TYPE=RelWithDebInfo
@@ -54,7 +56,8 @@
   register: nvim_check
   changed_when: false
   failed_when: nvim_check.rc != 0
-  become: false
+  become: true
+  become_user: "{{ username }}"
 
 - name: Install Rust
   ansible.builtin.package:
@@ -65,7 +68,8 @@
 - name: Install Stylua
   ansible.builtin.command: cargo install stylua
   changed_when: false
-  become: false
+  become: true
+  become_user: "{{ username }}"
 
 #- name: Install LuaRocks
 #  ansible.builtin.shell:
@@ -81,3 +85,5 @@
 - name: Install LuaCheck
   ansible.builtin.command: luarocks install luacheck
   changed_when: false
+  become: true
+  become_user: "{{ username }}"
