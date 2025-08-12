@@ -27,6 +27,7 @@
     repo: "https://github.com/nvim-lua/plenary.nvim.git"
     dest: "{{ personal }}/plenary.nvim"
     depth: 1
+    version: master
   become: false
 
 # TODO should install neovim with:
@@ -40,12 +41,13 @@
     #  remove .zshrc then stow
     #  source .zshrc and zsh_profile after
 
-- name: Install NeoVim with Make
-  ansible.builtin.command: sudo make install
-  args:
+- name: Install NeoVim with Make  # noqa no-handler
+  ansible.builtin.command:
+    cmd: make install
     chdir: "{{ home }}/neovim"
   when: gitclone_result.changed
-  become: false
+  become: true
+  changed_when: false
 
 - name: Verify NeoVim installation
   ansible.builtin.command: nvim --version
@@ -61,8 +63,8 @@
     use: "{{ pkg_mgr }}"
 
 - name: Install Stylua
-  ansible.builtin.shell:
-    cmd: cargo install stylua
+  ansible.builtin.command: cargo install stylua
+  changed_when: false
   become: false
 
 #- name: Install LuaRocks
@@ -77,5 +79,5 @@
     use: "{{ pkg_mgr }}"
 
 - name: Install LuaCheck
-  ansible.builtin.shell:
-    cmd: luarocks install luacheck
+  ansible.builtin.command: luarocks install luacheck
+  changed_when: false

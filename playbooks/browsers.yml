@@ -1,6 +1,6 @@
 ---
 - name: Install Brave browser
-  import_role:
+  ansible.builtin.import_role:
     name: staticdev.brave
   when: install_brave | bool and target_os in ['debian', 'ubuntu']
 

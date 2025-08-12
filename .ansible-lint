@@ -1,4 +1,8 @@
 ---
 exclude_paths:
   - molecule/
+kinds:
+  - playbooks/vars.yml: vars
+  - playbooks/vars/*.yml: vars
+  - playbooks/*.yml: tasks
 parseable: true

@@ -20,14 +20,14 @@
   become: true
 
 - name: Check for real-prog-dvorak layout
-  ansible.builtin.shell: grep -q 'real-prog-dvorak' /usr/share/X11/xkb/rules/evdev.xml
+  ansible.builtin.command: grep -q 'real-prog-dvorak' /usr/share/X11/xkb/rules/evdev.xml
   register: dvorak_exists
   ignore_errors: true
   changed_when: false
   become: true
 
 - name: Check for real-prog-dvo-k layout
-  ansible.builtin.shell: grep -q 'real-prog-dvo-k' /usr/share/X11/xkb/rules/evdev.xml
+  ansible.builtin.command: grep -q 'real-prog-dvo-k' /usr/share/X11/xkb/rules/evdev.xml
   register: dvo_k_exists
   ignore_errors: true
   changed_when: false
