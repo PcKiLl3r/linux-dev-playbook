@@ -19,7 +19,7 @@
 
     - name: Determine target operating system
       ansible.builtin.set_fact:
-        target_os: "{{ os_override | default(ansible_distribution | lower) }}"
+        target_os: "{{ os_override | default(ansible_distribution | lower, true) }}"
 
     - name: Include distro vars
       ansible.builtin.include_vars:
