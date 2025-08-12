@@ -5,9 +5,9 @@
     state: present
     use: "{{ pkg_mgr }}"
 
-- name: Install yarn package manager
+- name: Install pnpm package manager
   ansible.builtin.package:
-    name: "{{ prog_lang_yarn_packages }}"
+    name: "{{ prog_lang_pnpm_packages }}"
     state: present
     use: "{{ pkg_mgr }}"
 
