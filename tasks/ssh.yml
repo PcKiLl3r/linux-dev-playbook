@@ -24,3 +24,18 @@
     force: false
   when: not machine_upgrade
   become: false
+
+- name: Ensure GitHub is a known host
+  ansible.builtin.known_hosts:
+    name: github.com
+    key: "{{ lookup('pipe', 'ssh-keyscan -t rsa github.com') }}"
+  become: false
+
+- name: Add SSH key to agent
+  ansible.builtin.command:
+    cmd: ssh-add ~/.ssh/id_rsa
+  environment:
+    SSH_AUTH_SOCK: "{{ ansible_env.SSH_AUTH_SOCK }}"
+  changed_when: false
+  when: ansible_env.SSH_AUTH_SOCK is defined
+  become: false
