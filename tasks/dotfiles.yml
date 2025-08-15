@@ -8,9 +8,10 @@
 
 - name: Clone dotfiles repo
   ansible.builtin.git:
-    repo: https://github.com/PcKiLl3r/.dotfiles.git
-    dest: ~/.dotfiles
+    repo: "git@github.com:PcKiLl3r/.dotfiles.git"
+    dest: "~/.dotfiles"
     version: master
+    key_file: "/home/{{ username }}/.ssh/id_rsa"
   become: true
   become_user: "{{ username }}"
 
