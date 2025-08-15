@@ -100,6 +100,35 @@ against one or more hosts using:
 ansible-playbook -i inventory/hosts.yml main.yml --limit <hostname>
 ```
 
+## Partial runs
+Use partial runs to iterate on the playbook without starting from scratch.
+
+### Resume from a specific task
+Start at a given task name using `--start-at-task`:
+
+```bash
+ansible-playbook main.yml --start-at-task "Install packages"
+```
+
+### Run a subset of tags
+Use `--tags` to run only certain tagged tasks or `--skip-tags` to exclude them:
+
+```bash
+ansible-playbook main.yml --tags "packages,config"
+ansible-playbook main.yml --skip-tags "docker"
+```
+
+### Keep a Molecule container running
+Create the test environment once with `molecule create`, then iterate with `molecule converge`:
+
+```bash
+molecule create
+molecule converge
+molecule converge
+```
+
+When finished, destroy the container with `molecule destroy`.
+
 ## Linting and tests
 Run the linting tools and install role requirements before invoking any of the Makefile targets:
 
