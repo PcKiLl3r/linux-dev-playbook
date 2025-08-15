@@ -28,7 +28,7 @@
 - name: Ensure GitHub is a known host
   ansible.builtin.known_hosts:
     name: github.com
-    key: "{{ lookup('pipe', 'ssh-keyscan -t rsa github.com 2>/dev/null | grep -v "^#" | head -n 1') }}"
+    key: "{{ lookup('pipe', 'ssh-keyscan -t rsa github.com 2>/dev/null | grep -v ^# | head -n 1') }}"
   become: false
 
 - name: Add SSH key to agent
