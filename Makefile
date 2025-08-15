@@ -78,3 +78,8 @@ clean:
 	@echo "Cleaning up..."
 	find . -type f -name '*.pyc' -delete
 	find . -type d -name '__pycache__' -delete
+	@$(MAKE) molecule-ps
+
+# Check for lingering Molecule containers
+molecule-ps:
+	@./scripts/molecule-ps.sh

@@ -153,9 +153,10 @@ The Makefile exposes several common development tasks:
 - `make install` – Install lint tools and Ansible requirements
 - `make install-lint` – Install all linting tools
 - `make install-requirements` – Install Ansible roles and collections
-- `make clean` – Clean up temporary files
+- `make clean` – Clean up temporary files and warn about lingering Molecule containers
 - `make all` – Run linting, syntax checks, and Molecule tests
 - `make help` – List available commands
+- `make molecule-ps` – Warn if Molecule containers are still running
 
 Use `make converge` (or `molecule converge`) for a quick iterative run without
 destroying the test container. When you're satisfied with the result, run
