@@ -6,6 +6,25 @@
     createhome: true
   become_method: ansible.builtin.sudo
 
+# Ensure the dnf Python bindings are available before using the package
+# module on Fedora-based systems. Minimal container images may omit the
+# python3-dnf package which Ansible's dnf backend requires.
+- name: Check for python3-dnf  # noqa command-instead-of-module
+  ansible.builtin.command: rpm -q python3-dnf
+  register: dnf_python_check
+  failed_when: false
+  changed_when: false
+  when: pkg_mgr == 'dnf'
+
+- name: Install python3-dnf  # noqa command-instead-of-module
+  ansible.builtin.command: dnf -y install python3-dnf
+  register: dnf_python_install
+  become: true
+  when:
+    - pkg_mgr == 'dnf'
+    - dnf_python_check.rc != 0
+  changed_when: "'Nothing to do' not in dnf_python_install.stdout"
+
 - name: Install setup dependencies
   ansible.builtin.package:
     name: "{{ core_packages }}"
