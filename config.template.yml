@@ -29,6 +29,9 @@ dotfiles_repo: "https://github.com/PcKiLl3r/.dotfiles.git"
 # Leave empty when using HTTPS or the default SSH key.
 dotfiles_repo_key: ""
 
+# Recurse into submodules when cloning dotfiles.
+dotfiles_repo_recursive: false
+
 # Hyprland optional feature flags (effective only when window_manager is 'hyprland')
 
 # Add the current user to the input group (required for some input devices).
