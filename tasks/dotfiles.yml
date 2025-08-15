@@ -12,6 +12,7 @@
     dest: "~/.dotfiles"
     version: master
     key_file: "{{ dotfiles_repo_key | default(omit, true) }}"
+    recursive: "{{ dotfiles_repo_recursive | default(false) }}"
   become: true
   become_user: "{{ username }}"
 

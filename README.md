@@ -84,6 +84,7 @@ Key options available in the configuration file:
 - Other flags: `install_bluetooth`, `install_codecs`, `install_brave`, `install_firefox`, `install_chromium`.
 - `dotfiles_repo`: URL of the git repository containing your dotfiles. Leave empty to skip cloning.
 - `dotfiles_repo_key`: optional path to an SSH private key for a private dotfiles repository.
+- `dotfiles_repo_recursive`: set to `true` to clone submodules in the dotfiles repository.
 
 ### Presets
 Presets allow you to copy machine-specific dotfiles or configuration snippets
