@@ -17,6 +17,7 @@ help:
 	@echo "Available commands:"
 	@echo "  make lint            - Run all linters and syntax checks (yamllint, ansible-playbook syntax check, ansible-lint)"
 	@echo "  make test            - Run linting and Molecule tests"
+	@echo "  make test-nodestr    - Run linting and Molecule tests without destroying instances"
 	@echo "  make converge        - Run linting and Molecule converge"
 	@echo "  make converge-at     - Converge but start at a specific task (use START_AT=\"...\")"
 	@echo "  make run             - Execute the main Ansible playbook"
@@ -65,6 +66,11 @@ run:
 test: install-test-tools lint
 	@echo "Running Molecule tests..."
 	$(MOLECULE) test
+
+# Run Molecule tests without destroying instances
+test-nodestr: install-test-tools lint
+	@echo "Running Molecule tests without destroying instances..."
+	$(MOLECULE) test --destroy=never
 
 # Optional: scenario pass-through: use with SCENARIO=<name>
 SCEN_ARG := $(if $(SCENARIO),-s $(SCENARIO),)

@@ -132,6 +132,15 @@ molecule converge
 
 When finished, destroy the container with `molecule destroy`.
 
+Alternatively, run the full test sequence and keep the instance alive:
+
+```bash
+MOLECULE_MACHINE_PRESET=thinkpad_t16_gen2 make test-nodestr
+molecule converge
+```
+
+The `test-nodestr` target skips the final cleanup step so you can rerun `molecule converge` as needed.
+
 ## Linting and tests
 Run the linting tools and install role requirements before invoking any of the Makefile targets:
 
@@ -152,6 +161,7 @@ The Makefile exposes several common development tasks:
 - `make run` – Execute the main Ansible playbook (uses `vault/vault_pass.txt` by default)
 - `make lint` – Run yamllint, ansible-playbook syntax check, and ansible-lint
 - `make test` – Run linting and Molecule tests
+- `make test-nodestr` – Run linting and Molecule tests without destroying the container
 - `make converge` – Run linting and Molecule converge
 - `make install` – Install lint tools and Ansible requirements
 - `make install-lint` – Install all linting tools
