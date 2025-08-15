@@ -18,6 +18,7 @@ help:
 	@echo "  make lint            - Run all linters and syntax checks (yamllint, ansible-playbook syntax check, ansible-lint)"
 	@echo "  make test            - Run linting and Molecule tests"
 	@echo "  make converge        - Run linting and Molecule converge"
+	@echo "  make converge-at     - Converge but start at a specific task (use START_AT=\"...\")"
 	@echo "  make run             - Execute the main Ansible playbook"
 	@echo "  make install         - Install lint tools and Ansible requirements"
 	@echo "  make install-lint    - Install all linting tools"
@@ -64,6 +65,16 @@ run:
 test: install-test-tools lint
 	@echo "Running Molecule tests..."
 	$(MOLECULE) test
+
+# Optional: scenario pass-through: use with SCENARIO=<name>
+SCEN_ARG := $(if $(SCENARIO),-s $(SCENARIO),)
+
+# Converge starting at an arbitrary task name
+.PHONY: converge-at
+converge-at: install-test-tools lint
+	@test -n "$(START_AT)" || (echo "ERROR: Provide START_AT=\"<task name>\"" && exit 1)
+	@echo "Running Molecule converge starting at '$(START_AT)'..."
+	$(MOLECULE) converge $(SCEN_ARG) -- --start-at-task "$(START_AT)"
 
 # Run Molecule converge, ensuring dependencies are installed and linting runs first
 converge: install-test-tools lint
