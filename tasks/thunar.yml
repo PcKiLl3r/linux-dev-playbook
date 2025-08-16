@@ -1,0 +1,6 @@
+---
+- name: Install Thunar file manager
+  ansible.builtin.package:
+    name: "{{ thunar_packages }}"
+    state: present
+    use: "{{ pkg_mgr }}"

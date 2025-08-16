@@ -1,0 +1,6 @@
+---
+- name: Install ClickUp
+  ansible.builtin.package:
+    name: "{{ clickup_packages }}"
+    state: present
+    use: "{{ pkg_mgr }}"

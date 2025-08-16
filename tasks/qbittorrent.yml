@@ -1,0 +1,6 @@
+---
+- name: Install qBittorrent
+  ansible.builtin.package:
+    name: "{{ qbittorrent_packages }}"
+    state: present
+    use: "{{ pkg_mgr }}"

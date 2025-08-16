@@ -1,0 +1,6 @@
+---
+- name: Install VLC video player
+  ansible.builtin.package:
+    name: "{{ vlc_packages }}"
+    state: present
+    use: "{{ pkg_mgr }}"

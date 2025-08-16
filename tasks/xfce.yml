@@ -1,0 +1,6 @@
+---
+- name: Install XFCE desktop environment
+  ansible.builtin.package:
+    name: "{{ xfce_packages }}"
+    state: present
+    use: "{{ pkg_mgr }}"

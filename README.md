@@ -74,11 +74,30 @@ Key options available in the configuration file:
 
 - `machine_preset`: name of a preset under `resources/presets/` to copy machine-specific files.
 - `window_manager`: choose `i3` or `hyprland`.
+- `desktop_environment`: choose a desktop environment (`gnome`, `kde`, `xfce`, or `none`).
+- `file_manager`: choose a file manager (`thunar`, `nautilus`, or `none`).
+- `code_editors`: list of code editors to install (`neovim`, `vim`, `vscode`).
+- `terminal_emulator`: choose a terminal emulator (`alacritty`, `kitty`, or `none`).
+- `shell`: choose the default shell (`bash`, `zsh`, or `fish`).
+- `ai_tool`: choose an AI or productivity tool (`clickup` or `none`).
+- `video_player`: choose a video player (`vlc`, `mpv`, or `none`).
+- `torrent_client`: choose a torrent client (`qbittorrent`, `transmission`, or `none`).
+- `terminal_file_manager`: choose a terminal file manager (`yazi`, `ranger`, or `none`).
+- `app_launcher`: choose an application launcher (`rofi`, `wofi`, or `none`).
+- `install_audacity`: set to `true` to install the Audacity audio editor.
+- `install_qalculate`: set to `true` to install the Qalculate calculator.
+- `install_calcurse`: set to `true` to install the Calcurse terminal calendar.
+- `install_dbeaver`: set to `true` to install the DBeaver database tool.
+- `install_pgmodeler`: set to `true` to install the pgModeler database modeler.
+- `install_graphviz`: set to `true` to install Graphviz visualization tools.
+- `install_dia`: set to `true` to install the Dia diagram editor.
+
+- `install_gimp`: set to `true` to install the GIMP image editor.
+- `install_inkscape`: set to `true` to install the Inkscape vector editor.
 - Hyprland extras (effective only when `window_manager` is `hyprland`):
   - `add_input_group`: add the current user to the `input` group.
   - `install_sddm`: install the SDDM display manager and themes.
   - `install_gtk_themes`: install additional GTK themes.
-  - `install_thunar`: install the Thunar file manager.
   - `install_quickshell`: install the Quickshell Wayland panel.
   - `install_rog_packages`: install ROG-specific packages.
 - Other flags: `install_bluetooth`, `install_codecs`, `install_brave`, `install_firefox`, `install_chromium`.

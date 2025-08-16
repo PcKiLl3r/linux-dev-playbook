@@ -1,0 +1,6 @@
+---
+- name: Install MPV video player
+  ansible.builtin.package:
+    name: "{{ mpv_packages }}"
+    state: present
+    use: "{{ pkg_mgr }}"

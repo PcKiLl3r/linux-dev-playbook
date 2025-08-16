@@ -1,0 +1,6 @@
+---
+- name: Install Audacity audio editor
+  ansible.builtin.package:
+    name: "{{ audacity_packages }}"
+    state: present
+    use: "{{ pkg_mgr }}"

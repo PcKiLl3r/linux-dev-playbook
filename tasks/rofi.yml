@@ -1,0 +1,6 @@
+---
+- name: Install Rofi application launcher
+  ansible.builtin.package:
+    name: "{{ rofi_packages }}"
+    state: present
+    use: "{{ pkg_mgr }}"
