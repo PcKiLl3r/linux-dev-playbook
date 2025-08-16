@@ -9,12 +9,12 @@ os_override: ""
 
 # Optional machine preset overrides for targeted machines.
 # Leave empty for generic setup.
-machine_preset: "thinkpad_t16_gen2"
+machine_preset: "ideapad_330"
 
 # Choose which window manager to install: 'i3' or 'hyprland'.
 # Set to 'hyprland' to install the Hyprland compositor and enable the
 # optional Wayland features below.
-window_manager: i3
+window_manager: hyprland
 
 # Choose which desktop environment to install ('gnome', 'kde', 'xfce', or 'none').
 desktop_environment: none
@@ -74,10 +74,10 @@ install_dia: false
 
 
 # Install Bluetooth and audio support.
-install_bluetooth: false
+install_bluetooth: true
 
 # Install multimedia codecs like ffmpeg and gstreamer.
-install_codecs: false
+install_codecs: true
 
 # Dotfiles repository to clone. Leave empty to skip dotfiles setup.
 dotfiles_repo: "https://github.com/PcKiLl3r/.dotfiles.git"
@@ -92,7 +92,7 @@ dotfiles_repo_recursive: false
 # Hyprland optional feature flags (effective only when window_manager is 'hyprland')
 
 # Add the current user to the input group (required for some input devices).
-add_input_group: false
+add_input_group: true
 
 # Install the SDDM display manager and themes.
 install_sddm: false
@@ -109,4 +109,4 @@ install_rog_packages: false
 # Browser installation flags
 install_brave: true
 install_firefox: true
-install_chromium: false
+
