@@ -1,0 +1,37 @@
+---
+# Configuration options
+os_override: ""  # options: "", "arch", "fedora"
+machine_preset: ""  # options: "", "4k"
+window_manager: i3  # options: "i3", "hyprland"
+install_bluetooth: false  # options: true, false
+install_codecs: false  # options: true, false
+add_input_group: false  # options: true, false
+install_sddm: false  # options: true, false
+install_gtk_themes: false  # options: true, false
+install_thunar: false  # options: true, false
+install_quickshell: false  # options: true, false
+install_rog_packages: false  # options: true, false
+install_brave: true  # options: true, false
+install_firefox: true  # options: true, false
+install_chromium: false  # options: true, false
+
+# User-specific variables
+username: "pckill3r"  # options: any username
+email: "pckill3r@gmail.com"  # options: any email
+ssh_key_filename: "id_pckill3r_rsa"  # options: any SSH key filename
+home: "/home/{{ username }}"  # options: path to home directory
+personal: "{{ home }}/personal"  # options: path to personal directory
+dev: "{{ personal }}/linux-dev-playbook"  # options: path to repository
+
+# Playbook behavior
+use_on_tv: false  # options: true, false
+restore_last_ssh: true  # options: true, false
+
+# Machine-specific packages
+drivers:  # options: add or remove drivers as needed
+  - intel-microcode
+power_management:  # options: add or remove power tools as needed
+  - tlp
+  - powertop
+hardware_packages:  # options: add or remove hardware packages as needed
+  - fwupd

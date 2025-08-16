@@ -202,6 +202,12 @@ Run the ThinkPad T16 Gen 2 preset on the default Fedora image:
 MOLECULE_MACHINE_PRESET=thinkpad_t16_gen2 make test
 ```
 
+Run the Lenovo Ideapad 330 preset on the default Fedora image:
+
+```bash
+MOLECULE_MACHINE_PRESET=ideapad_330 make test
+```
+
 To test a different distribution, override the Docker image and container name:
 
 ```bash
