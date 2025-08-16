@@ -1,4 +1,6 @@
 ## How To Setup Env
+
+For a step-by-step guide on running this playbook on a fresh machine, see [docs/fresh-install.md](docs/fresh-install.md).
 1. Install dependencies and clone the repo using the provided setup script:
     ```bash
     curl -L https://raw.githubusercontent.com/PcKiLl3r/linux-dev-playbook/master/resources/setup.sh | OS_OVERRIDE=<your_os> bash
