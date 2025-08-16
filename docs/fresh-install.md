@@ -1,0 +1,41 @@
+# Fresh Install Guide
+
+This guide walks you through preparing a brand new machine and applying this playbook with the correct machine preset.
+
+## 1. Install prerequisites and clone
+
+Run the setup script from any fresh Fedora or Arch based install. It installs Ansible and git and clones the repository into `~/personal/linux-dev-playbook`:
+
+```bash
+curl -L https://raw.githubusercontent.com/PcKiLl3r/linux-dev-playbook/master/resources/setup.sh | OS_OVERRIDE=<arch|fedora> bash
+```
+
+If auto‑detection fails, set `OS_OVERRIDE` to `arch` or `fedora` as shown above.
+
+## 2. Configure the playbook
+
+1. Change into the repository and copy the configuration template:
+   ```bash
+   cd ~/personal/linux-dev-playbook
+   cp config.template.yml config.yml
+   ```
+2. Edit `config.yml` and set the `machine_preset` to match the current machine. Available presets live under `resources/presets/` (e.g. `thinkpad_t16_gen2`, `ideapad_330`, `4k`).
+3. Create a file named `.ansible_vault_pass` containing your Ansible Vault passphrase:
+   ```bash
+   echo 'your‑vault‑password' > .ansible_vault_pass
+   chmod 600 .ansible_vault_pass
+   ```
+4. (Optional) Create or edit vault files such as `vault/bluetooth.yml` to store secrets. Use:
+   ```bash
+   ansible-vault edit vault/bluetooth.yml --vault-password-file .ansible_vault_pass
+   ```
+
+## 3. Apply the playbook
+
+Run the bootstrap script to decrypt vault files, execute the playbook and re-encrypt them:
+
+```bash
+./scripts/bootstrap.sh
+```
+
+The playbook installs packages and copies any preset files for the chosen machine. Rerun the script whenever you need to reapply the configuration.
