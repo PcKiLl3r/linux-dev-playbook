@@ -1,0 +1,6 @@
+---
+- name: Install Yazi terminal file manager
+  ansible.builtin.package:
+    name: "{{ yazi_packages }}"
+    state: present
+    use: "{{ pkg_mgr }}"

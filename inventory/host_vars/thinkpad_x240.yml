@@ -3,12 +3,32 @@
 os_override: ""  # options: "", "arch", "fedora"
 machine_preset: ""  # options: "", "4k"
 window_manager: i3  # options: "i3", "hyprland"
+desktop_environment: none  # options: "gnome", "kde", "xfce", "none"
+file_manager: none  # options: "thunar", "nautilus", "none"
+code_editors:  # options: "neovim", "vim", "vscode"
+  - neovim
+terminal_emulator: none  # options: "alacritty", "kitty", "none"
+shell: zsh  # options: "bash", "zsh", "fish"
+ai_tool: none  # options: "clickup", "none"
+video_player: none  # options: "vlc", "mpv", "none"
+torrent_client: none  # options: "qbittorrent", "transmission", "none"
+terminal_file_manager: none  # options: "yazi", "ranger", "none"
+app_launcher: none  # options: "rofi", "wofi", "none"
+install_audacity: false  # options: true, false
+install_qalculate: false  # options: true, false
+install_calcurse: false  # options: true, false
+install_dbeaver: false  # options: true, false
+install_pgmodeler: false  # options: true, false
+install_graphviz: false  # options: true, false
+install_dia: false  # options: true, false
+
+install_gimp: false  # options: true, false
+install_inkscape: false  # options: true, false
 install_bluetooth: false  # options: true, false
 install_codecs: false  # options: true, false
 add_input_group: false  # options: true, false
 install_sddm: false  # options: true, false
 install_gtk_themes: false  # options: true, false
-install_thunar: false  # options: true, false
 install_quickshell: false  # options: true, false
 install_rog_packages: false  # options: true, false
 install_brave: true  # options: true, false

@@ -1,0 +1,6 @@
+---
+- name: Install GNOME desktop environment
+  ansible.builtin.package:
+    name: "{{ gnome_packages }}"
+    state: present
+    use: "{{ pkg_mgr }}"

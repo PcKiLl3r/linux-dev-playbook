@@ -1,0 +1,6 @@
+---
+- name: Install Calcurse calendar
+  ansible.builtin.package:
+    name: "{{ calcurse_packages }}"
+    state: present
+    use: "{{ pkg_mgr }}"

@@ -1,0 +1,6 @@
+---
+- name: Install Inkscape vector editor
+  ansible.builtin.package:
+    name: "{{ inkscape_packages }}"
+    state: present
+    use: "{{ pkg_mgr }}"

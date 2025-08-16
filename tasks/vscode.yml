@@ -1,0 +1,6 @@
+---
+- name: Install Visual Studio Code
+  ansible.builtin.package:
+    name: "{{ vscode_packages }}"
+    state: present
+    use: "{{ pkg_mgr }}"

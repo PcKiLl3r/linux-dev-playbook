@@ -1,0 +1,6 @@
+---
+- name: Install Graphviz visualization tools
+  ansible.builtin.package:
+    name: "{{ graphviz_packages }}"
+    state: present
+    use: "{{ pkg_mgr }}"

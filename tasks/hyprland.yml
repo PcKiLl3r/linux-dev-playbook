@@ -25,12 +25,6 @@
     state: present
     use: "{{ pkg_mgr }}"
   when: install_gtk_themes | bool
-- name: Install Thunar file manager
-  ansible.builtin.package:
-    name: "{{ hyprland_thunar_packages }}"
-    state: present
-    use: "{{ pkg_mgr }}"
-  when: install_thunar | bool
 
 - name: Install Quickshell
   ansible.builtin.package:

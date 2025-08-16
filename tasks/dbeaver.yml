@@ -1,0 +1,6 @@
+---
+- name: Install DBeaver database tool
+  ansible.builtin.package:
+    name: "{{ dbeaver_packages }}"
+    state: present
+    use: "{{ pkg_mgr }}"

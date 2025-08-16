@@ -1,0 +1,6 @@
+---
+- name: Install Dia diagram editor
+  ansible.builtin.package:
+    name: "{{ dia_packages }}"
+    state: present
+    use: "{{ pkg_mgr }}"

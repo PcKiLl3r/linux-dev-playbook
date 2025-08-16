@@ -1,0 +1,6 @@
+---
+- name: Install Ranger terminal file manager
+  ansible.builtin.package:
+    name: "{{ ranger_packages }}"
+    state: present
+    use: "{{ pkg_mgr }}"
