@@ -73,6 +73,7 @@ install_graphviz: false
 
 # Install diagram editor
 install_dia: false
+
 # Install Bluetooth and audio support.
 install_bluetooth: false
 
