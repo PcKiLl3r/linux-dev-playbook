@@ -50,6 +50,9 @@ app_launcher: none
 install_gimp: false
 install_inkscape: false
 
+# Install office suite
+install_libreoffice: false
+
 # Install audio editor
 install_audacity: false
 

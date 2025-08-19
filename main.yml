@@ -181,6 +181,11 @@
         file: ./tasks/inkscape.yml
       when: install_inkscape | bool
 
+    - name: Import LibreOffice Install
+      ansible.builtin.import_tasks:
+        file: ./tasks/libreoffice.yml
+      when: install_libreoffice | bool
+
     - name: Import Audacity Install
       ansible.builtin.import_tasks:
         file: ./tasks/audacity.yml
