@@ -96,6 +96,7 @@ Key options available in the configuration file:
 
 - `install_gimp`: set to `true` to install the GIMP image editor.
 - `install_inkscape`: set to `true` to install the Inkscape vector editor.
+- `install_libreoffice`: set to `true` to install the LibreOffice office suite.
 - Hyprland extras (effective only when `window_manager` is `hyprland`):
   - `add_input_group`: add the current user to the `input` group.
   - `install_sddm`: install the SDDM display manager and themes.

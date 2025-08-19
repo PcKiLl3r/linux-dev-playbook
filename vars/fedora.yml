@@ -113,6 +113,9 @@ gimp_packages:
 inkscape_packages:
   - inkscape
 
+libreoffice_packages:
+  - libreoffice
+
 hyprland_quickshell_packages:
   - quickshell
 

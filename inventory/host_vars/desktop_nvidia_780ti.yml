@@ -24,6 +24,7 @@ install_dia: false  # options: true, false
 
 install_gimp: false  # options: true, false
 install_inkscape: false  # options: true, false
+install_libreoffice: false  # options: true, false
 install_bluetooth: false  # options: true, false
 install_codecs: false  # options: true, false
 add_input_group: false  # options: true, false

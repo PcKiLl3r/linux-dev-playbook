@@ -46,10 +46,12 @@ terminal_file_manager: none
 # Choose which application launcher to install ('rofi', 'wofi', or 'none').
 app_launcher: none
 
-
 # Install graphics applications
 install_gimp: false
 install_inkscape: false
+
+# Install office suite
+install_libreoffice: false
 
 # Install audio editor
 install_audacity: false
@@ -71,7 +73,6 @@ install_graphviz: false
 
 # Install diagram editor
 install_dia: false
-
 
 # Install Bluetooth and audio support.
 install_bluetooth: true
@@ -109,4 +110,3 @@ install_rog_packages: false
 # Browser installation flags
 install_brave: true
 install_firefox: true
-

@@ -136,7 +136,6 @@
         file: ./tasks/ranger.yml
       when: terminal_file_manager == 'ranger'
 
-
     - name: Import ClickUp Install
       ansible.builtin.import_tasks:
         file: ./tasks/clickup.yml
@@ -172,7 +171,6 @@
         file: ./tasks/wofi.yml
       when: app_launcher == 'wofi'
 
-
     - name: Import GIMP Install
       ansible.builtin.import_tasks:
         file: ./tasks/gimp.yml
@@ -182,6 +180,11 @@
       ansible.builtin.import_tasks:
         file: ./tasks/inkscape.yml
       when: install_inkscape | bool
+
+    - name: Import LibreOffice Install
+      ansible.builtin.import_tasks:
+        file: ./tasks/libreoffice.yml
+      when: install_libreoffice | bool
 
     - name: Import Audacity Install
       ansible.builtin.import_tasks:
@@ -217,7 +220,6 @@
       ansible.builtin.import_tasks:
         file: ./tasks/dia.yml
       when: install_dia | bool
-
 
     - name: Import i3 Install
       ansible.builtin.import_tasks:
