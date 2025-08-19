@@ -6,6 +6,13 @@
     createhome: true
   become_method: ansible.builtin.sudo
 
+- name: Ensure user has sudo privileges
+  ansible.builtin.user:
+    name: "{{ username }}"
+    groups: "{{ 'wheel' if ansible_os_family == 'RedHat' else 'sudo' }}"
+    append: true
+  become: true
+
 # Ensure the dnf Python bindings are available before using the package
 # module on Fedora-based systems. Minimal container images may omit the
 # python3-dnf package which Ansible's dnf backend requires.
