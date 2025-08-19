@@ -28,4 +28,6 @@ if [ -n "$ENCRYPTED_FILES" ]; then
 fi
 
 # Apply secrets and dotfiles using ansible-playbook
-ansible-playbook main.yml --vault-password-file "$VAULT_FILE"
+ansible-galaxy role install -r requirements.yml
+ansible-galaxy collection install -r collections/requirements.yml -p ./collections
+ansible-playbook main.yml -i localhost, -c local --vault-password-file "$VAULT_FILE"
