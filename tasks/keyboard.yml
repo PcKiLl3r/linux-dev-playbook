@@ -22,14 +22,14 @@
 - name: Check for real-prog-dvorak layout
   ansible.builtin.command: grep -q 'real-prog-dvorak' /usr/share/X11/xkb/rules/evdev.xml
   register: dvorak_exists
-  ignore_errors: true
+  failed_when: false
   changed_when: false
   become: true
 
 - name: Check for real-prog-dvo-k layout
   ansible.builtin.command: grep -q 'real-prog-dvo-k' /usr/share/X11/xkb/rules/evdev.xml
   register: dvo_k_exists
-  ignore_errors: true
+  failed_when: false
   changed_when: false
   become: true
 
@@ -63,4 +63,13 @@
         </variantList>
       </layout>
   when: dvorak_exists.rc != 0 or dvo_k_exists.rc != 0
+  become: true
+
+- name: Validate real-prog layouts were inserted
+  ansible.builtin.shell: |
+    grep -q 'real-prog-dvorak' /usr/share/X11/xkb/rules/evdev.xml \
+    && grep -q 'real-prog-dvo-k' /usr/share/X11/xkb/rules/evdev.xml
+  changed_when: false
+  failed_when: result.rc != 0
+  register: result
   become: true
