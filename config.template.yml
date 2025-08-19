@@ -46,7 +46,6 @@ terminal_file_manager: none
 # Choose which application launcher to install ('rofi', 'wofi', or 'none').
 app_launcher: none
 
-
 # Install graphics applications
 install_gimp: false
 install_inkscape: false
@@ -71,7 +70,6 @@ install_graphviz: false
 
 # Install diagram editor
 install_dia: false
-
 
 # Install Bluetooth and audio support.
 install_bluetooth: false

@@ -5,6 +5,17 @@ repos:
     hooks:
       - id: detect-secrets
         exclude: '^vault/'
+  - repo: https://github.com/adrienverge/yamllint
+    rev: v1.37.1
+    hooks:
+      - id: yamllint
+  - repo: https://github.com/ansible-community/ansible-lint
+    rev: v24.6.1
+    hooks:
+      - id: ansible-lint
+        additional_dependencies:
+          - ansible-core==2.17.13
+        args: [--offline, --skip-list, internal-error]
   - repo: local
     hooks:
       - id: ansible-vault-header
