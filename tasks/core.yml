@@ -60,12 +60,15 @@
     cache_valid_time: 3600
   when: ansible_os_family == 'Debian'
 
-  #- name: Enable Additional Repos for Fedora (Free)
-  #  ansible.builtin.pacman:
-  #    name: "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ansible_distribution_major_version}}.noarch.rpm"
-  #    state: present
-  #  when: ansible_distribution == 'Fedora'
-  #  become: true
+- name: Enable RPM Fusion repositories on Fedora
+  ansible.builtin.dnf:
+    name:
+      - "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_major_version }}.noarch.rpm"
+      - "https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_distribution_major_version }}.noarch.rpm"
+    state: present
+    disable_gpg_check: true
+  when: ansible_distribution == 'Fedora'
+  become: true
 
 - name: Ensure pacman contrib utilities
   ansible.builtin.package:
