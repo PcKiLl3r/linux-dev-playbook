@@ -39,3 +39,18 @@ Run the bootstrap script to decrypt vault files, execute the playbook and re-enc
 ```
 
 The playbook installs packages and copies any preset files for the chosen machine. Rerun the script whenever you need to reapply the configuration.
+
+### Handling existing clones
+
+The core tasks include a step that clones this repository on the target host. This is useful for provisioning remote machines but can fail on a workstation where the repository already exists with uncommitted changes.
+
+If you hit an error during the clone step:
+
+- Commit or stash any local changes before running the playbook, or
+- Skip the clone task when invoking Ansible, for example:
+
+  ```bash
+  ansible-playbook main.yml -i localhost, -c local --skip-tags repo_clone
+  ```
+
+  (Alternatively, temporarily comment out the "Clone this repo to mirror real environment" task in `tasks/core.yml`.)
