@@ -1,4 +1,11 @@
 ---
+- name: Remove conflicting ffmpeg-free package
+  ansible.builtin.package:
+    name: ffmpeg-free
+    state: absent
+    use: "{{ pkg_mgr }}"
+  when: pkg_mgr == 'dnf'
+
 - name: Install multimedia codecs
   ansible.builtin.package:
     name: "{{ codecs_packages }}"
