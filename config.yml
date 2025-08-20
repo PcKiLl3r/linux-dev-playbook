@@ -110,3 +110,4 @@ install_rog_packages: false
 # Browser installation flags
 install_brave: true
 install_firefox: true
+install_chromium: false
