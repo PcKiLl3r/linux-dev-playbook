@@ -21,4 +21,4 @@
   ansible.builtin.package:
     name: "{{ 'chromium-browser' if target_os == 'ubuntu' else 'chromium' }}"
     state: present
-  when: install_chromium | bool
+  when: install_chromium | default(false) | bool
