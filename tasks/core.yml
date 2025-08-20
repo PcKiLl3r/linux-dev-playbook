@@ -38,6 +38,13 @@
     state: present
     use: "{{ pkg_mgr }}"
 
+- name: Check if linux-dev-playbook repo exists
+  ansible.builtin.stat:
+    path: ~/personal/linux-dev-playbook/.git
+  register: ldp_repo_stat
+  become_user: "{{ username }}"
+  become: true
+
 - name: Clone this repo to mirror real environment
   ansible.builtin.git:
     repo: https://github.com/PcKiLl3r/linux-dev-playbook.git
@@ -45,6 +52,7 @@
     version: master
   become_user: "{{ username }}"
   become: true
+  when: not ldp_repo_stat.stat.exists
 
 - name: Update apt cache (on Debian based systems only)
   ansible.builtin.apt:
