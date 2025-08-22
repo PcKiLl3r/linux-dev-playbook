@@ -6,10 +6,11 @@
     use: "{{ pkg_mgr }}"
 
 - name: Enable and start bluetooth service
-  ansible.builtin.service:
+  ansible.builtin.systemd:
     name: bluetooth
     state: started
     enabled: true
+  changed_when: false
 
 - name: Enable PipeWire user services
   ansible.builtin.systemd:
@@ -52,4 +53,5 @@
     scope: user
     enabled: true
     state: started
+  changed_when: false
   become: false
