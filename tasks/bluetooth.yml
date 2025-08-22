@@ -18,8 +18,8 @@
     enabled: true
     scope: user
   loop:
-    - pipewire.socket
-    - pipewire-pulse.socket
+    - pipewire.service
+    - pipewire-pulse.service
     - wireplumber.service
   become: false
 
