@@ -1,0 +1,6 @@
+---
+- name: Install KDE Plasma desktop environment
+  ansible.builtin.package:
+    name: "{{ kde_packages }}"
+    state: present
+    use: "{{ pkg_mgr }}"

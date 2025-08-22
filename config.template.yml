@@ -16,6 +16,64 @@ machine_preset: ""
 # optional Wayland features below.
 window_manager: i3
 
+# Choose which desktop environment to install ('gnome', 'kde', 'xfce', or 'none').
+desktop_environment: none
+
+# Choose which file manager to install ('thunar', 'nautilus', or 'none').
+file_manager: none
+
+# List of code editors to install (any of 'neovim', 'vim', 'vscode').
+code_editors:
+  - neovim
+
+# Choose which terminal emulator to install ('alacritty', 'kitty', or 'none').
+terminal_emulator: none
+
+# Choose which shell to use ('bash', 'zsh', or 'fish').
+shell: zsh
+
+# Choose which AI or productivity tool to install ('clickup' or 'none').
+ai_tool: none
+
+# Choose which video player to install ('vlc', 'mpv', or 'none').
+video_player: none
+# Choose which torrent client to install ('qbittorrent', 'transmission', or 'none').
+torrent_client: none
+
+# Choose which terminal file manager to install ('yazi', 'ranger', or 'none').
+terminal_file_manager: none
+
+# Choose which application launcher to install ('rofi', 'wofi', or 'none').
+app_launcher: none
+
+# Install graphics applications
+install_gimp: false
+install_inkscape: false
+
+# Install office suite
+install_libreoffice: false
+
+# Install audio editor
+install_audacity: false
+
+# Install calculator
+install_qalculate: false
+
+# Install terminal calendar
+install_calcurse: false
+
+# Install database tool
+install_dbeaver: false
+
+# Install database modeler
+install_pgmodeler: false
+
+# Install graph visualization tools
+install_graphviz: false
+
+# Install diagram editor
+install_dia: false
+
 # Install Bluetooth and audio support.
 install_bluetooth: false
 
@@ -42,9 +100,6 @@ install_sddm: false
 
 # Install additional GTK themes for aesthetic customization.
 install_gtk_themes: false
-
-# Install the Thunar file manager.
-install_thunar: false
 
 # Install the Quickshell Wayland panel.
 install_quickshell: false

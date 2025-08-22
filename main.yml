@@ -68,9 +68,20 @@
         file: ./tasks/codecs.yml
       when: install_codecs | bool
 
+    - name: Import Bash Install
+      ansible.builtin.import_tasks:
+        file: ./tasks/bash.yml
+      when: shell == 'bash'
+
     - name: Import ZShell Install
       ansible.builtin.import_tasks:
         file: ./tasks/zsh.yml
+      when: shell == 'zsh'
+
+    - name: Import Fish Install
+      ansible.builtin.import_tasks:
+        file: ./tasks/fish.yml
+      when: shell == 'fish'
 
     - name: Import Programming Languages/Runtimes Install
       ansible.builtin.import_tasks:
@@ -83,6 +94,132 @@
     - name: Import NeoVim Install
       ansible.builtin.import_tasks:
         file: ./tasks/neovim.yml
+      when: "'neovim' in code_editors"
+
+    - name: Import Vim Install
+      ansible.builtin.import_tasks:
+        file: ./tasks/vim.yml
+      when: "'vim' in code_editors"
+
+    - name: Import VS Code Install
+      ansible.builtin.import_tasks:
+        file: ./tasks/vscode.yml
+      when: "'vscode' in code_editors"
+
+    - name: Import Alacritty Install
+      ansible.builtin.import_tasks:
+        file: ./tasks/alacritty.yml
+      when: terminal_emulator == 'alacritty'
+
+    - name: Import Kitty Install
+      ansible.builtin.import_tasks:
+        file: ./tasks/kitty.yml
+      when: terminal_emulator == 'kitty'
+
+    - name: Import Thunar Install
+      ansible.builtin.import_tasks:
+        file: ./tasks/thunar.yml
+      when: file_manager == 'thunar'
+
+    - name: Import Nautilus Install
+      ansible.builtin.import_tasks:
+        file: ./tasks/nautilus.yml
+      when: file_manager == 'nautilus'
+
+    - name: Import Yazi Install
+      ansible.builtin.import_tasks:
+        file: ./tasks/yazi.yml
+      when: terminal_file_manager == 'yazi'
+
+    - name: Import Ranger Install
+      ansible.builtin.import_tasks:
+        file: ./tasks/ranger.yml
+      when: terminal_file_manager == 'ranger'
+
+    - name: Import ClickUp Install
+      ansible.builtin.import_tasks:
+        file: ./tasks/clickup.yml
+      when: ai_tool == 'clickup'
+
+    - name: Import VLC Install
+      ansible.builtin.import_tasks:
+        file: ./tasks/vlc.yml
+      when: video_player == 'vlc'
+
+    - name: Import MPV Install
+      ansible.builtin.import_tasks:
+        file: ./tasks/mpv.yml
+      when: video_player == 'mpv'
+
+    - name: Import qBittorrent Install
+      ansible.builtin.import_tasks:
+        file: ./tasks/qbittorrent.yml
+      when: torrent_client == 'qbittorrent'
+
+    - name: Import Transmission Install
+      ansible.builtin.import_tasks:
+        file: ./tasks/transmission.yml
+      when: torrent_client == 'transmission'
+
+    - name: Import Rofi Install
+      ansible.builtin.import_tasks:
+        file: ./tasks/rofi.yml
+      when: app_launcher == 'rofi'
+
+    - name: Import Wofi Install
+      ansible.builtin.import_tasks:
+        file: ./tasks/wofi.yml
+      when: app_launcher == 'wofi'
+
+    - name: Import GIMP Install
+      ansible.builtin.import_tasks:
+        file: ./tasks/gimp.yml
+      when: install_gimp | bool
+
+    - name: Import Inkscape Install
+      ansible.builtin.import_tasks:
+        file: ./tasks/inkscape.yml
+      when: install_inkscape | bool
+
+    - name: Import LibreOffice Install
+      ansible.builtin.import_tasks:
+        file: ./tasks/libreoffice.yml
+      when: install_libreoffice | bool
+
+    - name: Import Audacity Install
+      ansible.builtin.import_tasks:
+        file: ./tasks/audacity.yml
+      when: install_audacity | bool
+
+    - name: Import Qalculate Install
+      ansible.builtin.import_tasks:
+        file: ./tasks/qalculate.yml
+      when: install_qalculate | bool
+
+    - name: Import Calcurse Install
+      ansible.builtin.import_tasks:
+        file: ./tasks/calcurse.yml
+      when: install_calcurse | bool
+
+    - name: Import DBeaver Install
+      ansible.builtin.import_tasks:
+        file: ./tasks/dbeaver.yml
+      when: install_dbeaver | bool
+
+    - name: Import pgModeler Install
+      ansible.builtin.import_tasks:
+        file: ./tasks/pgmodeler.yml
+      when: install_pgmodeler | bool
+
+    - name: Import Graphviz Install
+      ansible.builtin.import_tasks:
+        file: ./tasks/graphviz.yml
+      when: install_graphviz | bool
+
+    - name: Import Dia Install
+      ansible.builtin.import_tasks:
+        file: ./tasks/dia.yml
+      when: install_dia | bool
 
     - name: Import i3 Install
       ansible.builtin.import_tasks:
@@ -93,6 +230,21 @@
       ansible.builtin.import_tasks:
         file: ./tasks/hyprland.yml
       when: window_manager == 'hyprland'
+
+    - name: Import GNOME Install
+      ansible.builtin.import_tasks:
+        file: ./tasks/gnome.yml
+      when: desktop_environment == 'gnome'
+
+    - name: Import KDE Install
+      ansible.builtin.import_tasks:
+        file: ./tasks/kde.yml
+      when: desktop_environment == 'kde'
+
+    - name: Import XFCE Install
+      ansible.builtin.import_tasks:
+        file: ./tasks/xfce.yml
+      when: desktop_environment == 'xfce'
 
     - name: Import keyboard setup
       ansible.builtin.import_tasks:

@@ -1,0 +1,6 @@
+---
+- name: Install LibreOffice office suite
+  ansible.builtin.package:
+    name: "{{ libreoffice_packages }}"
+    state: present
+    use: "{{ pkg_mgr }}"

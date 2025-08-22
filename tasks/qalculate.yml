@@ -1,0 +1,6 @@
+---
+- name: Install Qalculate calculator
+  ansible.builtin.package:
+    name: "{{ qalculate_packages }}"
+    state: present
+    use: "{{ pkg_mgr }}"

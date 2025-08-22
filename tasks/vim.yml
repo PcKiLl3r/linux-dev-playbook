@@ -1,0 +1,6 @@
+---
+- name: Install Vim editor
+  ansible.builtin.package:
+    name: "{{ vim_packages }}"
+    state: present
+    use: "{{ pkg_mgr }}"

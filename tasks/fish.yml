@@ -1,0 +1,11 @@
+---
+- name: Ensure Fish shell is installed
+  ansible.builtin.package:
+    name: "{{ fish_packages }}"
+    state: present
+    use: "{{ pkg_mgr }}"
+
+- name: Ensure fish is the default shell
+  ansible.builtin.user:
+    name: "{{ username }}"
+    shell: "/usr/bin/fish"

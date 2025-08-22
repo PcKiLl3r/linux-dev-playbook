@@ -56,6 +56,12 @@ dotfiles_packages:
 zsh_packages:
   - zsh
 
+bash_packages:
+  - bash
+
+fish_packages:
+  - fish
+
 i3_packages:
   - i3-wm
   - i3status
@@ -75,9 +81,42 @@ hyprland_sddm_packages:
 hyprland_gtk_packages:
   - gtk-engine-murrine
 
-hyprland_thunar_packages:
+thunar_packages:
   - thunar
   - thunar-volman
+
+nautilus_packages:
+  - nautilus
+
+vim_packages:
+  - vim
+
+vscode_packages:
+  - code
+
+alacritty_packages:
+  - alacritty
+
+kitty_packages:
+  - kitty
+
+clickup_packages:
+  - clickup-desktop
+
+vlc_packages:
+  - vlc
+
+mpv_packages:
+  - mpv
+
+gimp_packages:
+  - gimp
+
+inkscape_packages:
+  - inkscape
+
+libreoffice_packages:
+  - libreoffice-fresh
 
 hyprland_quickshell_packages:
   - quickshell
@@ -153,3 +192,37 @@ prog_lang_go_packages:
 prog_lang_lua_packages:
   - lua
   - luarocks
+
+yazi_packages:
+  - yazi
+ranger_packages:
+  - ranger
+rofi_packages:
+  - rofi
+wofi_packages:
+  - wofi
+qbittorrent_packages:
+  - qbittorrent
+transmission_packages:
+  - transmission-gtk
+audacity_packages:
+  - audacity
+qalculate_packages:
+  - qalculate-gtk
+calcurse_packages:
+  - calcurse
+dbeaver_packages:
+  - dbeaver
+graphviz_packages:
+  - graphviz
+dia_packages:
+  - dia
+pgmodeler_packages:
+  - pgmodeler
+gnome_packages:
+  - gnome
+kde_packages:
+  - plasma
+xfce_packages:
+  - xfce4
+  - xfce4-goodies

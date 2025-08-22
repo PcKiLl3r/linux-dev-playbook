@@ -1,0 +1,6 @@
+---
+- name: Install Wofi application launcher
+  ansible.builtin.package:
+    name: "{{ wofi_packages }}"
+    state: present
+    use: "{{ pkg_mgr }}"

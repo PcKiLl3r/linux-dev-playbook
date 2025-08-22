@@ -1,0 +1,6 @@
+---
+- name: Install pgModeler database modeler
+  ansible.builtin.package:
+    name: "{{ pgmodeler_packages }}"
+    state: present
+    use: "{{ pkg_mgr }}"

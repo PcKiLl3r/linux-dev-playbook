@@ -1,0 +1,6 @@
+---
+- name: Install Transmission
+  ansible.builtin.package:
+    name: "{{ transmission_packages }}"
+    state: present
+    use: "{{ pkg_mgr }}"

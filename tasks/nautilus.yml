@@ -1,0 +1,6 @@
+---
+- name: Install Nautilus file manager
+  ansible.builtin.package:
+    name: "{{ nautilus_packages }}"
+    state: present
+    use: "{{ pkg_mgr }}"

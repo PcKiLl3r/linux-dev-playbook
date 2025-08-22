@@ -1,0 +1,6 @@
+---
+- name: Install GIMP image editor
+  ansible.builtin.package:
+    name: "{{ gimp_packages }}"
+    state: present
+    use: "{{ pkg_mgr }}"
