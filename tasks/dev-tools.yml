@@ -21,6 +21,7 @@
   ansible.builtin.user:
     name: "{{ username }}"
     groups: docker
+    append: true
 
 - name: Add username to git Config
   community.general.git_config:
