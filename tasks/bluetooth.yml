@@ -21,6 +21,7 @@
     - pipewire.socket
     - pipewire-pulse.socket
     - wireplumber.service
+  become: false
 
 - name: Create bluetooth reconnect script
   ansible.builtin.copy:
