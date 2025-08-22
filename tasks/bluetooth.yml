@@ -27,7 +27,7 @@
     mode: '0755'
     content: |
       #!/usr/bin/env bash
-      {% for mac in bluetooth_macs %}
+      {% for mac in bluetooth_macs | default([]) %}
       bluetoothctl connect {{ mac }}
       {% endfor %}
 
