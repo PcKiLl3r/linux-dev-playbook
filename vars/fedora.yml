@@ -14,6 +14,8 @@ bluetooth_packages:
   - bluez-tools
   - blueman
 
+pipewire_user_services: []
+
 mobile_dev_packages:
   - scrcpy
 

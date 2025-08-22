@@ -15,6 +15,11 @@ bluetooth_packages:
   - bluez-utils
   - blueman
 
+pipewire_user_services:
+  - pipewire.service
+  - pipewire-pulse.service
+  - wireplumber.service
+
 mobile_dev_packages:
   - scrcpy
 
