@@ -1,7 +1,17 @@
 ---
-- name: Remove conflicting ffmpeg-free package
+- name: Remove conflicting ffmpeg-free packages
   ansible.builtin.package:
-    name: ffmpeg-free
+    name:
+      - ffmpeg-free
+      - libavcodec-free
+      - libavdevice-free
+      - libavfilter-free
+      - libavformat-free
+      - libavresample-free
+      - libavutil-free
+      - libpostproc-free
+      - libswresample-free
+      - libswscale-free
     state: absent
     use: "{{ pkg_mgr }}"
   when: pkg_mgr == 'dnf'
