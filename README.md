@@ -144,6 +144,14 @@ ansible-playbook main.yml --skip-tags "docker"
 ```
 
 ### Keep a Molecule container running
+Ensure Molecule can read your Ansible Vault password by creating `.ansible_vault_pass` or setting `ANSIBLE_VAULT_PASSWORD_FILE`:
+
+```bash
+echo "password" > .ansible_vault_pass && chmod 600 .ansible_vault_pass
+```
+
+The `make converge` target wraps `molecule converge` and exports the vault password file automatically.
+
 Create the test environment once with `molecule create`, then iterate with `molecule converge`:
 
 ```bash
