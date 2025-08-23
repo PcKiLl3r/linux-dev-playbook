@@ -75,10 +75,12 @@ i3_packages:
   - xorg-xbacklight
   - nitrogen
   - conky
+  - kitty
 
 hyprland_packages:
   - hyprland
   - xdg-desktop-portal-hyprland
+  - alacritty
 
 hyprland_sddm_packages:
   - sddm
@@ -98,12 +100,6 @@ vim_packages:
 
 vscode_packages:
   - code
-
-alacritty_packages:
-  - alacritty
-
-kitty_packages:
-  - kitty
 
 clickup_packages:
   - clickup-desktop
