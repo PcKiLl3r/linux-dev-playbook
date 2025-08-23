@@ -106,16 +106,6 @@
         file: ./tasks/vscode.yml
       when: "'vscode' in code_editors"
 
-    - name: Import Alacritty Install
-      ansible.builtin.import_tasks:
-        file: ./tasks/alacritty.yml
-      when: terminal_emulator == 'alacritty'
-
-    - name: Import Kitty Install
-      ansible.builtin.import_tasks:
-        file: ./tasks/kitty.yml
-      when: terminal_emulator == 'kitty'
-
     - name: Import Thunar Install
       ansible.builtin.import_tasks:
         file: ./tasks/thunar.yml

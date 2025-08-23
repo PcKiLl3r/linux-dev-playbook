@@ -7,7 +7,6 @@ desktop_environment: none  # options: "gnome", "kde", "xfce", "none"
 file_manager: none  # options: "thunar", "nautilus", "none"
 code_editors:  # options: "neovim", "vim", "vscode"
   - neovim
-terminal_emulator: none  # options: "alacritty", "kitty", "none"
 shell: zsh  # options: "bash", "zsh", "fish"
 ai_tool: none  # options: "clickup", "none"
 video_player: none  # options: "vlc", "mpv", "none"

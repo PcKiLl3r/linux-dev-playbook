@@ -75,11 +75,10 @@ Key options available in the configuration file:
 - `os_override`: force a specific distribution instead of auto-detection. Supported values: `arch` (also for Arch-based systems like Manjaro) and `fedora`.
 
 - `machine_preset`: name of a preset under `resources/presets/` to copy machine-specific files.
-- `window_manager`: choose `i3` or `hyprland`.
+- `window_manager`: choose `i3` or `hyprland`. Selecting `hyprland` installs Alacritty; selecting `i3` installs Kitty.
 - `desktop_environment`: choose a desktop environment (`gnome`, `kde`, `xfce`, or `none`).
 - `file_manager`: choose a file manager (`thunar`, `nautilus`, or `none`).
 - `code_editors`: list of code editors to install (`neovim`, `vim`, `vscode`).
-- `terminal_emulator`: choose a terminal emulator (`alacritty`, `kitty`, or `none`).
 - `shell`: choose the default shell (`bash`, `zsh`, or `fish`).
 - `ai_tool`: choose an AI or productivity tool (`clickup` or `none`).
 - `video_player`: choose a video player (`vlc`, `mpv`, or `none`).

@@ -1,6 +1,0 @@
----
-- name: Install Kitty
-  ansible.builtin.package:
-    name: "{{ kitty_packages }}"
-    state: present
-    use: "{{ pkg_mgr }}"

@@ -12,8 +12,9 @@ os_override: ""
 machine_preset: "ideapad_330"
 
 # Choose which window manager to install: 'i3' or 'hyprland'.
-# Set to 'hyprland' to install the Hyprland compositor and enable the
-# optional Wayland features below.
+# Selecting 'hyprland' installs the Hyprland compositor and Alacritty terminal;
+# selecting 'i3' installs the i3 window manager and Kitty terminal.
+# Optional Wayland features below are effective only for Hyprland.
 window_manager: hyprland
 
 # Choose which desktop environment to install ('gnome', 'kde', 'xfce', or 'none').
@@ -26,8 +27,6 @@ file_manager: none
 code_editors:
   - neovim
 
-# Choose which terminal emulator to install ('alacritty', 'kitty', or 'none').
-terminal_emulator: none
 
 # Choose which shell to use ('bash', 'zsh', or 'fish').
 shell: zsh

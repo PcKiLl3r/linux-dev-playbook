@@ -1,6 +1,0 @@
----
-- name: Install Alacritty
-  ansible.builtin.package:
-    name: "{{ alacritty_packages }}"
-    state: present
-    use: "{{ pkg_mgr }}"
