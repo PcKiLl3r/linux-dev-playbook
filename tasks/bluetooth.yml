@@ -32,6 +32,13 @@
       bluetoothctl connect {{ mac }}
       {% endfor %}
 
+- name: Ensure systemd user unit directory exists
+  ansible.builtin.file:
+    path: ~/.config/systemd/user
+    state: directory
+    mode: '0755'
+  become: false
+
 - name: Create systemd user service for reconnect
   ansible.builtin.copy:
     dest: ~/.config/systemd/user/bluetooth-reconnect.service
