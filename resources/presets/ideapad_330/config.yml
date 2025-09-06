@@ -1,0 +1,4 @@
+# Machine-specific overrides for ideapad_330
+# window_manager: hyprland
+# terminal_emulator: alacritty  # or whatever you use
+# install_power_management: true

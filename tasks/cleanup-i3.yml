@@ -1,0 +1,13 @@
+---
+- name: Remove i3 packages
+  ansible.builtin.package:
+    name:
+      - i3
+      - i3status
+      - dmenu
+      - i3lock
+      - nitrogen
+      - conky
+    state: absent
+    use: "{{ pkg_mgr }}"
+  when: cleanup_i3 | default(false)
