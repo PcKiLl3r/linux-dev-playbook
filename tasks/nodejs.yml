@@ -1,0 +1,12 @@
+- name: Install Angular CLI globally
+  npm:
+    name: "@angular/cli"
+    global: yes
+    state: present
+  become: no
+
+# - name: Install Angular CLI via npm command
+#   shell: npm install -g @angular/cli
+#   args:
+#     creates: "{{ ansible_env.HOME }}/.npm-global/bin/ng"
+#   become: no

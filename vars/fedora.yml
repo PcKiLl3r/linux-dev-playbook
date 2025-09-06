@@ -180,7 +180,6 @@ postman_dependency_packages:
 
 prog_lang_nodejs_packages:
   - nodejs
-  - "@angular/cli"
 
 prog_lang_pnpm_packages:
   - pnpm
