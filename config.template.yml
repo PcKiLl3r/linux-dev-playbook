@@ -15,7 +15,7 @@ machine_preset: ""
 # Selecting 'hyprland' installs the Hyprland compositor and Alacritty terminal;
 # selecting 'i3' installs the i3 window manager and Kitty terminal.
 # Optional Wayland features below are effective only for Hyprland.
-window_manager: i3
+window_manager: hyprland
 
 # Choose which desktop environment to install ('gnome', 'kde', 'xfce', or 'none').
 desktop_environment: none
