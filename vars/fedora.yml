@@ -81,7 +81,7 @@ hyprland_packages:
   - grim
   - slurp
   - wl-clipboard
-  - swaylock-effects
+  - swaylock
   - wlogout
   - hyprpaper
   - hypridle
@@ -180,6 +180,7 @@ postman_dependency_packages:
 
 prog_lang_nodejs_packages:
   - nodejs
+  - "@angular/cli"
 
 prog_lang_pnpm_packages:
   - pnpm

@@ -16,7 +16,7 @@ cleanup() {
   fi
   rm -f "$VAULT_FILE"
 }
-trap cleanup EXIT
+trap cleanup EXIT INT TERM
 
 printf "%s" "$VAULT_PASS" > "$VAULT_FILE"
 
