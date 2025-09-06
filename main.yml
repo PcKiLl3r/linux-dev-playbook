@@ -239,6 +239,7 @@
     - name: Import keyboard setup
       ansible.builtin.import_tasks:
         file: ./tasks/keyboard.yml
+      tags: keyboard
 
     - name: Import Bluetooth & audio setup
       ansible.builtin.import_tasks:
