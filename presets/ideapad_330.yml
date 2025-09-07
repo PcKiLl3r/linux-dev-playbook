@@ -1,0 +1,77 @@
+---
+# Ideapad 330 preset - complete configuration
+machine_name: "ideapad_330"
+os_override: "fedora"
+
+# User-specific variables
+username: "pckill3r"
+email: "pckill3r@gmail.com"
+ssh_key_filename: "id_pckill3r_rsa"
+home: "/home/{{ username }}"
+personal: "{{ home }}/personal"
+dev: "{{ personal }}/linux-dev-playbook"
+
+# Core system - UPDATED FOR HYPRLAND
+window_manager: "hyprland"
+desktop_environment: "none"
+shell: "zsh"
+terminal_emulator: "alacritty"
+
+# Development tools
+code_editors:
+  - "neovim"
+
+# Applications - UPDATED FOR WAYLAND
+file_manager: "dolphin"
+video_player: "mpv"
+torrent_client: "none"
+terminal_file_manager: "none"
+app_launcher: "rofi"
+ai_tool: "none"
+
+# Install flags
+install_gimp: false
+install_inkscape: false
+install_libreoffice: false
+install_audacity: false
+install_qalculate: false
+install_calcurse: false
+install_dbeaver: false
+install_pgmodeler: false
+install_graphviz: false
+install_dia: false
+install_bluetooth: true
+install_codecs: true
+
+# Hyprland specific - ENABLED
+add_input_group: true
+install_sddm: true
+install_gtk_themes: true
+install_quickshell: false
+install_rog_packages: false
+
+# Browsers
+install_brave: true
+install_firefox: true
+install_chromium: true
+
+# Dotfiles
+dotfiles_repo: "https://github.com/PcKiLl3r/.dotfiles.git"
+dotfiles_repo_key: ""
+dotfiles_repo_recursive: false
+
+# Dotfiles folders to stow - UPDATED FOR HYPRLAND
+stow_folders:
+  - "bin"
+  - "nvim"
+  - "tmux"
+  - "shell"
+  - "zsh"
+  - "hypr"
+  - "alacritty"
+  - "git"
+  - "ssh"
+
+# Playbook behavior
+use_on_tv: false
+restore_last_ssh: true

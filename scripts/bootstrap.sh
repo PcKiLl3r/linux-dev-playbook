@@ -1,32 +1,72 @@
 #!/usr/bin/env bash
-# Enhanced bootstrap with machine preset support
+# Simplified bootstrap with mandatory preset
 
-MACHINE_PRESET=""
+PRESET=""
 
 while [[ $# -gt 0 ]]; do
     case $1 in
-        --machine|--preset)
-            MACHINE_PRESET="$2"
+        --preset)
+            PRESET="$2"
             shift 2
             ;;
         *)
-            shift
+            echo "Unknown option: $1"
+            echo "Usage: $0 --preset <preset_name>"
+            exit 1
             ;;
     esac
 done
 
-# Auto-detect if not specified
-if [[ -z "$MACHINE_PRESET" ]]; then
-    MACHINE_PRESET=$(detect_machine_preset)
+if [[ -z "$PRESET" ]]; then
+    echo "Error: --preset is required"
+    echo "Available presets:"
+    ls presets/*.yml 2>/dev/null | sed 's/presets\///g' | sed 's/\.yml//g' | sed 's/^/  /'
+    exit 1
 fi
 
-echo "Using machine preset: $MACHINE_PRESET"
+if [[ ! -f "presets/${PRESET}.yml" ]]; then
+    echo "Error: Preset 'presets/${PRESET}.yml' not found"
+    echo "Available presets:"
+    ls presets/*.yml 2>/dev/null | sed 's/presets\///g' | sed 's/\.yml//g' | sed 's/^/  /'
+    exit 1
+fi
 
-# Run ansible with machine preset
-ansible-playbook main.yml \
+echo "Using preset: $PRESET"
+
+# Run ansible with preset environment variable
+PRESET="$PRESET" ansible-playbook main.yml \
     --vault-password-file .ansible_vault_pass \
-    -e "machine_preset=$MACHINE_PRESET" \
     --ask-become-pass
+
+# #!/usr/bin/env bash
+# # Enhanced bootstrap with machine preset support
+#
+# MACHINE_PRESET=""
+#
+# while [[ $# -gt 0 ]]; do
+#     case $1 in
+#         --machine|--preset)
+#             MACHINE_PRESET="$2"
+#             shift 2
+#             ;;
+#         *)
+#             shift
+#             ;;
+#     esac
+# done
+#
+# # Auto-detect if not specified
+# if [[ -z "$MACHINE_PRESET" ]]; then
+#     MACHINE_PRESET=$(detect_machine_preset)
+# fi
+#
+# echo "Using machine preset: $MACHINE_PRESET"
+#
+# # Run ansible with machine preset
+# ansible-playbook main.yml \
+#     --vault-password-file .ansible_vault_pass \
+#     -e "machine_preset=$MACHINE_PRESET" \
+#     --ask-become-pass
 
 # #!/usr/bin/env bash
 # set -euo pipefail

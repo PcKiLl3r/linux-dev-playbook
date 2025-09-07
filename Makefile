@@ -1,4 +1,5 @@
 # Variables
+
 PYTHON = python3
 PIP = $(PYTHON) -m pip
 MOLECULE = molecule
@@ -8,6 +9,9 @@ LINT_TOOLS = yamllint ansible-lint
 ANSIBLE_VAULT_PASSWORD_FILE ?= $(CURDIR)/.ansible_vault_pass
 export ANSIBLE_VAULT_PASSWORD_FILE
 TEST_DEPS = molecule molecule-plugins[docker] yamllint ansible-lint
+
+# Default preset for testing
+PRESET ?= ideapad_330
 
 # Default target
 .DEFAULT_GOAL := help
@@ -52,20 +56,28 @@ lint: install-requirements
 	@echo "Running ansible-lint..."
 	ansible-lint main.yml tasks/
 
-# Execute the main playbook
+# Run the main playbook with preset
 run:
-	@echo "Running main playbook..."
-	$(ANSIBLE_PLAYBOOK) main.yml --vault-password-file $(ANSIBLE_VAULT_PASSWORD_FILE) --ask-become-pass
+	@if [ -z "$(PRESET)" ]; then \
+		echo "Error: PRESET must be specified. Usage: make run PRESET=thinkpad_t16_gen2"; \
+		exit 1; \
+	fi
+	PRESET=$(PRESET) ansible-playbook main.yml --vault-password-file .ansible_vault_pass --ask-become-pass
+
+# Run tests with preset
+test: install-test-tools lint
+	@echo "Running Molecule tests with preset: $(PRESET)"
+	MOLECULE_MACHINE_PRESET=$(PRESET) $(MOLECULE) test
+
+# Run converge with preset
+converge: install-test-tools lint
+	@echo "Running Molecule converge with preset: $(PRESET)"
+	MOLECULE_MACHINE_PRESET=$(PRESET) $(MOLECULE) converge
 
 #	@echo "Running ansible-playbook syntax check..."
 #	$(ANSIBLE_PLAYBOOK) --syntax-check main.yml
 #	@echo "Running ansible-lint..."
 #	ansible-lint
-
-# Run Molecule tests, ensuring dependencies are installed and linting runs first
-test: install-test-tools lint
-	@echo "Running Molecule tests..."
-	$(MOLECULE) test
 
 # Run Molecule tests without destroying instances
 test-nodestr: install-test-tools lint
@@ -81,11 +93,6 @@ converge-at: install-test-tools lint
 	@test -n "$(START_AT)" || (echo "ERROR: Provide START_AT=\"<task name>\"" && exit 1)
 	@echo "Running Molecule converge starting at '$(START_AT)'..."
 	$(MOLECULE) converge $(SCEN_ARG) -- --start-at-task "$(START_AT)"
-
-# Run Molecule converge, ensuring dependencies are installed and linting runs first
-converge: install-test-tools lint
-	@echo "Running Molecule converge..."
-	$(MOLECULE) converge
 
 # Run linting, syntax checks, and Molecule tests
 all: lint test

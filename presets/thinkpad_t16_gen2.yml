@@ -1,0 +1,78 @@
+---
+# ThinkPad T16 Gen 2 preset - complete configuration
+machine_name: "thinkpad_t16_gen2"
+os_override: "fedora"
+
+# User-specific variables
+username: "pckill3r"
+email: "pckill3r@gmail.com"
+ssh_key_filename: "id_pckill3r_rsa"
+home: "/home/{{ username }}"
+personal: "{{ home }}/personal"
+dev: "{{ personal }}/linux-dev-playbook"
+
+# Core system
+window_manager: "hyprland"
+desktop_environment: "none"
+shell: "zsh"
+terminal_emulator: "alacritty"
+
+# Development tools
+code_editors:
+  - "neovim"
+  - "vscode"
+
+# Applications
+file_manager: "thunar"
+video_player: "mpv"
+torrent_client: "qbittorrent"
+terminal_file_manager: "yazi"
+app_launcher: "wofi"
+ai_tool: "none"
+
+# Install flags
+install_gimp: false
+install_inkscape: false
+install_libreoffice: false
+install_audacity: false
+install_qalculate: true
+install_calcurse: false
+install_dbeaver: false
+install_pgmodeler: false
+install_graphviz: false
+install_dia: false
+install_bluetooth: true
+install_codecs: true
+
+# Hyprland specific
+add_input_group: true
+install_sddm: true
+install_gtk_themes: true
+install_quickshell: false
+install_rog_packages: false
+
+# Browsers
+install_brave: true
+install_firefox: true
+install_chromium: false
+
+# Dotfiles
+dotfiles_repo: "https://github.com/PcKiLl3r/.dotfiles.git"
+dotfiles_repo_key: ""
+dotfiles_repo_recursive: false
+
+# Dotfiles folders to stow
+stow_folders:
+  - "bin"
+  - "nvim"
+  - "tmux"
+  - "shell"
+  - "zsh"
+  - "alacritty"
+  - "hypr"
+  - "git"
+  - "ssh"
+
+# Playbook behavior
+use_on_tv: false
+restore_last_ssh: true

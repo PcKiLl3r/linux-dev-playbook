@@ -80,6 +80,14 @@ i3_packages:
 hyprland_packages:
   - hyprland
   - xdg-desktop-portal-hyprland
+  - waybar
+  - wofi
+  - mako
+  - grim
+  - slurp
+  - wl-clipboard
+  - swaylock-effects
+  - wlogout
   - alacritty
 
 hyprland_sddm_packages:

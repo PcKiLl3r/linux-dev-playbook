@@ -5,16 +5,25 @@
   vars_files:
     - vault/become_pass.yml
     - vault/bluetooth.yml
-    - config.yml
+    # - config.yml
 
-  vars:
-    use_on_tv: false
-    restore_last_ssh: true
+  # vars:
+  #   use_on_tv: false
+  #   restore_last_ssh: true
 
   pre_tasks:
-    - name: Include Vars
+    - name: Validate preset is specified
+      ansible.builtin.fail:
+        msg: "PRESET environment variable must be set. Usage: PRESET=thinkpad_t16_gen2 ansible-playbook main.yml"
+      when: lookup('env', 'PRESET') == ""
+
+    - name: Load preset configuration
       ansible.builtin.include_vars:
-        file: ./vars/common.yml
+        file: "presets/{{ lookup('env', 'PRESET') }}.yml"
+
+    # - name: Include Vars
+    #   ansible.builtin.include_vars:
+    #     file: ./vars/common.yml
 
     - name: Determine target operating system
       ansible.builtin.set_fact:
@@ -23,6 +32,14 @@
     - name: Include distro vars
       ansible.builtin.include_vars:
         file: "./vars/{{ target_os }}.yml"
+
+    - name: Show configuration
+      ansible.builtin.debug:
+        msg:
+          - "Using preset: {{ lookup('env', 'PRESET') }}"
+          - "Machine: {{ machine_name }}"
+          - "OS: {{ target_os }}"
+          - "Window Manager: {{ window_manager }}"
 
     - name: Show detected operating system
       ansible.builtin.debug:
