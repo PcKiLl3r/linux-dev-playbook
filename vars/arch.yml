@@ -89,6 +89,12 @@ hyprland_packages:
   - swaylock-effects
   - wlogout
   - alacritty
+  - thunar
+
+sddm_packages:
+  - sddm
+  - qt5-graphicaleffects
+  - qt5-quickcontrols2
 
 hyprland_sddm_packages:
   - sddm

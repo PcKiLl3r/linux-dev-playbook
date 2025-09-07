@@ -4,22 +4,34 @@ Dead simple Ansible playbook for setting up Linux development machines. Each mac
 
 ## Quick Start
 
-1. **Install prerequisites and clone:**
-   ```bash
-   curl -L https://raw.githubusercontent.com/PcKiLl3r/linux-dev-playbook/master/resources/setup.sh | bash
-   cd ~/personal/linux-dev-playbook
-   ```
+<!-- 1. **Install prerequisites and clone:** -->
+<!--    ```bash -->
+<!--    curl -L https://raw.githubusercontent.com/PcKiLl3r/linux-dev-playbook/master/resources/setup.sh | bash -->
+<!--    cd ~/personal/linux-dev-playbook -->
+<!--    ``` -->
+<!---->
+<!-- 2. **Create vault password:** -->
+<!--    ```bash -->
+<!--    echo 'your-vault-password' > .ansible_vault_pass -->
+<!--    chmod 600 .ansible_vault_pass -->
+<!--    ``` -->
+<!---->
+<!-- 3. **Run with a preset:** -->
+<!--    ```bash -->
+<!--    ./scripts/bootstrap.sh --preset thinkpad_t16_gen2 -->
+<!--    ``` -->
 
-2. **Create vault password:**
-   ```bash
-   echo 'your-vault-password' > .ansible_vault_pass
-   chmod 600 .ansible_vault_pass
-   ```
+Complete setup in one command
+```bash
+curl -L https://raw.githubusercontent.com/PcKiLl3r/linux-dev-playbook/master/resources/setup.sh | bash -s -- --preset ideapad_330
+```
 
-3. **Run with a preset:**
-   ```bash
-   ./scripts/bootstrap.sh --preset thinkpad_t16_gen2
-   ```
+Or with OS override:
+
+```bash
+# Force specific OS detection
+curl -L https://raw.githubusercontent.com/PcKiLl3r/linux-dev-playbook/master/resources/setup.sh | OS_OVERRIDE=arch bash -s -- --preset ideapad_330
+```
 
 ## Presets - Single Source of Truth
 
