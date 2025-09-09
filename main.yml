@@ -1,6 +1,6 @@
 ---
 - name: Setup Linux Development Machine Environment
-  hosts: all
+  hosts: localhost
   become: true
   vars_files:
     - vault/become_pass.yml
