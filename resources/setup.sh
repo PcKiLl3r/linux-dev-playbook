@@ -41,6 +41,11 @@ esac
 git clone https://github.com/PcKiLl3r/linux-dev-playbook ~/personal/linux-dev-playbook
 cd ~/personal/linux-dev-playbook
 
+# Install Ansible requirements BEFORE running playbook
+echo "Installing Ansible roles and collections..."
+ansible-galaxy install -r requirements.yml
+ansible-galaxy collection install -r collections/requirements.yml -p ./collections
+
 if [[ -n "$PRESET" ]]; then
     echo "Setting up with preset: $PRESET"
 
