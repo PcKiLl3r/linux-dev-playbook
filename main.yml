@@ -268,6 +268,6 @@
         file: ./tasks/dotfiles.yml
       when: dotfiles_repo | default('') | length > 0
 
-    - name: Import machine preset overrides
-      ansible.builtin.import_tasks:
-        file: ./tasks/presets.yml
+    # - name: Import machine preset overrides
+    #   ansible.builtin.import_tasks:
+    #     file: ./tasks/presets.yml
