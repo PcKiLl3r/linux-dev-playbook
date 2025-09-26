@@ -19,6 +19,126 @@
     use: "{{ pkg_mgr }}"
   when: install_sddm | bool
 
+- name: Configure SDDM keyboard layout
+  ansible.builtin.copy:
+    content: |
+      [General]
+      Numlock=none
+
+      [Theme]
+      Current=breeze
+
+      [X11]
+      ServerPath=/usr/bin/X
+      XephyrPath=/usr/bin/Xephyr
+      SessionCommand=/usr/share/sddm/scripts/Xsession
+      SessionDir=/usr/share/xsessions
+      XauthPath=/usr/bin/xauth
+
+      [Wayland]
+      SessionDir=/usr/share/wayland-sessions
+
+      # Set keyboard layouts for login screen
+      [Users]
+      MaximumUid=60513
+      MinimumUid=500
+
+      [Autologin]
+      Relogin=false
+      Session=
+      User=
+    dest: /etc/sddm.conf
+    owner: root
+    group: root
+    mode: '0644'
+  when: install_sddm | bool
+
+
+# - name: Set SDDM default keyboard layout
+#   ansible.builtin.lineinfile:
+#     path: /etc/sddm.conf
+#     regexp: '^#?InputMethod='
+#     line: 'InputMethod='
+#     create: true
+#   when: install_sddm | bool
+#
+# - name: Configure SDDM keyboard layout in separate config
+#   ansible.builtin.copy:
+#     content: |
+#       [General]
+#       InputMethod=
+#
+#       [X11]
+#       DisplayCommand=/usr/share/sddm/scripts/Xsetup
+#       DisplayStopCommand=/usr/share/sddm/scripts/Xstop
+#       ServerArguments=-nolisten tcp -dpi 96
+#
+#       # Keyboard configuration
+#       ServerArguments=-nolisten tcp -dpi 96 -xkbdir /usr/share/X11/xkb -xkbmap real-prog-dvorak
+#     dest: /etc/sddm.conf.d/keyboard.conf
+#     owner: root
+#     group: root
+#     mode: '0644'
+#   when: install_sddm | bool
+
+- name: Enable SDDM service
+  ansible.builtin.systemd:
+    name: sddm
+    enabled: true
+    state: started
+  when: install_sddm | bool
+
+- name: Configure SDDM for Wayland and Hyprland
+  ansible.builtin.copy:
+    content: |
+      [General]
+      Numlock=none
+
+      [Theme]
+      Current=breeze
+
+      [Wayland]
+      SessionDir=/usr/share/wayland-sessions
+      CompositorCommand=Hyprland
+
+      [X11]
+      ServerPath=/usr/bin/X
+      SessionDir=/usr/share/xsessions
+
+      [Users]
+      MaximumUid=60513
+      MinimumUid=500
+
+      [Autologin]
+      Relogin=false
+      Session=hyprland.desktop
+      User={{ username }}
+    dest: /etc/sddm.conf
+    owner: root
+    group: root
+    mode: '0644'
+  when: install_sddm | bool
+
+- name: Create Hyprland desktop entry for SDDM
+  ansible.builtin.copy:
+    content: |
+      [Desktop Entry]
+      Name=Hyprland
+      Comment=An intelligent dynamic tiling Wayland compositor
+      Exec=Hyprland
+      Type=Application
+    dest: /usr/share/wayland-sessions/hyprland.desktop
+    owner: root
+    group: root
+    mode: '0644'
+  when: install_sddm | bool
+
+- name: Set default systemd target to graphical
+  ansible.builtin.systemd:
+    name: graphical.target
+    enabled: true
+  when: install_sddm | bool
+
 - name: Install GTK themes
   ansible.builtin.package:
     name: "{{ hyprland_gtk_packages }}"
