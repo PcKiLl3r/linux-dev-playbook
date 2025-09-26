@@ -19,39 +19,39 @@
     use: "{{ pkg_mgr }}"
   when: install_sddm | bool
 
-- name: Configure SDDM keyboard layout
-  ansible.builtin.copy:
-    content: |
-      [General]
-      Numlock=none
-
-      [Theme]
-      Current=breeze
-
-      [X11]
-      ServerPath=/usr/bin/X
-      XephyrPath=/usr/bin/Xephyr
-      SessionCommand=/usr/share/sddm/scripts/Xsession
-      SessionDir=/usr/share/xsessions
-      XauthPath=/usr/bin/xauth
-
-      [Wayland]
-      SessionDir=/usr/share/wayland-sessions
-
-      # Set keyboard layouts for login screen
-      [Users]
-      MaximumUid=60513
-      MinimumUid=500
-
-      [Autologin]
-      Relogin=false
-      Session=
-      User=
-    dest: /etc/sddm.conf
-    owner: root
-    group: root
-    mode: '0644'
-  when: install_sddm | bool
+# - name: Configure SDDM keyboard layout
+#   ansible.builtin.copy:
+#     content: |
+#       [General]
+#       Numlock=none
+#
+#       [Theme]
+#       Current=breeze
+#
+#       [X11]
+#       ServerPath=/usr/bin/X
+#       XephyrPath=/usr/bin/Xephyr
+#       SessionCommand=/usr/share/sddm/scripts/Xsession
+#       SessionDir=/usr/share/xsessions
+#       XauthPath=/usr/bin/xauth
+#
+#       [Wayland]
+#       SessionDir=/usr/share/wayland-sessions
+#
+#       # Set keyboard layouts for login screen
+#       [Users]
+#       MaximumUid=60513
+#       MinimumUid=500
+#
+#       [Autologin]
+#       Relogin=false
+#       Session=
+#       User=
+#     dest: /etc/sddm.conf
+#     owner: root
+#     group: root
+#     mode: '0644'
+#   when: install_sddm | bool
 
 
 # - name: Set SDDM default keyboard layout
@@ -137,6 +137,11 @@
   ansible.builtin.systemd:
     name: graphical.target
     enabled: true
+  when: install_sddm | bool
+
+- name: Set default target to graphical
+  ansible.builtin.command:
+    cmd: systemctl set-default graphical.target
   when: install_sddm | bool
 
 - name: Install GTK themes
