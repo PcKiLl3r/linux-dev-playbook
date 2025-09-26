@@ -85,7 +85,6 @@
   ansible.builtin.systemd:
     name: sddm
     enabled: true
-    state: started
   when: install_sddm | bool
 
 - name: Configure SDDM for Wayland and Hyprland
