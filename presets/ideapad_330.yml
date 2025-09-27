@@ -20,6 +20,7 @@ terminal_emulator: "alacritty"
 # Development tools
 code_editors:
   - "neovim"
+  # - "vscode"
 
 # Applications - UPDATED FOR WAYLAND
 file_manager: "dolphin"

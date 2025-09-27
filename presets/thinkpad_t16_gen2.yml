@@ -23,11 +23,11 @@ code_editors:
   - "vscode"
 
 # Applications
-file_manager: "thunar"
+file_manager: "dolphin"
 video_player: "mpv"
 torrent_client: "qbittorrent"
 terminal_file_manager: "yazi"
-app_launcher: "wofi"
+app_launcher: "rofi"
 ai_tool: "none"
 
 # Install flags
@@ -35,7 +35,7 @@ install_gimp: false
 install_inkscape: false
 install_libreoffice: false
 install_audacity: false
-install_qalculate: true
+install_qalculate: false
 install_calcurse: false
 install_dbeaver: false
 install_pgmodeler: false
@@ -54,7 +54,7 @@ install_rog_packages: false
 # Browsers
 install_brave: true
 install_firefox: true
-install_chromium: false
+install_chromium: true
 
 # Dotfiles
 dotfiles_repo: "https://github.com/PcKiLl3r/.dotfiles.git"
