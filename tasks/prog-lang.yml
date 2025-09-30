@@ -11,6 +11,43 @@
     state: present
     use: "{{ pkg_mgr }}"
 
+- name: Ensure npm global prefix directory exists
+  ansible.builtin.file:
+    path: "{{ home }}/.npm-global"
+    state: directory
+    mode: "0755"
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Configure npm to use the user prefix
+  ansible.builtin.lineinfile:
+    path: "{{ home }}/.npmrc"
+    regexp: "^prefix="
+    line: "prefix={{ home }}/.npm-global"
+    create: true
+    mode: "0644"
+  become: true
+  become_user: "{{ username }}"
+
+- name: Ensure npm global bin directory is on PATH
+  ansible.builtin.copy:
+    dest: /etc/profile.d/npm-global.sh
+    content: |
+      export PATH="{{ home }}/.npm-global/bin:$PATH"
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Install Angular CLI globally
+  community.general.npm:
+    name: "@angular/cli"
+    global: true
+    state: present
+  environment:
+    NPM_CONFIG_PREFIX: "{{ home }}/.npm-global"
+  become: true
+  become_user: "{{ username }}"
+
 - name: Install C, C++ Development Tools
   ansible.builtin.package:
     name: "{{ prog_lang_cdev_packages }}"
