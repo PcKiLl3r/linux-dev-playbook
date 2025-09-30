@@ -22,3 +22,7 @@
     name: "{{ 'chromium-browser' if target_os == 'ubuntu' else 'chromium' }}"
     state: present
   when: install_chromium | default(false) | bool
+
+- name: Install Zen Browser
+  ansible.builtin.import_tasks: zen.yml
+  when: install_zen | default(false) | bool

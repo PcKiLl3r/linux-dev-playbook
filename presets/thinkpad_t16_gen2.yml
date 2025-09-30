@@ -56,6 +56,7 @@ install_rog_packages: false
 install_brave: true
 install_firefox: true
 install_chromium: true
+install_zen: false
 
 # Dotfiles
 dotfiles_repo: "https://github.com/PcKiLl3r/.dotfiles.git"
