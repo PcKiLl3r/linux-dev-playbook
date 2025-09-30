@@ -60,7 +60,7 @@ install_chromium: true
 # Dotfiles
 dotfiles_repo: "https://github.com/PcKiLl3r/.dotfiles.git"
 dotfiles_repo_key: ""
-dotfiles_repo_recursive: false
+dotfiles_repo_recursive: true
 
 # Dotfiles folders to stow
 stow_folders:
