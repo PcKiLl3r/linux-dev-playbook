@@ -16,6 +16,46 @@
   become: true
   become_user: "{{ username }}"
 
+- name: Detect Oh My Zsh generated shell configuration files
+  ansible.builtin.shell: |
+    set -o pipefail
+    if [ -f "/home/{{ username }}/{{ item }}" ]; then
+      grep -q 'export ZSH="$HOME/.oh-my-zsh"' "/home/{{ username }}/{{ item }}"
+    fi
+  args:
+    executable: /bin/bash
+  register: ohmyzsh_config_check
+  failed_when: false
+  changed_when: false
+  become: true
+  become_user: "{{ username }}"
+  loop:
+    - .zshrc
+    - .zsh_profile
+
+- name: Back up Oh My Zsh generated shell configuration files
+  ansible.builtin.copy:
+    src: "/home/{{ username }}/{{ item.item }}"
+    dest: "/home/{{ username }}/{{ item.item }}.oh-my-zsh.bak"
+    remote_src: true
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: '0644'
+    force: false
+  loop: "{{ ohmyzsh_config_check.results }}"
+  when: item.rc == 0
+  become: true
+  become_user: "{{ username }}"
+
+- name: Remove Oh My Zsh generated shell configuration files
+  ansible.builtin.file:
+    path: "/home/{{ username }}/{{ item.item }}"
+    state: absent
+  loop: "{{ ohmyzsh_config_check.results }}"
+  when: item.rc == 0
+  become: true
+  become_user: "{{ username }}"
+
 - name: Stow .dotfiles
   ansible.builtin.shell:
     cmd: ./run && touch .stow-complete
