@@ -104,6 +104,11 @@
       ansible.builtin.import_tasks:
         file: ./tasks/prog-lang.yml
 
+    - name: Import Deno Install
+      ansible.builtin.import_tasks:
+        file: ./tasks/deno.yml
+      when: "'neovim' in code_editors"
+
     - name: Import TMux Install
       ansible.builtin.import_tasks:
         file: ./tasks/tmux.yml
