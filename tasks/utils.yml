@@ -1,6 +1,11 @@
----
+- name: Determine utility package set
+  ansible.builtin.set_fact:
+    utils_packages_effective: >-
+      {{ utils_packages if install_networkmanager_tui | default(true) | bool
+         else utils_packages | reject('equalto', 'NetworkManager-tui') | list }}
+
 - name: Install Useful Utilities
   ansible.builtin.package:
-    name: "{{ utils_packages }}"
+    name: "{{ utils_packages_effective }}"
     state: present
     use: "{{ pkg_mgr }}"
