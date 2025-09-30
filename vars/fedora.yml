@@ -39,6 +39,9 @@ utils_packages:
   - tldr
   - shutter
   - trash-cli
+  - NetworkManager-tui
+
+install_networkmanager_tui: true
 
 virtualization_kernel_deps_packages:
   - "@development-tools"
