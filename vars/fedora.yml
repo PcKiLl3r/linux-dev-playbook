@@ -101,6 +101,11 @@ thunar_packages:
   - thunar
   - thunar-volman
 
+dolphin_packages:
+  - dolphin
+  - dolphin-plugins
+  - kio-extras
+
 nautilus_packages:
   - nautilus
 

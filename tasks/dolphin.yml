@@ -1,0 +1,6 @@
+---
+- name: Install Dolphin file manager
+  ansible.builtin.package:
+    name: "{{ dolphin_packages }}"
+    state: present
+    use: "{{ pkg_mgr }}"
