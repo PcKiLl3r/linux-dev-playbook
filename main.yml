@@ -128,6 +128,11 @@
         file: ./tasks/thunar.yml
       when: file_manager == 'thunar'
 
+    - name: Import Dolphin Install
+      ansible.builtin.import_tasks:
+        file: ./tasks/dolphin.yml
+      when: file_manager == 'dolphin'
+
     - name: Import Nautilus Install
       ansible.builtin.import_tasks:
         file: ./tasks/nautilus.yml
