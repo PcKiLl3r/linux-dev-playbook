@@ -271,3 +271,9 @@
     # - name: Import machine preset overrides
     #   ansible.builtin.import_tasks:
     #     file: ./tasks/presets.yml
+
+  handlers:
+    - name: Restart bluetooth service
+      ansible.builtin.systemd:
+        name: bluetooth
+        state: restarted
