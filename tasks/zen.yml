@@ -1,0 +1,77 @@
+---
+- name: Ensure Zen Browser is supported on this OS
+  ansible.builtin.assert:
+    that:
+      - target_os in ['fedora', 'arch']
+    fail_msg: "Zen Browser installation is only supported on Fedora or Arch systems."
+
+- name: Determine Zen Browser installation method
+  ansible.builtin.set_fact:
+    zen_install_method: "{{ 'rpm' if target_os == 'fedora' else 'appimage' }}"
+
+- name: Attempt Fedora RPM installation
+  block:
+    - name: Download Zen Browser RPM package
+      ansible.builtin.get_url:
+        url: "https://github.com/zen-browser/desktop/releases/latest/download/zen.x86_64.rpm"
+        dest: "/tmp/zen-browser.rpm"
+        mode: "0644"
+      when: zen_install_method == 'rpm'
+
+    - name: Install Zen Browser RPM package
+      ansible.builtin.dnf:
+        name: "/tmp/zen-browser.rpm"
+        state: present
+      when: zen_install_method == 'rpm'
+  rescue:
+    - name: Fallback to AppImage installation when RPM fails
+      ansible.builtin.set_fact:
+        zen_install_method: "appimage"
+  when: zen_install_method in ['rpm', 'appimage']
+
+- name: Install Zen Browser AppImage
+  when: zen_install_method == 'appimage'
+  block:
+    - name: Ensure Zen Browser AppImage directory exists
+      ansible.builtin.file:
+        path: "/opt/zen-browser"
+        state: directory
+        mode: "0755"
+
+    - name: Download Zen Browser AppImage
+      ansible.builtin.get_url:
+        url: "https://github.com/zen-browser/desktop/releases/latest/download/zen-x86_64.AppImage"
+        dest: "/opt/zen-browser/zen-browser.AppImage"
+        mode: "0755"
+
+- name: Define Zen Browser binary candidates
+  ansible.builtin.set_fact:
+    zen_binary_candidates: >-
+      {{ ['/opt/zen/zen', '/usr/bin/zen'] if zen_install_method == 'rpm' else ['/opt/zen-browser/zen-browser.AppImage'] }}
+
+- name: Inspect Zen Browser binary candidates
+  ansible.builtin.stat:
+    path: "{{ item }}"
+  register: zen_candidate_stats
+  loop: "{{ zen_binary_candidates }}"
+
+- name: Select Zen Browser binary target
+  ansible.builtin.set_fact:
+    zen_binary_target: >-
+      {{ (zen_candidate_stats.results | selectattr('stat.exists') | map(attribute='item') | first) | default(zen_binary_candidates[0]) }}
+
+- name: Ensure zen binary symlink exists
+  ansible.builtin.file:
+    src: "{{ zen_binary_target }}"
+    dest: "/usr/local/bin/zen"
+    state: link
+    force: true
+  when: zen_candidate_stats.results | selectattr('stat.exists') | list | length > 0
+
+- name: Ensure zen-browser binary symlink exists
+  ansible.builtin.file:
+    src: "{{ zen_binary_target }}"
+    dest: "/usr/local/bin/zen-browser"
+    state: link
+    force: true
+  when: zen_candidate_stats.results | selectattr('stat.exists') | list | length > 0

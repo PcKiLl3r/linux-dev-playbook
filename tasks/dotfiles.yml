@@ -12,14 +12,14 @@
     dest: "~/.dotfiles"
     version: master
     key_file: "{{ dotfiles_repo_key | default(omit, true) }}"
-    recursive: "{{ dotfiles_repo_recursive | default(false) }}"
+    recursive: "{{ dotfiles_repo_recursive | default(true) }}"
   become: true
   become_user: "{{ username }}"
 
 - name: Stow .dotfiles
-  ansible.builtin.command:
-    cmd: ./run
-    # creates:
+  ansible.builtin.shell:
+    cmd: ./run && touch .stow-complete
+    creates: "/home/{{ username }}/.dotfiles/.stow-complete"
   args:
     chdir: "/home/{{ username }}/.dotfiles"
   changed_when: false

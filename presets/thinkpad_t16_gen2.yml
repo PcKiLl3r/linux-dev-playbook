@@ -43,6 +43,7 @@ install_graphviz: false
 install_dia: false
 install_bluetooth: true
 install_codecs: true
+install_intel_wifi_firmware: true
 
 # Hyprland specific
 add_input_group: true
@@ -55,11 +56,12 @@ install_rog_packages: false
 install_brave: true
 install_firefox: true
 install_chromium: true
+install_zen: false
 
 # Dotfiles
 dotfiles_repo: "https://github.com/PcKiLl3r/.dotfiles.git"
 dotfiles_repo_key: ""
-dotfiles_repo_recursive: false
+dotfiles_repo_recursive: true
 
 # Dotfiles folders to stow
 stow_folders:

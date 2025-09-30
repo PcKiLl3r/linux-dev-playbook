@@ -1,4 +1,17 @@
 ---
+- name: Import Microsoft GPG key for Visual Studio Code (Fedora)
+  ansible.builtin.rpm_key:
+    key: https://packages.microsoft.com/keys/microsoft.asc
+    state: present
+  when: target_os == 'fedora'
+
+- name: Configure Visual Studio Code repository (Fedora)
+  ansible.builtin.get_url:
+    url: https://packages.microsoft.com/yumrepos/vscode/config.repo
+    dest: /etc/yum.repos.d/vscode.repo
+    mode: "0644"
+  when: target_os == 'fedora'
+
 - name: Install Visual Studio Code
   ansible.builtin.package:
     name: "{{ vscode_packages }}"

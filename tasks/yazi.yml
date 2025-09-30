@@ -1,6 +1,47 @@
 ---
+- name: Install Yazi terminal file manager on Fedora
+  when: ansible_distribution == 'Fedora'
+  block:
+    - name: Enable Yazi COPR repository
+      community.general.copr:
+        name: atim/yazi
+        state: enabled
+      become: true
+
+    - name: Install Yazi from COPR
+      ansible.builtin.package:
+        name: "{{ yazi_packages }}"
+        state: present
+        use: "{{ pkg_mgr }}"
+      become: true
+  rescue:
+    - name: Ensure Rust toolchain available for Yazi build
+      ansible.builtin.package:
+        name:
+          - cargo
+          - rust
+        state: present
+        use: "{{ pkg_mgr }}"
+      become: true
+
+    - name: Install Yazi via Cargo
+      ansible.builtin.command:
+        cmd: cargo install yazi-fm --locked
+        creates: "{{ home }}/.cargo/bin/yazi"
+      become: true
+      become_user: "{{ username }}"
+
+    - name: Make Yazi available system-wide
+      ansible.builtin.copy:
+        src: "{{ home }}/.cargo/bin/yazi"
+        dest: /usr/local/bin/yazi
+        mode: "0755"
+        remote_src: true
+      become: true
+
 - name: Install Yazi terminal file manager
   ansible.builtin.package:
     name: "{{ yazi_packages }}"
     state: present
     use: "{{ pkg_mgr }}"
+  when: ansible_distribution != 'Fedora'

@@ -39,6 +39,9 @@ utils_packages:
   - tldr
   - shutter
   - trash-cli
+  - NetworkManager-tui
+
+install_networkmanager_tui: true
 
 virtualization_kernel_deps_packages:
   - "@development-tools"
@@ -97,6 +100,11 @@ hyprland_gtk_packages:
 thunar_packages:
   - thunar
   - thunar-volman
+
+dolphin_packages:
+  - dolphin
+  - dolphin-plugins
+  - kio-extras
 
 nautilus_packages:
   - nautilus
