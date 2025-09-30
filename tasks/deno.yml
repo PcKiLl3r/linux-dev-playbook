@@ -1,0 +1,72 @@
+---
+- name: Download Deno installer script
+  ansible.builtin.get_url:
+    url: https://deno.land/install.sh
+    dest: /tmp/install_deno.sh
+    mode: '0755'
+
+- name: Run Deno installer
+  ansible.builtin.command: /bin/sh /tmp/install_deno.sh
+  args:
+    creates: "{{ home }}/.deno/bin/deno"
+  environment:
+    DENO_INSTALL: "{{ home }}/.deno"
+    HOME: "{{ home }}"
+  become: true
+  become_user: "{{ username }}"
+
+- name: Ensure Deno environment variables are exported in .profile
+  ansible.builtin.blockinfile:
+    path: "{{ home }}/.profile"
+    create: true
+    marker: "# {mark} ANSIBLE MANAGED BLOCK: deno"
+    block: |
+      export DENO_INSTALL="{{ home }}/.deno"
+      export PATH="$DENO_INSTALL/bin:$PATH"
+  become: true
+  become_user: "{{ username }}"
+
+- name: Ensure Deno environment variables are exported in .zprofile
+  ansible.builtin.blockinfile:
+    path: "{{ home }}/.zprofile"
+    create: true
+    marker: "# {mark} ANSIBLE MANAGED BLOCK: deno"
+    block: |
+      export DENO_INSTALL="{{ home }}/.deno"
+      export PATH="$DENO_INSTALL/bin:$PATH"
+  become: true
+  become_user: "{{ username }}"
+  when: (shell | default('')) == 'zsh'
+
+- name: Ensure Deno environment variables are exported in .bashrc
+  ansible.builtin.blockinfile:
+    path: "{{ home }}/.bashrc"
+    create: true
+    marker: "# {mark} ANSIBLE MANAGED BLOCK: deno"
+    block: |
+      export DENO_INSTALL="{{ home }}/.deno"
+      export PATH="$DENO_INSTALL/bin:$PATH"
+  become: true
+  become_user: "{{ username }}"
+  when: (shell | default('')) == 'bash'
+
+- name: Ensure fish configuration directory exists
+  ansible.builtin.file:
+    path: "{{ home }}/.config/fish"
+    state: directory
+    mode: '0755'
+  become: true
+  become_user: "{{ username }}"
+  when: (shell | default('')) == 'fish'
+
+- name: Ensure Deno environment variables are exported in fish config
+  ansible.builtin.blockinfile:
+    path: "{{ home }}/.config/fish/config.fish"
+    create: true
+    marker: "# {mark} ANSIBLE MANAGED BLOCK: deno"
+    block: |
+      set -x DENO_INSTALL "{{ home }}/.deno"
+      set -gx PATH $DENO_INSTALL/bin $PATH
+  become: true
+  become_user: "{{ username }}"
+  when: (shell | default('')) == 'fish'
