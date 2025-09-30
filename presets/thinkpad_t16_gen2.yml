@@ -43,6 +43,7 @@ install_graphviz: false
 install_dia: false
 install_bluetooth: true
 install_codecs: true
+install_intel_wifi_firmware: true
 
 # Hyprland specific
 add_input_group: true

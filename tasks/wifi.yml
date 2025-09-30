@@ -1,0 +1,54 @@
+---
+- name: Ensure Intel Wi-Fi firmware package is installed
+  ansible.builtin.dnf:
+    name: iwlwifi-mvm-firmware
+    state: present
+  become: true
+  when: target_os == 'fedora'
+  notify: Intel Wi-Fi firmware updated
+
+- name: Ensure firmware directory exists
+  ansible.builtin.file:
+    path: /usr/lib/firmware
+    state: directory
+    mode: "0755"
+  become: true
+
+- name: Check for bundled Intel Wi-Fi firmware assets
+  ansible.builtin.stat:
+    path: "{{ playbook_dir }}/resources/firmware"
+  register: intel_wifi_firmware_source_stat
+
+- name: Discover Intel Wi-Fi firmware assets
+  ansible.builtin.find:
+    paths: "{{ playbook_dir }}/resources/firmware"
+    patterns: "iwlwifi-so-a0-gf-a0-*"
+    file_type: file
+  register: intel_wifi_firmware_artifacts
+  when: intel_wifi_firmware_source_stat.stat.exists
+
+- name: Categorise Intel Wi-Fi firmware assets
+  ansible.builtin.set_fact:
+    intel_wifi_firmware_copy_files: "{{ intel_wifi_firmware_artifacts.files | map(attribute='path') | select('search', '\\.(ucode|pnvm)$') | list }}"
+    intel_wifi_firmware_archives: "{{ intel_wifi_firmware_artifacts.files | map(attribute='path') | select('search', '\\.(gz|xz|bz2|tgz|tar)$') | list }}"
+  when: intel_wifi_firmware_source_stat.stat.exists
+
+- name: Copy Intel Wi-Fi firmware blobs
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: "/usr/lib/firmware/{{ item | basename }}"
+    mode: "0644"
+  become: true
+  loop: "{{ intel_wifi_firmware_copy_files | default([]) }}"
+  when: intel_wifi_firmware_copy_files | default([]) | length > 0
+  notify: Intel Wi-Fi firmware updated
+
+- name: Extract Intel Wi-Fi firmware archives
+  ansible.builtin.unarchive:
+    src: "{{ item }}"
+    dest: /usr/lib/firmware
+    remote_src: false
+  become: true
+  loop: "{{ intel_wifi_firmware_archives | default([]) }}"
+  when: intel_wifi_firmware_archives | default([]) | length > 0
+  notify: Intel Wi-Fi firmware updated

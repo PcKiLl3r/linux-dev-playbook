@@ -263,6 +263,11 @@
         file: ./tasks/bluetooth.yml
       when: install_bluetooth | bool
 
+    - name: Import Intel Wi-Fi firmware setup
+      ansible.builtin.import_tasks:
+        file: ./tasks/wifi.yml
+      when: target_os == 'fedora' or (install_intel_wifi_firmware | default(false))
+
     - name: Import dotfiles setup
       ansible.builtin.import_tasks:
         file: ./tasks/dotfiles.yml
@@ -271,3 +276,27 @@
     # - name: Import machine preset overrides
     #   ansible.builtin.import_tasks:
     #     file: ./tasks/presets.yml
+
+  handlers:
+    - name: Rebuild initramfs after Intel Wi-Fi firmware update
+      listen: Intel Wi-Fi firmware updated
+      ansible.builtin.command: dracut --force
+      become: true
+      changed_when: true
+      when: target_os == 'fedora'
+
+    - name: Remove Intel Wi-Fi modules
+      listen: Intel Wi-Fi firmware updated
+      ansible.builtin.command: modprobe -r iwlmvm iwlwifi
+      become: true
+      register: intel_wifi_module_unload
+      failed_when: intel_wifi_module_unload.rc not in [0, 1]
+      changed_when: intel_wifi_module_unload.rc == 0
+      when: target_os == 'fedora'
+
+    - name: Reload Intel Wi-Fi module
+      listen: Intel Wi-Fi firmware updated
+      ansible.builtin.command: modprobe iwlwifi
+      become: true
+      changed_when: true
+      when: target_os == 'fedora'
