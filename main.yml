@@ -283,6 +283,11 @@
     #     file: ./tasks/presets.yml
 
   handlers:
+    - name: Restart bluetooth service
+      ansible.builtin.systemd:
+        name: bluetooth
+        state: restarted
+
     - name: Rebuild initramfs after Intel Wi-Fi firmware update
       listen: Intel Wi-Fi firmware updated
       ansible.builtin.command: dracut --force
@@ -304,4 +309,4 @@
       ansible.builtin.command: modprobe iwlwifi
       become: true
       changed_when: true
-      when: target_os == 'fedora'
+      when: target_os == 'fedora

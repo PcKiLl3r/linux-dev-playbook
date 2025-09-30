@@ -29,6 +29,8 @@ If auto‑detection fails, set `OS_OVERRIDE` to `arch` or `fedora` as shown abov
    ```bash
    ansible-vault edit vault/bluetooth.yml --vault-password-file .ansible_vault_pass
    ```
+5. (Optional) Copy any trusted device backups from `/var/lib/bluetooth` into `files/bluetooth/<inventory_hostname>/` so they ca
+n be restored during provisioning.
 
 ## 3. Apply the playbook
 

@@ -5,6 +5,27 @@
     state: present
     use: "{{ pkg_mgr }}"
 
+- name: Check for bluetooth pairing backup
+  ansible.builtin.stat:
+    path: "{{ playbook_dir }}/files/bluetooth/{{ inventory_hostname }}"
+  register: bluetooth_backup
+  when: restore_bluetooth_backup | default(restore_last_ssh | default(false)) | bool
+  become: false
+
+- name: Restore bluetooth pairing data
+  ansible.builtin.copy:
+    src: "{{ playbook_dir }}/files/bluetooth/{{ inventory_hostname }}/"
+    dest: /var/lib/bluetooth/
+    owner: root
+    group: root
+    mode: preserve
+  when:
+    - restore_bluetooth_backup | default(restore_last_ssh | default(false)) | bool
+    - bluetooth_backup is defined
+    - bluetooth_backup.stat.exists
+  notify: Restart bluetooth service
+  become: true
+
 - name: Enable and start bluetooth service
   ansible.builtin.systemd:
     name: bluetooth
