@@ -1,0 +1,91 @@
+---
+- name: Configure Vimium C for Chromium
+  become: true
+  when:
+    - install_vimium_c | default(false) | bool
+    - install_chromium | default(false) | bool
+  block:
+    - name: Ensure Chromium managed policy directory exists
+      ansible.builtin.file:
+        path: /etc/chromium/policies/managed
+        state: directory
+        owner: root
+        group: root
+        mode: '0755'
+
+    - name: Force install Vimium C in Chromium
+      ansible.builtin.copy:
+        dest: /etc/chromium/policies/managed/vimium_c.json
+        owner: root
+        group: root
+        mode: '0644'
+        content: |
+          {
+            "ExtensionInstallForcelist": [
+              "hfjbmagddngcpeloejdejnfgbamkjaeg;https://clients2.google.com/service/update2/crx"
+            ]
+          }
+
+- name: Configure Vimium C for Brave
+  become: true
+  when:
+    - install_vimium_c | default(false) | bool
+    - install_brave | default(false) | bool
+  block:
+    - name: Ensure Brave managed policy directory exists
+      ansible.builtin.file:
+        path: /etc/brave/policies/managed
+        state: directory
+        owner: root
+        group: root
+        mode: '0755'
+
+    - name: Force install Vimium C in Brave
+      ansible.builtin.copy:
+        dest: /etc/brave/policies/managed/vimium_c.json
+        owner: root
+        group: root
+        mode: '0644'
+        content: |
+          {
+            "ExtensionInstallForcelist": [
+              "hfjbmagddngcpeloejdejnfgbamkjaeg;https://clients2.google.com/service/update2/crx"
+            ]
+          }
+
+- name: Configure Vimium C for Firefox
+  become: true
+  when:
+    - install_vimium_c | default(false) | bool
+    - install_firefox | default(false) | bool
+  block:
+    - name: Ensure Firefox distribution extensions directory exists
+      ansible.builtin.file:
+        path: /usr/lib/firefox/distribution/extensions
+        state: directory
+        owner: root
+        group: root
+        mode: '0755'
+
+    - name: Download Vimium C for Firefox
+      ansible.builtin.get_url:
+        url: https://github.com/gdh1995/vimium-c/releases/latest/download/vimium_c-ff.xpi
+        dest: /usr/lib/firefox/distribution/extensions/vimium_c.xpi
+        mode: '0644'
+
+    - name: Register Vimium C via Firefox policies
+      ansible.builtin.copy:
+        dest: /usr/lib/firefox/distribution/policies.json
+        owner: root
+        group: root
+        mode: '0644'
+        content: |
+          {
+            "policies": {
+              "Extensions": {
+                "Install": [
+                  "/usr/lib/firefox/distribution/extensions/vimium_c.xpi"
+                ]
+              }
+            }
+          }

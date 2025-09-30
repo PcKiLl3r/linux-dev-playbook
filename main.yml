@@ -80,6 +80,11 @@
       ansible.builtin.import_tasks:
         file: ./tasks/browsers.yml
 
+    - name: Import Vimium C configuration
+      ansible.builtin.import_tasks:
+        file: ./tasks/vimium_c.yml
+      when: install_vimium_c | default(false) | bool
+
     - name: Import Codecs Install
       ansible.builtin.import_tasks:
         file: ./tasks/codecs.yml
