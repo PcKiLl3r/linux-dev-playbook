@@ -1,9 +1,33 @@
 ---
 - name: Install Hyprland packages
-  ansible.builtin.package:
-    name: "{{ hyprland_packages }}"
-    state: present
-    use: "{{ pkg_mgr }}"
+  block:
+    - name: Install Hyprland packages
+      ansible.builtin.package:
+        name: "{{ hyprland_packages }}"
+        state: present
+        use: "{{ pkg_mgr }}"
+  rescue:
+    - name: Detect missing optional Hyprland packages
+      ansible.builtin.set_fact:
+        hyprland_missing_wshowkeys: >-
+          {{ 'wshowkeys' in (ansible_failed_result.msg | default('')) or 'wshowkeys' in (ansible_failed_result.stderr | default('')) }}
+
+    - name: Fail Hyprland package installation
+      ansible.builtin.fail:
+        msg: "{{ ansible_failed_result.msg | default(ansible_failed_result) }}"
+      when: not hyprland_missing_wshowkeys | default(false)
+
+    - name: Install Hyprland packages without wshowkeys
+      ansible.builtin.package:
+        name: "{{ hyprland_packages | reject('equalto', 'wshowkeys') | list }}"
+        state: present
+        use: "{{ pkg_mgr }}"
+      when: hyprland_missing_wshowkeys | default(false)
+
+    - name: Warn about missing wshowkeys package
+      ansible.builtin.debug:
+        msg: "wshowkeys is not available in the configured repositories and was skipped."
+      when: hyprland_missing_wshowkeys | default(false)
 
 - name: Add user to input group
   ansible.builtin.user:
