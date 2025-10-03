@@ -149,6 +149,7 @@ dev_tools_packages:
   - docker
   - docker-compose
   - python-pip
+  - github-cli
 
 docker_desktop_package_filename: docker-desktop-latest-x86_64.pkg.tar.zst
 docker_desktop_package_url: https://desktop.docker.com/linux/main/arch/x86_64/docker-desktop-latest-x86_64.pkg.tar.zst

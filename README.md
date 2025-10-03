@@ -117,3 +117,16 @@ Set `install_docker_desktop: true` in your preset to have the playbook:
 - Verify the installation with `docker version` and `com.docker.cli -v`
 
 That's it. No config files, no templates, no duplication.
+
+## Secrets and Automated Logins
+
+Some development services require credentials at install time. Populate
+`vault/dev-tools.yml` (and encrypt it with `ansible-vault` in your own
+environment) to enable the following automations:
+
+| Toggle | Required values | Description |
+| --- | --- | --- |
+| `github_cli_enable_auth` | `github_cli_token`, optional `github_cli_host` | Installs `gh` and performs `gh auth login` with the provided token. |
+
+All values default to disabled/blank so the playbook remains usable without the
+services. Remember to re-encrypt `vault/dev-tools.yml` after editing.

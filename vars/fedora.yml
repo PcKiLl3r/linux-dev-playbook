@@ -149,6 +149,7 @@ dev_tools_packages:
   - docker
   - docker-compose
   - python3-pip
+  - gh
 
 docker_desktop_package_filename: docker-desktop-latest.x86_64.rpm
 docker_desktop_package_url: https://desktop.docker.com/linux/main/amd64/docker-desktop-latest.x86_64.rpm
