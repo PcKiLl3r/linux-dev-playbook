@@ -38,12 +38,16 @@ install_audacity: false
 install_qalculate: false
 install_calcurse: false
 install_dbeaver: false
-install_pgmodeler: false
+install_pgmodeler: true
 install_graphviz: false
 install_dia: false
 install_bluetooth: true
 install_codecs: true
+install_spotify: true
+install_obsidian: true
+install_chatgpt_desktop: true
 install_intel_wifi_firmware: true
+install_docker_desktop: false
 
 # Hyprland specific
 add_input_group: true
