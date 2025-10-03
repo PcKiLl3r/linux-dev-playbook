@@ -149,6 +149,15 @@ dev_tools_packages:
   - docker-compose
   - python3-pip
 
+docker_desktop_package_filename: docker-desktop-latest.x86_64.rpm
+docker_desktop_package_url: https://desktop.docker.com/linux/main/amd64/docker-desktop-latest.x86_64.rpm
+docker_desktop_dependencies:
+  - dnf-plugins-core
+  - docker-ce-cli
+  - containerd.io
+  - docker-compose-plugin
+docker_desktop_repo_name: docker-ce-stable
+
 neovim_dependencies_packages:
   - cmake
   - gettext

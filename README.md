@@ -80,5 +80,18 @@ make lint
 
 - Fedora or Arch-based Linux
 - Ansible and git (installed by setup script)
+- Optional Docker Desktop support requires:
+  - Hardware virtualization enabled in firmware (VT-x/AMD-V)
+  - Systemd user lingering for the target user (handled by the playbook)
+  - Network access to download packages from Docker
+
+## Docker Desktop (optional)
+
+Set `install_docker_desktop: true` in your preset to have the playbook:
+
+- Add the official Docker repositories (Fedora) and dependencies
+- Download and install the latest Docker Desktop package for Fedora or Arch
+- Enable both the system and user systemd services for Docker Desktop
+- Verify the installation with `docker version` and `com.docker.cli -v`
 
 That's it. No config files, no templates, no duplication.

@@ -44,6 +44,7 @@ install_dia: false
 install_bluetooth: true
 install_codecs: true
 install_intel_wifi_firmware: true
+install_docker_desktop: false
 
 # Hyprland specific
 add_input_group: true
