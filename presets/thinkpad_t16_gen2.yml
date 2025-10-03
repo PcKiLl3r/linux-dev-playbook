@@ -47,6 +47,7 @@ install_spotify: true
 install_obsidian: true
 install_chatgpt_desktop: true
 install_intel_wifi_firmware: true
+install_docker_desktop: false
 
 # Hyprland specific
 add_input_group: true

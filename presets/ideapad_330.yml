@@ -43,6 +43,7 @@ install_graphviz: false
 install_dia: false
 install_bluetooth: true
 install_codecs: true
+install_docker_desktop: false
 install_spotify: true
 install_obsidian: true
 install_chatgpt_desktop: true
