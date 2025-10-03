@@ -46,6 +46,10 @@ Available presets:
 - `thinkpad_t16_gen2.yml` - ThinkPad T16 Gen 2 with Hyprland
 - `ideapad_330.yml` - Ideapad 330 with i3
 
+### Feature toggles
+
+- `enable_flatpak` &mdash; when set to `true` in a preset or inventory entry, the core role installs Flatpak, enables the system helper service, and configures the Flathub remote for both system and user scopes. Set it to `false` if you want to skip Flatpak entirely during provisioning.
+
 ## Browser Lineup
 
 The playbook can install the following browsers via `tasks/browsers.yml`:
