@@ -19,7 +19,7 @@ If auto‑detection fails, set `OS_OVERRIDE` to `arch` or `fedora` as shown abov
    cd ~/personal/linux-dev-playbook
    cp config.template.yml config.yml
    ```
-2. Edit `config.yml` and set the `machine_preset` to match the current machine. Available presets live under `resources/presets/` (e.g. `thinkpad_t16_gen2`, `ideapad_330`, `4k`).
+2. Edit `config.yml` and set the `machine_preset` to match the current machine. Available presets live under `resources/presets/` (e.g. `thinkpad_t16_gen2`, `ideapad_330`, `4k`). Review the browser flags in the chosen preset to enable any of the supported options (Brave, Firefox, or Zen Browser).
 3. Create a file named `.ansible_vault_pass` containing your Ansible Vault passphrase:
    ```bash
    echo 'your‑vault‑password' > .ansible_vault_pass
