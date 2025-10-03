@@ -36,3 +36,46 @@
     scope: global
     value: "{{ email }}"
   become: false
+
+- name: Validate GitHub CLI token is available when authentication is enabled
+  ansible.builtin.assert:
+    that:
+      - github_cli_token is defined
+      - github_cli_token | length > 0
+    fail_msg: "Set github_cli_token in vault/dev-tools.yml when github_cli_enable_auth is true."
+  when: (github_cli_enable_auth | default(false)) | bool
+
+- name: Check GitHub CLI authentication status
+  ansible.builtin.command:
+    argv:
+      - gh
+      - auth
+      - status
+  register: github_cli_auth_status
+  changed_when: false
+  failed_when: false
+  become: true
+  become_user: "{{ username }}"
+  when: (github_cli_enable_auth | default(false)) | bool
+
+- name: Authenticate GitHub CLI with stored token
+  ansible.builtin.command:
+    argv:
+      - gh
+      - auth
+      - login
+      - "--hostname"
+      - "{{ github_cli_host | default('github.com') }}"
+      - "--with-token"
+    stdin: "{{ github_cli_token }}"
+  register: github_cli_login
+  changed_when: github_cli_login.rc == 0
+  failed_when: github_cli_login.rc != 0
+  no_log: true
+  become: true
+  become_user: "{{ username }}"
+  when:
+    - (github_cli_enable_auth | default(false)) | bool
+    - (github_cli_token | default('')) | length > 0
+    - github_cli_auth_status.rc != 0
+

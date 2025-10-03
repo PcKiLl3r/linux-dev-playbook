@@ -148,6 +148,7 @@ dev_tools_packages:
   - docker
   - docker-compose
   - python-pip
+  - github-cli
 
 neovim_dependencies_packages:
   - cmake

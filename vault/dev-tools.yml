@@ -1,0 +1,7 @@
+---
+# Toggle GitHub CLI authentication and provide a Personal Access Token with the
+# `repo` scope (or wider, depending on your workflow).
+github_cli_enable_auth: false
+github_cli_token: ""
+github_cli_host: "github.com"
+

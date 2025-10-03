@@ -5,6 +5,7 @@
   vars_files:
     - vault/become_pass.yml
     - vault/bluetooth.yml
+    - vault/dev-tools.yml
     # - config.yml
 
   # vars:
