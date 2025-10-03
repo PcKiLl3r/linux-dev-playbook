@@ -58,7 +58,6 @@ install_rog_packages: false
 # Browsers
 install_brave: true
 install_firefox: true
-install_chromium: true
 install_zen: true
 
 # Dotfiles

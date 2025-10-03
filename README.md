@@ -46,6 +46,14 @@ Available presets:
 - `thinkpad_t16_gen2.yml` - ThinkPad T16 Gen 2 with Hyprland
 - `ideapad_330.yml` - Ideapad 330 with i3
 
+## Browser Lineup
+
+The playbook can install the following browsers via `tasks/browsers.yml`:
+
+- Brave (default on most presets)
+- Firefox
+- Zen Browser (Chromium replacement)
+
 ## Application toggles
 
 Presets enable the GUI applications you want via boolean flags. Set a flag to `true` or `false` directly in the preset (or an override file) to opt in or out of an application.
