@@ -50,6 +50,28 @@ Available presets:
 
 - `enable_flatpak` &mdash; when set to `true` in a preset or inventory entry, the core role installs Flatpak, enables the system helper service, and configures the Flathub remote for both system and user scopes. Set it to `false` if you want to skip Flatpak entirely during provisioning.
 
+## Browser Lineup
+
+The playbook can install the following browsers via `tasks/browsers.yml`:
+
+- Brave (default on most presets)
+- Firefox
+- Zen Browser (Chromium replacement)
+
+## Application toggles
+
+Presets enable the GUI applications you want via boolean flags. Set a flag to `true` or `false` directly in the preset (or an override file) to opt in or out of an application.
+
+| Flag | Description |
+| --- | --- |
+| `install_spotify` | Install Spotify from Flathub (system-wide) and add a `/usr/local/bin/spotify` launcher. |
+| `install_obsidian` | Install Obsidian from Flathub and add a `/usr/local/bin/obsidian` launcher. |
+| `install_chatgpt_desktop` | Install the ChatGPT Desktop Flatpak and add a `/usr/local/bin/chatgpt-desktop` launcher. |
+| `install_pgmodeler` | Install pgModeler from the native package repositories. |
+| `install_zen` | Install Zen Browser (RPM on Fedora, AppImage fallback on Arch) and provide `/usr/local/bin/zen`. |
+
+All shipped presets default these flags to `true`, but you can flip them to `false` if you prefer to skip any of the tools.
+
 ## Adding a New Machine
 
 1. **Copy existing preset:**
@@ -84,5 +106,31 @@ make lint
 
 - Fedora or Arch-based Linux
 - Ansible and git (installed by setup script)
+- Optional Docker Desktop support requires:
+  - Hardware virtualization enabled in firmware (VT-x/AMD-V)
+  - Systemd user lingering for the target user (handled by the playbook)
+  - Network access to download packages from Docker
+
+## Docker Desktop (optional)
+
+Set `install_docker_desktop: true` in your preset to have the playbook:
+
+- Add the official Docker repositories (Fedora) and dependencies
+- Download and install the latest Docker Desktop package for Fedora or Arch
+- Enable both the system and user systemd services for Docker Desktop
+- Verify the installation with `docker version` and `com.docker.cli -v`
 
 That's it. No config files, no templates, no duplication.
+
+## Secrets and Automated Logins
+
+Some development services require credentials at install time. Populate
+`vault/dev-tools.yml` (and encrypt it with `ansible-vault` in your own
+environment) to enable the following automations:
+
+| Toggle | Required values | Description |
+| --- | --- | --- |
+| `github_cli_enable_auth` | `github_cli_token`, optional `github_cli_host` | Installs `gh` and performs `gh auth login` with the provided token. |
+
+All values default to disabled/blank so the playbook remains usable without the
+services. Remember to re-encrypt `vault/dev-tools.yml` after editing.

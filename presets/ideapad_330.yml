@@ -38,11 +38,15 @@ install_audacity: false
 install_qalculate: false
 install_calcurse: false
 install_dbeaver: false
-install_pgmodeler: false
+install_pgmodeler: true
 install_graphviz: false
 install_dia: false
 install_bluetooth: true
 install_codecs: true
+install_docker_desktop: false
+install_spotify: true
+install_obsidian: true
+install_chatgpt_desktop: true
 
 # Hyprland specific - ENABLED
 add_input_group: true
@@ -54,8 +58,7 @@ install_rog_packages: false
 # Browsers
 install_brave: true
 install_firefox: true
-install_chromium: true
-install_zen: false
+install_zen: true
 
 # Dotfiles
 dotfiles_repo: "https://github.com/PcKiLl3r/.dotfiles.git"

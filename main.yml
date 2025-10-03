@@ -5,6 +5,7 @@
   vars_files:
     - vault/become_pass.yml
     - vault/bluetooth.yml
+    - vault/dev-tools.yml
     # - config.yml
 
   # vars:
@@ -75,6 +76,10 @@
     - name: Import Dev-Tools Install
       ansible.builtin.import_tasks:
         file: ./tasks/dev-tools.yml
+
+    - name: Import GUI Software Install
+      ansible.builtin.import_tasks:
+        file: ./tasks/gui-software.yml
 
     - name: Import Browser Install
       ansible.builtin.import_tasks:

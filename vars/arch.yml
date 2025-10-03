@@ -92,6 +92,7 @@ hyprland_packages:
   - wlogout
   - alacritty
   - thunar
+  - wshowkeys
 
 sddm_packages:
   - sddm
@@ -150,6 +151,14 @@ dev_tools_packages:
   - docker
   - docker-compose
   - python-pip
+  - github-cli
+
+docker_desktop_package_filename: docker-desktop-latest-x86_64.pkg.tar.zst
+docker_desktop_package_url: https://desktop.docker.com/linux/main/arch/x86_64/docker-desktop-latest-x86_64.pkg.tar.zst
+docker_desktop_dependencies:
+  - docker
+  - docker-compose
+  - fuse-overlayfs
 
 neovim_dependencies_packages:
   - cmake
@@ -175,9 +184,18 @@ neovim_luarocks_package:
 
 gui_dependencies_packages:
   - base-devel
+  - flatpak
 
 gui_software_packages:
   - discord
+
+flatpak_package: flatpak
+flatpak_remote_name: flathub
+flatpak_remote_url: https://flathub.org/repo/flathub.flatpakrepo
+
+spotify_flatpak_id: com.spotify.Client
+obsidian_flatpak_id: md.obsidian.Obsidian
+chatgpt_desktop_flatpak_id: io.github.gi_lom.ChatGPTDesktop
 
 brave_dependency_packages:
   - acl
