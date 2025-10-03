@@ -46,6 +46,20 @@ Available presets:
 - `thinkpad_t16_gen2.yml` - ThinkPad T16 Gen 2 with Hyprland
 - `ideapad_330.yml` - Ideapad 330 with i3
 
+## Application toggles
+
+Presets enable the GUI applications you want via boolean flags. Set a flag to `true` or `false` directly in the preset (or an override file) to opt in or out of an application.
+
+| Flag | Description |
+| --- | --- |
+| `install_spotify` | Install Spotify from Flathub (system-wide) and add a `/usr/local/bin/spotify` launcher. |
+| `install_obsidian` | Install Obsidian from Flathub and add a `/usr/local/bin/obsidian` launcher. |
+| `install_chatgpt_desktop` | Install the ChatGPT Desktop Flatpak and add a `/usr/local/bin/chatgpt-desktop` launcher. |
+| `install_pgmodeler` | Install pgModeler from the native package repositories. |
+| `install_zen` | Install Zen Browser (RPM on Fedora, AppImage fallback on Arch) and provide `/usr/local/bin/zen`. |
+
+All shipped presets default these flags to `true`, but you can flip them to `false` if you prefer to skip any of the tools.
+
 ## Adding a New Machine
 
 1. **Copy existing preset:**

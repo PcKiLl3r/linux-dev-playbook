@@ -5,6 +5,27 @@
     state: present
     use: "{{ pkg_mgr }}"
 
+- name: Determine whether Flatpak applications are requested
+  ansible.builtin.set_fact:
+    gui_flatpak_requested: >-
+      {{ (install_spotify | default(false) | bool)
+         or (install_obsidian | default(false) | bool)
+         or (install_chatgpt_desktop | default(false) | bool) }}
+
+- name: Ensure Flatpak is installed
+  ansible.builtin.package:
+    name: "{{ flatpak_package | default('flatpak') }}"
+    state: present
+    use: "{{ pkg_mgr }}"
+  when: gui_flatpak_requested | bool
+
+- name: Ensure Flathub remote is configured
+  community.general.flatpak_remote:
+    name: "{{ flatpak_remote_name | default('flathub') }}"
+    state: present
+    flatpakrepo_url: "{{ flatpak_remote_url | default('https://flathub.org/repo/flathub.flatpakrepo') }}"
+  when: gui_flatpak_requested | bool
+
 #- name: Add GUI Apps Repos
 #  ansible.builtin.yum_repository:
 #    name: brave-browser
@@ -35,6 +56,57 @@
     name: "{{ gui_software_packages }}"
     state: present
     use: "{{ pkg_mgr }}"
+
+- name: Install Spotify via Flatpak
+  community.general.flatpak:
+    name: "{{ spotify_flatpak_id }}"
+    state: present
+  when: install_spotify | default(false) | bool
+
+- name: Ensure spotify launcher script is present
+  ansible.builtin.copy:
+    dest: /usr/local/bin/spotify
+    mode: '0755'
+    owner: root
+    group: root
+    content: |
+      #!/usr/bin/env bash
+      exec flatpak run {{ spotify_flatpak_id }} "$@"
+  when: install_spotify | default(false) | bool
+
+- name: Install Obsidian via Flatpak
+  community.general.flatpak:
+    name: "{{ obsidian_flatpak_id }}"
+    state: present
+  when: install_obsidian | default(false) | bool
+
+- name: Ensure obsidian launcher script is present
+  ansible.builtin.copy:
+    dest: /usr/local/bin/obsidian
+    mode: '0755'
+    owner: root
+    group: root
+    content: |
+      #!/usr/bin/env bash
+      exec flatpak run {{ obsidian_flatpak_id }} "$@"
+  when: install_obsidian | default(false) | bool
+
+- name: Install ChatGPT Desktop via Flatpak
+  community.general.flatpak:
+    name: "{{ chatgpt_desktop_flatpak_id }}"
+    state: present
+  when: install_chatgpt_desktop | default(false) | bool
+
+- name: Ensure chatgpt-desktop launcher script is present
+  ansible.builtin.copy:
+    dest: /usr/local/bin/chatgpt-desktop
+    mode: '0755'
+    owner: root
+    group: root
+    content: |
+      #!/usr/bin/env bash
+      exec flatpak run {{ chatgpt_desktop_flatpak_id }} "$@"
+  when: install_chatgpt_desktop | default(false) | bool
 
 - name: Ensure dependency for brave installer is present
   ansible.builtin.package:

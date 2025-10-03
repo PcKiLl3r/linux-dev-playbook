@@ -32,6 +32,18 @@ If auto‑detection fails, set `OS_OVERRIDE` to `arch` or `fedora` as shown abov
 5. (Optional) Copy any trusted device backups from `/var/lib/bluetooth` into `files/bluetooth/<inventory_hostname>/` so they ca
 n be restored during provisioning.
 
+### Opting in/out of desktop applications
+
+Each preset exposes boolean flags that control optional GUI software. Set any of these to `false` if you want to skip an app (or `true` to ensure it is installed):
+
+- `install_spotify` – installs Spotify from Flathub and adds a convenient `/usr/local/bin/spotify` wrapper.
+- `install_obsidian` – installs Obsidian from Flathub and adds `/usr/local/bin/obsidian`.
+- `install_chatgpt_desktop` – installs the ChatGPT Desktop Flatpak and adds `/usr/local/bin/chatgpt-desktop`.
+- `install_pgmodeler` – installs pgModeler from the distro repositories.
+- `install_zen` – installs Zen Browser (RPM on Fedora, AppImage fallback on Arch) with `/usr/local/bin/zen`.
+
+These flags live alongside the other `install_*` options in each preset file.
+
 ## 3. Apply the playbook
 
 Run the bootstrap script to decrypt vault files, execute the playbook and re-encrypt them:
