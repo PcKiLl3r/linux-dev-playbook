@@ -76,6 +76,10 @@
       ansible.builtin.import_tasks:
         file: ./tasks/dev-tools.yml
 
+    - name: Import GUI Software Install
+      ansible.builtin.import_tasks:
+        file: ./tasks/gui-software.yml
+
     - name: Import Browser Install
       ansible.builtin.import_tasks:
         file: ./tasks/browsers.yml
