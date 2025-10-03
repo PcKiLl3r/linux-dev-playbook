@@ -3,6 +3,8 @@ pkg_mgr: pacman
 
 core_packages:
   - git
+flatpak_runtime_packages:
+  - flatpak
 core_pacman_contrib_package: pacman-contrib
 
 bluetooth_packages:

@@ -38,6 +38,46 @@
     state: present
     use: "{{ pkg_mgr }}"
 
+- name: Install Flatpak runtime packages
+  ansible.builtin.package:
+    name: "{{ flatpak_runtime_packages }}"
+    state: present
+    use: "{{ pkg_mgr }}"
+  when:
+    - enable_flatpak | default(false)
+    - flatpak_runtime_packages is defined
+
+- name: Ensure Flatpak system helper is enabled
+  ansible.builtin.systemd:
+    name: flatpak-system-helper.service
+    state: started
+    enabled: true
+  become: true
+  when:
+    - enable_flatpak | default(false)
+    - ansible_service_mgr == 'systemd'
+
+- name: Configure system Flathub Flatpak remote
+  ansible.builtin.command: >-
+    flatpak remote-add --if-not-exists --system flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+  register: flathub_system_remote
+  changed_when: >-
+    'already exists' not in (flathub_system_remote.stdout | lower) and
+    'already exists' not in (flathub_system_remote.stderr | lower)
+  become: true
+  when: enable_flatpak | default(false)
+
+- name: Configure user Flathub Flatpak remote
+  ansible.builtin.command: >-
+    flatpak remote-add --if-not-exists --user flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+  register: flathub_user_remote
+  changed_when: >-
+    'already exists' not in (flathub_user_remote.stdout | lower) and
+    'already exists' not in (flathub_user_remote.stderr | lower)
+  become: true
+  become_user: "{{ username }}"
+  when: enable_flatpak | default(false)
+
 - name: Check if linux-dev-playbook repo exists
   ansible.builtin.stat:
     path: ~/personal/linux-dev-playbook/.git

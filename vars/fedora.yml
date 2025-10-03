@@ -3,6 +3,8 @@ pkg_mgr: dnf
 
 core_packages:
   - git
+flatpak_runtime_packages:
+  - flatpak
 core_pacman_contrib_package: null
 
 bluetooth_packages:

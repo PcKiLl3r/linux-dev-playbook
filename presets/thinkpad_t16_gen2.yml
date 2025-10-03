@@ -78,3 +78,4 @@ stow_folders:
 # Playbook behavior
 use_on_tv: false
 restore_last_ssh: true
+enable_flatpak: true
