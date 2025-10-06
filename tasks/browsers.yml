@@ -11,10 +11,52 @@
   failed_when: brave_check.rc != 0
   when: install_brave | bool and target_os in ['debian', 'ubuntu']
 
+- name: Ensure Brave managed policies directory exists
+  ansible.builtin.file:
+    path: /etc/opt/brave/policies/managed
+    state: directory
+    mode: '0755'
+  when: install_brave | bool and target_os in ['debian', 'ubuntu']
+
+- name: Configure Brave mandatory extensions
+  ansible.builtin.copy:
+    dest: /etc/opt/brave/policies/managed/extensions.json
+    mode: '0644'
+    content: |
+      {
+        "ExtensionInstallForcelist": [
+          "{{ vimium_c_extension_chrome_id }};{{ chrome_extension_update_url }}"
+        ]
+      }
+  when: install_brave | bool and target_os in ['debian', 'ubuntu']
+
 - name: Install Firefox browser
   ansible.builtin.package:
     name: firefox
     state: present
+  when: install_firefox | bool
+
+- name: Ensure Firefox policies directory exists
+  ansible.builtin.file:
+    path: /etc/firefox/policies
+    state: directory
+    mode: '0755'
+  when: install_firefox | bool
+
+- name: Configure Firefox mandatory extensions
+  ansible.builtin.copy:
+    dest: /etc/firefox/policies/policies.json
+    mode: '0644'
+    content: |
+      {
+        "policies": {
+          "Extensions": {
+            "Install": [
+              "{{ vimium_c_firefox_addon_url }}"
+            ]
+          }
+        }
+      }
   when: install_firefox | bool
 
 - name: Install Google Chrome browser
@@ -66,6 +108,24 @@
       register: chrome_check
       changed_when: false
       failed_when: chrome_check.rc != 0
+
+    - name: Ensure Google Chrome managed policies directory exists
+      ansible.builtin.file:
+        path: /etc/opt/chrome/policies/managed
+        state: directory
+        mode: '0755'
+
+    - name: Configure Google Chrome mandatory extensions
+      ansible.builtin.copy:
+        dest: /etc/opt/chrome/policies/managed/extensions.json
+        mode: '0644'
+        content: |
+          {
+            "ExtensionInstallForcelist": [
+              "{{ wave_extension_chrome_id }};{{ chrome_extension_update_url }}",
+              "{{ vimium_c_extension_chrome_id }};{{ chrome_extension_update_url }}"
+            ]
+          }
 
 - name: Install Zen Browser
   ansible.builtin.import_tasks: zen.yml

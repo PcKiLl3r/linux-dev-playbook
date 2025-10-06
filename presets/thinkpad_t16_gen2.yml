@@ -33,7 +33,7 @@ ai_tool: "none"
 # Install flags
 install_gimp: false
 install_inkscape: false
-install_libreoffice: false
+install_libreoffice: true
 install_audacity: false
 install_qalculate: false
 install_calcurse: false
@@ -46,6 +46,7 @@ install_codecs: true
 install_spotify: true
 install_obsidian: true
 install_chatgpt_desktop: true
+install_mattermost: true
 install_intel_wifi_firmware: true
 install_docker_desktop: false
 

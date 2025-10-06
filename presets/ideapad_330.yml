@@ -33,7 +33,7 @@ ai_tool: "none"
 # Install flags
 install_gimp: false
 install_inkscape: false
-install_libreoffice: false
+install_libreoffice: true
 install_audacity: false
 install_qalculate: false
 install_calcurse: false
@@ -47,6 +47,7 @@ install_docker_desktop: false
 install_spotify: true
 install_obsidian: true
 install_chatgpt_desktop: true
+install_mattermost: true
 
 # Hyprland specific - ENABLED
 add_input_group: true
