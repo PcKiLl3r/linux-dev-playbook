@@ -10,7 +10,8 @@
     gui_flatpak_requested: >-
       {{ (install_spotify | default(false) | bool)
          or (install_obsidian | default(false) | bool)
-         or (install_chatgpt_desktop | default(false) | bool) }}
+         or (install_chatgpt_desktop | default(false) | bool)
+         or (install_mattermost | default(false) | bool) }}
 
 - name: Ensure Flatpak is installed
   ansible.builtin.package:
@@ -107,6 +108,23 @@
       #!/usr/bin/env bash
       exec flatpak run {{ chatgpt_desktop_flatpak_id }} "$@"
   when: install_chatgpt_desktop | default(false) | bool
+
+- name: Install Mattermost via Flatpak
+  community.general.flatpak:
+    name: "{{ mattermost_flatpak_id }}"
+    state: present
+  when: install_mattermost | default(false) | bool
+
+- name: Ensure mattermost launcher script is present
+  ansible.builtin.copy:
+    dest: /usr/local/bin/mattermost
+    mode: '0755'
+    owner: root
+    group: root
+    content: |
+      #!/usr/bin/env bash
+      exec flatpak run {{ mattermost_flatpak_id }} "$@"
+  when: install_mattermost | default(false) | bool
 
 - name: Ensure dependency for brave installer is present
   ansible.builtin.package:

@@ -198,6 +198,12 @@ flatpak_remote_url: https://flathub.org/repo/flathub.flatpakrepo
 spotify_flatpak_id: com.spotify.Client
 obsidian_flatpak_id: md.obsidian.Obsidian
 chatgpt_desktop_flatpak_id: io.github.gi_lom.ChatGPTDesktop
+mattermost_flatpak_id: com.mattermost.Desktop
+
+chrome_extension_update_url: https://clients2.google.com/service/update2/crx
+wave_extension_chrome_id: jbbplnpkjmmeebjpijfedlgcdilocofh
+vimium_c_extension_chrome_id: hfjbmagddngcpeloejdejnfgbamkjaeg
+vimium_c_firefox_addon_url: https://addons.mozilla.org/firefox/downloads/latest/vimium-c/latest.xpi
 
 brave_dependency_packages:
   - acl
