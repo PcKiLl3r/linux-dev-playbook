@@ -20,13 +20,14 @@ terminal_emulator: "alacritty"
 # Development tools
 code_editors:
   - "neovim"
-  - "vscode"
+  #- "vscode"
 
 # Applications
 file_manager: "dolphin"
 video_player: "mpv"
 torrent_client: "qbittorrent"
-terminal_file_manager: "yazi"
+terminal_file_manager: ""
+#terminal_file_manager: "yazi"
 app_launcher: "rofi"
 ai_tool: "none"
 
