@@ -160,6 +160,12 @@
     dest: /tmp/postman.tar.gz
     mode: '0644'
 
+- name: Ensure Postman installation directory exists
+  ansible.builtin.file:
+    path: /opt/postman
+    state: directory
+    mode: '0755'
+
 - name: Install Postman
   ansible.builtin.unarchive:
     src: /tmp/postman.tar.gz
