@@ -199,6 +199,10 @@ spotify_flatpak_id: com.spotify.Client
 obsidian_flatpak_id: md.obsidian.Obsidian
 chatgpt_desktop_flatpak_id: io.github.lencx.ChatGPT
 mattermost_flatpak_id: com.mattermost.Desktop
+mattermost_package_name: mattermost-desktop
+mattermost_package_launcher: mattermost-desktop
+mattermost_rpm_gpg_key_url: https://rpm.packages.mattermost.com/pubkey.gpg
+mattermost_rpm_baseurl: https://rpm.packages.mattermost.com/$releasever/$basearch
 
 chrome_extension_update_url: https://clients2.google.com/service/update2/crx
 wave_extension_chrome_id: jbbplnpkjmmeebjpijfedlgcdilocofh
