@@ -46,6 +46,7 @@ utils_packages:
   - tldr
   - shutter
   - trash-cli
+  - openvpn
 
 virtualization_kernel_deps_packages:
   - base-devel
