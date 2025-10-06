@@ -17,6 +17,56 @@
     state: present
   when: install_firefox | bool
 
+- name: Install Google Chrome browser
+  when: install_chrome | default(false) | bool
+  block:
+    - name: Ensure Google Chrome installation is supported on this OS
+      ansible.builtin.assert:
+        that:
+          - target_os in ['fedora', 'debian', 'ubuntu']
+        fail_msg: "Google Chrome installation is supported on Fedora and Debian-based systems."
+
+    - name: Import Google Chrome GPG key (Fedora)
+      ansible.builtin.rpm_key:
+        key: https://dl.google.com/linux/linux_signing_key.pub
+        state: present
+      when: target_os == 'fedora'
+
+    - name: Configure Google Chrome repository (Fedora)
+      ansible.builtin.yum_repository:
+        name: google-chrome
+        description: Google Chrome repository
+        baseurl: http://dl.google.com/linux/chrome/rpm/stable/$basearch
+        gpgcheck: true
+        enabled: true
+        gpgkey: https://dl.google.com/linux/linux_signing_key.pub
+      when: target_os == 'fedora'
+
+    - name: Install Google Chrome (Fedora)
+      ansible.builtin.package:
+        name: google-chrome-stable
+        state: present
+        use: "{{ pkg_mgr }}"
+      when: target_os == 'fedora'
+
+    - name: Download Google Chrome package (Debian/Ubuntu)
+      ansible.builtin.get_url:
+        url: https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+        dest: /tmp/google-chrome-stable_current_amd64.deb
+        mode: "0644"
+      when: target_os in ['debian', 'ubuntu']
+
+    - name: Install Google Chrome (Debian/Ubuntu)
+      ansible.builtin.apt:
+        deb: /tmp/google-chrome-stable_current_amd64.deb
+      when: target_os in ['debian', 'ubuntu']
+
+    - name: Verify Google Chrome installation
+      ansible.builtin.command: google-chrome --version
+      register: chrome_check
+      changed_when: false
+      failed_when: chrome_check.rc != 0
+
 - name: Install Zen Browser
   ansible.builtin.import_tasks: zen.yml
   when: install_zen | default(false) | bool

@@ -57,6 +57,7 @@ The playbook can install the following browsers via `tasks/browsers.yml`:
 - Brave (default on most presets)
 - Firefox
 - Zen Browser (Chromium replacement)
+- Google Chrome (Fedora or Debian/Ubuntu targets)
 
 ## Application toggles
 
@@ -69,6 +70,7 @@ Presets enable the GUI applications you want via boolean flags. Set a flag to `t
 | `install_chatgpt_desktop` | Install the ChatGPT Desktop Flatpak and add a `/usr/local/bin/chatgpt-desktop` launcher. |
 | `install_pgmodeler` | Install pgModeler from the native package repositories. |
 | `install_zen` | Install Zen Browser (RPM on Fedora, AppImage fallback on Arch) and provide `/usr/local/bin/zen`. |
+| `install_chrome` | Install Google Chrome from the official repositories (Fedora) or direct Debian package (Debian/Ubuntu). |
 
 All shipped presets default these flags to `true`, but you can flip them to `false` if you prefer to skip any of the tools.
 
