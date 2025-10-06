@@ -41,6 +41,7 @@ utils_packages:
   - tldr
   - shutter
   - trash-cli
+  - openvpn
   - NetworkManager-tui
 
 install_networkmanager_tui: true
