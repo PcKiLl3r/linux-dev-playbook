@@ -136,10 +136,11 @@
 #  ansible.builtin.yum:
 #    name: brave-browser
 #    state: present
+
 - name: Import install Brave browser role
   ansible.builtin.import_role:
     name: staticdev.brave
-    when: install_brave | bool and target_os in ['debian', 'ubuntu']
+  when: install_brave | bool and target_os in ['debian', 'ubuntu']
 
 - name: Install Blender
   ansible.builtin.package:
