@@ -46,7 +46,7 @@ install_bluetooth: true
 install_codecs: true
 install_spotify: true
 install_obsidian: true
-install_chatgpt_desktop: true
+install_chatgpt_desktop: false
 install_mattermost: true
 install_intel_wifi_firmware: true
 install_docker_desktop: false
