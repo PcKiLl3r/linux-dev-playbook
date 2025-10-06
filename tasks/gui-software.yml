@@ -5,13 +5,19 @@
     state: present
     use: "{{ pkg_mgr }}"
 
+- name: Determine Mattermost install method
+  ansible.builtin.set_fact:
+    mattermost_install_method: "{{ mattermost_install_method_override | default('package' if target_os in ['arch', 'fedora'] else 'flatpak') }}"
+  when: install_mattermost | default(false) | bool
+
 - name: Determine whether Flatpak applications are requested
   ansible.builtin.set_fact:
     gui_flatpak_requested: >-
       {{ (install_spotify | default(false) | bool)
          or (install_obsidian | default(false) | bool)
          or (install_chatgpt_desktop | default(false) | bool)
-         or (install_mattermost | default(false) | bool) }}
+         or (install_mattermost | default(false) | bool
+             and (mattermost_install_method | default('flatpak')) == 'flatpak') }}
 
 - name: Ensure Flatpak is installed
   ansible.builtin.package:
@@ -113,6 +119,57 @@
   community.general.flatpak:
     name: "{{ mattermost_flatpak_id }}"
     state: present
+  when:
+    - install_mattermost | default(false) | bool
+    - (mattermost_install_method | default('flatpak')) == 'flatpak'
+
+- name: Install Mattermost Desktop via package manager
+  ansible.builtin.package:
+    name: "{{ mattermost_package_name }}"
+    state: present
+    use: "{{ pkg_mgr }}"
+  when:
+    - install_mattermost | default(false) | bool
+    - (mattermost_install_method | default('flatpak')) == 'package'
+    - target_os == 'arch'
+
+- name: Ensure Mattermost Desktop repository GPG key is installed
+  ansible.builtin.rpm_key:
+    key: "{{ mattermost_rpm_gpg_key_url }}"
+    state: present
+  when:
+    - install_mattermost | default(false) | bool
+    - (mattermost_install_method | default('flatpak')) == 'package'
+    - target_os == 'fedora'
+
+- name: Ensure Mattermost Desktop repository is configured
+  ansible.builtin.yum_repository:
+    name: mattermost-desktop
+    description: Mattermost Desktop
+    baseurl: "{{ mattermost_rpm_baseurl }}"
+    enabled: true
+    gpgcheck: true
+    repo_gpgcheck: true
+    gpgkey: "{{ mattermost_rpm_gpg_key_url }}"
+  when:
+    - install_mattermost | default(false) | bool
+    - (mattermost_install_method | default('flatpak')) == 'package'
+    - target_os == 'fedora'
+
+- name: Install Mattermost Desktop via DNF
+  ansible.builtin.package:
+    name: "{{ mattermost_package_name }}"
+    state: present
+    use: "{{ pkg_mgr }}"
+  when:
+    - install_mattermost | default(false) | bool
+    - (mattermost_install_method | default('flatpak')) == 'package'
+    - target_os == 'fedora'
+
+- name: Determine Mattermost launcher command
+  ansible.builtin.set_fact:
+    mattermost_launcher_command: >-
+      {{ 'flatpak run ' ~ mattermost_flatpak_id if (mattermost_install_method | default('flatpak')) == 'flatpak' else mattermost_package_launcher }}
   when: install_mattermost | default(false) | bool
 
 - name: Ensure mattermost launcher script is present
@@ -123,7 +180,7 @@
     group: root
     content: |
       #!/usr/bin/env bash
-      exec flatpak run {{ mattermost_flatpak_id }} "$@"
+      exec {{ mattermost_launcher_command }} "$@"
   when: install_mattermost | default(false) | bool
 
 - name: Ensure dependency for brave installer is present
