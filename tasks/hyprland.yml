@@ -6,6 +6,7 @@
         name: "{{ hyprland_packages }}"
         state: present
         use: "{{ pkg_mgr }}"
+      register: hyprland_package_install
   rescue:
     - name: Detect missing optional Hyprland packages
       ansible.builtin.set_fact:
@@ -22,12 +23,24 @@
         name: "{{ hyprland_packages | reject('equalto', 'wshowkeys') | list }}"
         state: present
         use: "{{ pkg_mgr }}"
+      register: hyprland_package_install
       when: hyprland_missing_wshowkeys | default(false)
 
     - name: Warn about missing wshowkeys package
       ansible.builtin.debug:
         msg: "wshowkeys is not available in the configured repositories and was skipped."
       when: hyprland_missing_wshowkeys | default(false)
+  always:
+    - name: Track Hyprland installation state
+      ansible.builtin.set_fact:
+        hyprland_install_changed: >-
+          {{ (
+                hyprland_install_changed | default(false)
+                or (
+                  hyprland_package_install is defined
+                  and (hyprland_package_install.changed | default(false))
+                )
+              ) | bool }}
 
 - name: Add user to input group
   ansible.builtin.user:

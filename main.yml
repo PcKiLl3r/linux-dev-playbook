@@ -292,6 +292,14 @@
     #   ansible.builtin.import_tasks:
     #     file: ./tasks/presets.yml
 
+  post_tasks:
+    - name: Reboot after Hyprland installation
+      ansible.builtin.reboot:
+        msg: "Rebooting to complete Hyprland installation"
+      when:
+        - window_manager == 'hyprland'
+        - hyprland_install_changed | default(false)
+
   handlers:
     - name: Restart bluetooth service
       ansible.builtin.systemd:
