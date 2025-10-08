@@ -116,37 +116,29 @@
     state: absent
   when: install_spotify | default(false) | bool
 
-- name: Ensure Obsidian repository GPG key is installed (Fedora)
-  ansible.builtin.rpm_key:
-    key: "{{ obsidian_repo_gpgkey }}"
-    state: present
-  when:
-    - install_obsidian | default(false) | bool
-    - target_os == 'fedora'
-
-- name: Ensure Obsidian repository is configured (Fedora)
-  ansible.builtin.yum_repository:
-    name: "{{ obsidian_repo_name }}"
-    description: "{{ obsidian_repo_description }}"
-    baseurl: "{{ obsidian_repo_baseurl }}"
-    enabled: true
-    gpgcheck: true
-    gpgkey: "{{ obsidian_repo_gpgkey }}"
-  when:
-    - install_obsidian | default(false) | bool
-    - target_os == 'fedora'
-
-- name: Install Obsidian via package manager
-  ansible.builtin.package:
-    name: "{{ obsidian_package_name }}"
-    state: present
-    use: "{{ pkg_mgr }}"
+- name: Ensure Obsidian AppImage directory exists
+  ansible.builtin.file:
+    path: "{{ obsidian_appimage_dir }}"
+    state: directory
+    mode: '0755'
   when: install_obsidian | default(false) | bool
 
-- name: Remove legacy Obsidian Flatpak launcher
-  ansible.builtin.file:
-    path: /usr/local/bin/obsidian
-    state: absent
+- name: Download Obsidian AppImage
+  ansible.builtin.get_url:
+    url: "{{ obsidian_appimage_url }}"
+    dest: "{{ obsidian_appimage_path }}"
+    mode: '0755'
+  when: install_obsidian | default(false) | bool
+
+- name: Ensure obsidian launcher script is present
+  ansible.builtin.copy:
+    dest: /usr/local/bin/obsidian
+    mode: '0755'
+    owner: root
+    group: root
+    content: |
+      #!/usr/bin/env bash
+      exec "{{ obsidian_appimage_path }}" "$@"
   when: install_obsidian | default(false) | bool
 
 - name: Ensure ChatGPT Desktop directory exists
