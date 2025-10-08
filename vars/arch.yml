@@ -185,7 +185,6 @@ neovim_luarocks_package:
 
 gui_dependencies_packages:
   - base-devel
-  - flatpak
 
 gui_software_packages:
   - discord
@@ -194,12 +193,20 @@ flatpak_package: flatpak
 flatpak_remote_name: flathub
 flatpak_remote_url: https://flathub.org/repo/flathub.flatpakrepo
 
-spotify_flatpak_id: com.spotify.Client
-obsidian_flatpak_id: md.obsidian.Obsidian
-chatgpt_desktop_flatpak_id: io.github.lencx.ChatGPT
+spotify_package_name: spotify-launcher
+spotify_repo_name: null
+spotify_repo_description: null
+spotify_repo_baseurl: null
+spotify_repo_gpgkey: null
+obsidian_package_name: obsidian
+obsidian_repo_name: null
+obsidian_repo_description: null
+obsidian_repo_baseurl: null
+obsidian_repo_gpgkey: null
+chatgpt_desktop_appimage_url: https://github.com/lencx/ChatGPT/releases/latest/download/ChatGPT_amd64.AppImage
+chatgpt_desktop_appimage_path: /opt/chatgpt-desktop/ChatGPT.AppImage
+chatgpt_desktop_appimage_dir: /opt/chatgpt-desktop
 mattermost_flatpak_id: com.mattermost.Desktop
-mattermost_package_name: mattermost-desktop
-mattermost_package_launcher: mattermost-desktop
 
 chrome_extension_update_url: https://clients2.google.com/service/update2/crx
 wave_extension_chrome_id: jbbplnpkjmmeebjpijfedlgcdilocofh

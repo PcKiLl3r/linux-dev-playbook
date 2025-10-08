@@ -67,10 +67,10 @@ Presets enable the GUI applications you want via boolean flags. Set a flag to `t
 
 | Flag | Description |
 | --- | --- |
-| `install_spotify` | Install Spotify from Flathub (system-wide) and add a `/usr/local/bin/spotify` launcher. |
-| `install_obsidian` | Install Obsidian from Flathub and add a `/usr/local/bin/obsidian` launcher. |
-| `install_chatgpt_desktop` | Install the ChatGPT Desktop Flatpak and add a `/usr/local/bin/chatgpt-desktop` launcher. |
-| `install_mattermost` | Install the Mattermost desktop client using the native package manager and add a `/usr/local/bin/mattermost` launcher. |
+| `install_spotify` | Install Spotify via native packages (negativo17 on Fedora, community repo on Arch) and ensure the Flatpak wrapper is removed. |
+| `install_obsidian` | Install Obsidian from the official repositories (RPM on Fedora, community package on Arch) and remove the legacy Flatpak wrapper. |
+| `install_chatgpt_desktop` | Download the ChatGPT Desktop AppImage and install a `/usr/local/bin/chatgpt-desktop` wrapper. |
+| `install_mattermost` | Install the Mattermost desktop client from Flathub and add a `/usr/local/bin/mattermost` launcher. |
 | `install_pgmodeler` | Install pgModeler from the native package repositories. |
 | `install_zen` | Install Zen Browser (RPM on Fedora, AppImage fallback on Arch) and provide `/usr/local/bin/zen`. |
 | `install_chrome` | Install Google Chrome from the official repositories (Fedora) or direct Debian package (Debian/Ubuntu). |
