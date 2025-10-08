@@ -199,6 +199,7 @@ flatpak_remote_url: https://flathub.org/repo/flathub.flatpakrepo
 spotify_package_name: spotify-launcher
 obsidian_appimage_path: /opt/obsidian/Obsidian.AppImage
 obsidian_appimage_dir: /opt/obsidian
+obsidian_appimage_fallback_url: https://github.com/obsidianmd/obsidian-releases/releases/download/v1.9.14/Obsidian-1.9.14.AppImage
 chatgpt_desktop_appimage_url: https://github.com/lencx/ChatGPT/releases/latest/download/ChatGPT_amd64.AppImage
 chatgpt_desktop_appimage_path: /opt/chatgpt-desktop/ChatGPT.AppImage
 chatgpt_desktop_appimage_dir: /opt/chatgpt-desktop
