@@ -201,10 +201,13 @@ flatpak_remote_name: flathub
 flatpak_remote_url: https://flathub.org/repo/flathub.flatpakrepo
 
 spotify_package_name: spotify-client
-spotify_repo_name: spotify
-spotify_repo_description: Spotify (negativo17)
-spotify_repo_baseurl: "https://negativo17.org/repos/spotify/fedora-$releasever/$basearch/"
-spotify_repo_gpgkey: https://negativo17.org/repos/RPM-GPG-KEY-negativo17
+spotify_lpf_wrapper_package: lpf-spotify-client
+spotify_lpf_groups:
+  - pkg-build
+  - lpf
+spotify_lpf_command: lpf update
+spotify_lpf_environment:
+  LPF_ACCEPT_LICENSE: "1"
 obsidian_package_name: obsidian
 obsidian_repo_name: obsidian
 obsidian_repo_description: Obsidian
