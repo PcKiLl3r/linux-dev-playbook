@@ -172,7 +172,7 @@
     group: root
     content: |
       #!/usr/bin/env bash
-      exec "{{ obsidian_appimage_path }}" "$@"
+      exec "{{ obsidian_appimage_path }}" --appimage-extract-and-run "$@"
   when: install_obsidian | default(false) | bool
 
 - name: Ensure ChatGPT Desktop directory exists
