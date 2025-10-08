@@ -245,8 +245,13 @@ yazi_packages:
   - yazi
 ranger_packages:
   - ranger
-rofi_packages:
-  - rofi
+rofi_wayland_window_managers:
+  - hyprland
+  - sway
+  - river
+  - wayfire
+
+rofi_packages: "{{ ['rofi-wayland'] if (window_manager | default('')) in rofi_wayland_window_managers else ['rofi'] }}"
 wofi_packages:
   - wofi
 qbittorrent_packages:
