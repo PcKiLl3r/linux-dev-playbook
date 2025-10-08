@@ -208,11 +208,9 @@ spotify_lpf_groups:
 spotify_lpf_command: lpf update
 spotify_lpf_environment:
   LPF_ACCEPT_LICENSE: "1"
-obsidian_package_name: obsidian
-obsidian_repo_name: obsidian
-obsidian_repo_description: Obsidian
-obsidian_repo_baseurl: https://mirrors.obsidian.md/obsidian/rpm/$basearch
-obsidian_repo_gpgkey: https://mirrors.obsidian.md/obsidian/rpm/obsidian.gpg.key
+obsidian_appimage_url: https://github.com/obsidianmd/obsidian-releases/releases/latest/download/Obsidian.AppImage
+obsidian_appimage_path: /opt/obsidian/Obsidian.AppImage
+obsidian_appimage_dir: /opt/obsidian
 chatgpt_desktop_appimage_url: https://github.com/lencx/ChatGPT/releases/latest/download/ChatGPT_amd64.AppImage
 chatgpt_desktop_appimage_path: /opt/chatgpt-desktop/ChatGPT.AppImage
 chatgpt_desktop_appimage_dir: /opt/chatgpt-desktop
