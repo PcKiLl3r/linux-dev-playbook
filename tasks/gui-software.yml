@@ -5,34 +5,6 @@
     state: present
     use: "{{ pkg_mgr }}"
 
-- name: Determine Mattermost install method
-  ansible.builtin.set_fact:
-    mattermost_install_method: "{{ mattermost_install_method_override | default('package' if target_os in ['arch', 'fedora'] else 'flatpak') }}"
-  when: install_mattermost | default(false) | bool
-
-- name: Determine whether Flatpak applications are requested
-  ansible.builtin.set_fact:
-    gui_flatpak_requested: >-
-      {{ (install_spotify | default(false) | bool)
-         or (install_obsidian | default(false) | bool)
-         or (install_chatgpt_desktop | default(false) | bool)
-         or (install_mattermost | default(false) | bool
-             and (mattermost_install_method | default('flatpak')) == 'flatpak') }}
-
-- name: Ensure Flatpak is installed
-  ansible.builtin.package:
-    name: "{{ flatpak_package | default('flatpak') }}"
-    state: present
-    use: "{{ pkg_mgr }}"
-  when: gui_flatpak_requested | bool
-
-- name: Ensure Flathub remote is configured
-  community.general.flatpak_remote:
-    name: "{{ flatpak_remote_name | default('flathub') }}"
-    state: present
-    flatpakrepo_url: "{{ flatpak_remote_url | default('https://flathub.org/repo/flathub.flatpakrepo') }}"
-  when: gui_flatpak_requested | bool
-
 #- name: Add GUI Apps Repos
 #  ansible.builtin.yum_repository:
 #    name: brave-browser
@@ -64,44 +36,103 @@
     state: present
     use: "{{ pkg_mgr }}"
 
-- name: Install Spotify via Flatpak
-  community.general.flatpak:
-    name: "{{ spotify_flatpak_id }}"
+- name: Determine whether Flatpak applications are requested
+  ansible.builtin.set_fact:
+    gui_flatpak_requested: >-
+      {{ install_mattermost | default(false) | bool }}
+
+- name: Ensure Flatpak is installed when required
+  ansible.builtin.package:
+    name: "{{ flatpak_package | default('flatpak') }}"
     state: present
+    use: "{{ pkg_mgr }}"
+  when: gui_flatpak_requested | bool
+
+- name: Ensure Flathub remote is configured when Flatpak apps are requested
+  community.general.flatpak_remote:
+    name: "{{ flatpak_remote_name | default('flathub') }}"
+    state: present
+    flatpakrepo_url: "{{ flatpak_remote_url | default('https://flathub.org/repo/flathub.flatpakrepo') }}"
+  when: gui_flatpak_requested | bool
+
+- name: Ensure Spotify repository GPG key is installed (Fedora)
+  ansible.builtin.rpm_key:
+    key: "{{ spotify_repo_gpgkey }}"
+    state: present
+  when:
+    - install_spotify | default(false) | bool
+    - target_os == 'fedora'
+
+- name: Ensure Spotify repository is configured (Fedora)
+  ansible.builtin.yum_repository:
+    name: "{{ spotify_repo_name }}"
+    description: "{{ spotify_repo_description }}"
+    baseurl: "{{ spotify_repo_baseurl }}"
+    enabled: true
+    gpgcheck: true
+    gpgkey: "{{ spotify_repo_gpgkey }}"
+  when:
+    - install_spotify | default(false) | bool
+    - target_os == 'fedora'
+
+- name: Install Spotify via package manager
+  ansible.builtin.package:
+    name: "{{ spotify_package_name }}"
+    state: present
+    use: "{{ pkg_mgr }}"
   when: install_spotify | default(false) | bool
 
-- name: Ensure spotify launcher script is present
-  ansible.builtin.copy:
-    dest: /usr/local/bin/spotify
-    mode: '0755'
-    owner: root
-    group: root
-    content: |
-      #!/usr/bin/env bash
-      exec flatpak run {{ spotify_flatpak_id }} "$@"
+- name: Remove legacy Spotify Flatpak launcher
+  ansible.builtin.file:
+    path: /usr/local/bin/spotify
+    state: absent
   when: install_spotify | default(false) | bool
 
-- name: Install Obsidian via Flatpak
-  community.general.flatpak:
-    name: "{{ obsidian_flatpak_id }}"
+- name: Ensure Obsidian repository GPG key is installed (Fedora)
+  ansible.builtin.rpm_key:
+    key: "{{ obsidian_repo_gpgkey }}"
     state: present
+  when:
+    - install_obsidian | default(false) | bool
+    - target_os == 'fedora'
+
+- name: Ensure Obsidian repository is configured (Fedora)
+  ansible.builtin.yum_repository:
+    name: "{{ obsidian_repo_name }}"
+    description: "{{ obsidian_repo_description }}"
+    baseurl: "{{ obsidian_repo_baseurl }}"
+    enabled: true
+    gpgcheck: true
+    gpgkey: "{{ obsidian_repo_gpgkey }}"
+  when:
+    - install_obsidian | default(false) | bool
+    - target_os == 'fedora'
+
+- name: Install Obsidian via package manager
+  ansible.builtin.package:
+    name: "{{ obsidian_package_name }}"
+    state: present
+    use: "{{ pkg_mgr }}"
   when: install_obsidian | default(false) | bool
 
-- name: Ensure obsidian launcher script is present
-  ansible.builtin.copy:
-    dest: /usr/local/bin/obsidian
+- name: Remove legacy Obsidian Flatpak launcher
+  ansible.builtin.file:
+    path: /usr/local/bin/obsidian
+    state: absent
+  when: install_obsidian | default(false) | bool
+
+- name: Ensure ChatGPT Desktop directory exists
+  ansible.builtin.file:
+    path: "{{ chatgpt_desktop_appimage_dir }}"
+    state: directory
     mode: '0755'
-    owner: root
-    group: root
-    content: |
-      #!/usr/bin/env bash
-      exec flatpak run {{ obsidian_flatpak_id }} "$@"
-  when: install_obsidian | default(false) | bool
+  when: install_chatgpt_desktop | default(false) | bool
 
-- name: Install ChatGPT Desktop via Flatpak
-  community.general.flatpak:
-    name: "{{ chatgpt_desktop_flatpak_id }}"
-    state: present
+- name: Download ChatGPT Desktop AppImage
+  ansible.builtin.get_url:
+    url: "{{ chatgpt_desktop_appimage_url }}"
+    dest: "{{ chatgpt_desktop_appimage_path }}"
+    mode: '0755'
   when: install_chatgpt_desktop | default(false) | bool
 
 - name: Ensure chatgpt-desktop launcher script is present
@@ -112,64 +143,13 @@
     group: root
     content: |
       #!/usr/bin/env bash
-      exec flatpak run {{ chatgpt_desktop_flatpak_id }} "$@"
+      exec "{{ chatgpt_desktop_appimage_path }}" "$@"
   when: install_chatgpt_desktop | default(false) | bool
 
 - name: Install Mattermost via Flatpak
   community.general.flatpak:
     name: "{{ mattermost_flatpak_id }}"
     state: present
-  when:
-    - install_mattermost | default(false) | bool
-    - (mattermost_install_method | default('flatpak')) == 'flatpak'
-
-- name: Install Mattermost Desktop via package manager
-  ansible.builtin.package:
-    name: "{{ mattermost_package_name }}"
-    state: present
-    use: "{{ pkg_mgr }}"
-  when:
-    - install_mattermost | default(false) | bool
-    - (mattermost_install_method | default('flatpak')) == 'package'
-    - target_os == 'arch'
-
-- name: Ensure Mattermost Desktop repository GPG key is installed
-  ansible.builtin.rpm_key:
-    key: "{{ mattermost_rpm_gpg_key_url }}"
-    state: present
-  when:
-    - install_mattermost | default(false) | bool
-    - (mattermost_install_method | default('flatpak')) == 'package'
-    - target_os == 'fedora'
-
-- name: Ensure Mattermost Desktop repository is configured
-  ansible.builtin.yum_repository:
-    name: mattermost-desktop
-    description: Mattermost Desktop
-    baseurl: "{{ mattermost_rpm_baseurl }}"
-    enabled: true
-    gpgcheck: true
-    repo_gpgcheck: true
-    gpgkey: "{{ mattermost_rpm_gpg_key_url }}"
-  when:
-    - install_mattermost | default(false) | bool
-    - (mattermost_install_method | default('flatpak')) == 'package'
-    - target_os == 'fedora'
-
-- name: Install Mattermost Desktop via DNF
-  ansible.builtin.package:
-    name: "{{ mattermost_package_name }}"
-    state: present
-    use: "{{ pkg_mgr }}"
-  when:
-    - install_mattermost | default(false) | bool
-    - (mattermost_install_method | default('flatpak')) == 'package'
-    - target_os == 'fedora'
-
-- name: Determine Mattermost launcher command
-  ansible.builtin.set_fact:
-    mattermost_launcher_command: >-
-      {{ 'flatpak run ' ~ mattermost_flatpak_id if (mattermost_install_method | default('flatpak')) == 'flatpak' else mattermost_package_launcher }}
   when: install_mattermost | default(false) | bool
 
 - name: Ensure mattermost launcher script is present
@@ -180,7 +160,7 @@
     group: root
     content: |
       #!/usr/bin/env bash
-      exec {{ mattermost_launcher_command }} "$@"
+      exec flatpak run {{ mattermost_flatpak_id }} "$@"
   when: install_mattermost | default(false) | bool
 
 - name: Ensure dependency for brave installer is present

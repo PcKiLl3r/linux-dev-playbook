@@ -187,7 +187,6 @@ neovim_luarocks_package:
 
 gui_dependencies_packages:
   - "@development-tools"
-  - flatpak
 
 gui_software_packages:
   - discord
@@ -196,14 +195,20 @@ flatpak_package: flatpak
 flatpak_remote_name: flathub
 flatpak_remote_url: https://flathub.org/repo/flathub.flatpakrepo
 
-spotify_flatpak_id: com.spotify.Client
-obsidian_flatpak_id: md.obsidian.Obsidian
-chatgpt_desktop_flatpak_id: io.github.lencx.ChatGPT
+spotify_package_name: spotify-client
+spotify_repo_name: spotify
+spotify_repo_description: Spotify (negativo17)
+spotify_repo_baseurl: "https://negativo17.org/repos/spotify/fedora-$releasever/$basearch/"
+spotify_repo_gpgkey: https://negativo17.org/repos/RPM-GPG-KEY-negativo17
+obsidian_package_name: obsidian
+obsidian_repo_name: obsidian
+obsidian_repo_description: Obsidian
+obsidian_repo_baseurl: https://mirrors.obsidian.md/obsidian/rpm/$basearch
+obsidian_repo_gpgkey: https://mirrors.obsidian.md/obsidian/rpm/obsidian.gpg.key
+chatgpt_desktop_appimage_url: https://github.com/lencx/ChatGPT/releases/latest/download/ChatGPT_amd64.AppImage
+chatgpt_desktop_appimage_path: /opt/chatgpt-desktop/ChatGPT.AppImage
+chatgpt_desktop_appimage_dir: /opt/chatgpt-desktop
 mattermost_flatpak_id: com.mattermost.Desktop
-mattermost_package_name: mattermost-desktop
-mattermost_package_launcher: mattermost-desktop
-mattermost_rpm_gpg_key_url: https://rpm.packages.mattermost.com/pubkey.gpg
-mattermost_rpm_baseurl: https://rpm.packages.mattermost.com/$releasever/$basearch
 
 chrome_extension_update_url: https://clients2.google.com/service/update2/crx
 wave_extension_chrome_id: jbbplnpkjmmeebjpijfedlgcdilocofh
