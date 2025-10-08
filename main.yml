@@ -293,6 +293,15 @@
     #     file: ./tasks/presets.yml
 
   post_tasks:
+    - name: Show desktop installation change reasons
+      ansible.builtin.debug:
+        msg: >-
+          {{ (desktop_install_change_reason | default([])) | unique | join('\n')
+             if (desktop_install_change_reason | default([])) | length > 0
+             else 'Desktop installation reported changes but no reason details were captured.' }}
+      when:
+        - desktop_install_changed | default(false)
+
     - name: Reboot after desktop environment installation
       ansible.builtin.reboot:
         msg: "Rebooting to complete desktop environment installation"
