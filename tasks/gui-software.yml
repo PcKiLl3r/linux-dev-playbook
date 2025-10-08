@@ -145,6 +145,7 @@
           | list
         )
         | first
+        | default(obsidian_appimage_fallback_url | default(''), true)
       }}
   when: install_obsidian | default(false) | bool
 
