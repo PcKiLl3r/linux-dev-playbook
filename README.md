@@ -67,7 +67,7 @@ Presets enable the GUI applications you want via boolean flags. Set a flag to `t
 
 | Flag | Description |
 | --- | --- |
-| `install_spotify` | Install Spotify via native packages (negativo17 on Fedora, community repo on Arch) and ensure the Flatpak wrapper is removed. |
+| `install_spotify` | Install Spotify via native packages (RPM Fusion + LPF workflow on Fedora, community repo on Arch) and ensure the Flatpak wrapper is removed. |
 | `install_obsidian` | Install Obsidian from the official repositories (RPM on Fedora, community package on Arch) and remove the legacy Flatpak wrapper. |
 | `install_chatgpt_desktop` | Download the ChatGPT Desktop AppImage and install a `/usr/local/bin/chatgpt-desktop` wrapper. |
 | `install_mattermost` | Install the Mattermost desktop client from Flathub and add a `/usr/local/bin/mattermost` launcher. |

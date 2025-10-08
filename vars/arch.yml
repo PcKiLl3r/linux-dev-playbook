@@ -197,10 +197,6 @@ flatpak_remote_name: flathub
 flatpak_remote_url: https://flathub.org/repo/flathub.flatpakrepo
 
 spotify_package_name: spotify-launcher
-spotify_repo_name: null
-spotify_repo_description: null
-spotify_repo_baseurl: null
-spotify_repo_gpgkey: null
 obsidian_package_name: obsidian
 obsidian_repo_name: null
 obsidian_repo_description: null

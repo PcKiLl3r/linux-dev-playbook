@@ -36,7 +36,7 @@ n be restored during provisioning.
 
 Each preset exposes boolean flags that control optional GUI software. Set any of these to `false` if you want to skip an app (or `true` to ensure it is installed):
 
-- `install_spotify` – installs Spotify via the native package repositories (negativo17 on Fedora, community package on Arch) and removes the legacy Flatpak wrapper.
+- `install_spotify` – installs Spotify via the native package repositories (RPM Fusion + LPF workflow on Fedora, community package on Arch) and removes the legacy Flatpak wrapper.
 - `install_obsidian` – installs Obsidian from the official repositories (RPM on Fedora, community package on Arch) and removes the legacy Flatpak wrapper.
 - `install_chatgpt_desktop` – downloads the ChatGPT Desktop AppImage and exposes it through `/usr/local/bin/chatgpt-desktop`.
 - `install_mattermost` – installs the Mattermost desktop client from Flathub and exposes it through `/usr/local/bin/mattermost`.

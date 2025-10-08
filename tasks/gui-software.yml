@@ -55,32 +55,60 @@
     flatpakrepo_url: "{{ flatpak_remote_url | default('https://flathub.org/repo/flathub.flatpakrepo') }}"
   when: gui_flatpak_requested | bool
 
-- name: Ensure Spotify repository GPG key is installed (Fedora)
-  ansible.builtin.rpm_key:
-    key: "{{ spotify_repo_gpgkey }}"
+- name: Ensure Spotify LPF wrapper is installed (Fedora)
+  ansible.builtin.package:
+    name: "{{ spotify_lpf_wrapper_package }}"
     state: present
+    use: "{{ pkg_mgr }}"
   when:
     - install_spotify | default(false) | bool
     - target_os == 'fedora'
 
-- name: Ensure Spotify repository is configured (Fedora)
-  ansible.builtin.yum_repository:
-    name: "{{ spotify_repo_name }}"
-    description: "{{ spotify_repo_description }}"
-    baseurl: "{{ spotify_repo_baseurl }}"
-    enabled: true
-    gpgcheck: true
-    gpgkey: "{{ spotify_repo_gpgkey }}"
+- name: Ensure Spotify build groups exist (Fedora)
+  ansible.builtin.group:
+    name: "{{ item }}"
+    state: present
+    system: true
+  loop: "{{ spotify_lpf_groups }}"
   when:
     - install_spotify | default(false) | bool
     - target_os == 'fedora'
+
+- name: Ensure user is part of Spotify build groups (Fedora)
+  ansible.builtin.user:
+    name: "{{ username }}"
+    groups: "{{ item }}"
+    append: true
+  loop: "{{ spotify_lpf_groups }}"
+  when:
+    - install_spotify | default(false) | bool
+    - target_os == 'fedora'
+
+- name: Gather package facts
+  ansible.builtin.package_facts:
+    manager: auto
+  when: install_spotify | default(false) | bool
+
+- name: Build and install Spotify via LPF (Fedora)
+  ansible.builtin.command:
+    cmd: "{{ spotify_lpf_command }}"
+  become: true
+  become_user: "{{ username }}"
+  environment: "{{ spotify_lpf_environment }}"
+  when:
+    - install_spotify | default(false) | bool
+    - target_os == 'fedora'
+    - ansible_facts.packages is defined
+    - spotify_package_name not in ansible_facts.packages
 
 - name: Install Spotify via package manager
   ansible.builtin.package:
     name: "{{ spotify_package_name }}"
     state: present
     use: "{{ pkg_mgr }}"
-  when: install_spotify | default(false) | bool
+  when:
+    - install_spotify | default(false) | bool
+    - target_os != 'fedora'
 
 - name: Remove legacy Spotify Flatpak launcher
   ansible.builtin.file:
