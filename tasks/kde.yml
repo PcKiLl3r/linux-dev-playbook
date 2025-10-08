@@ -4,3 +4,12 @@
     name: "{{ kde_packages }}"
     state: present
     use: "{{ pkg_mgr }}"
+  register: kde_install
+
+- name: Track desktop environment installation state
+  ansible.builtin.set_fact:
+    desktop_install_changed: >-
+      {{ (
+            desktop_install_changed | default(false)
+            or (kde_install.changed | default(false))
+          ) | bool }}

@@ -41,6 +41,14 @@
                   and (hyprland_package_install.changed | default(false))
                 )
               ) | bool }}
+        desktop_install_changed: >-
+          {{ (
+                desktop_install_changed | default(false)
+                or (
+                  hyprland_package_install is defined
+                  and (hyprland_package_install.changed | default(false))
+                )
+              ) | bool }}
 
 - name: Add user to input group
   ansible.builtin.user:
