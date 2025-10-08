@@ -4,3 +4,21 @@
     name: "{{ tmux_packages }}"
     state: present
     use: "{{ pkg_mgr }}"
+
+- name: Enable tmux focus events
+  ansible.builtin.lineinfile:
+    path: "/home/{{ username }}/.tmux.conf"
+    regexp: "^set-option -g focus-events"
+    line: "set-option -g focus-events on"
+    create: true
+  become: true
+  become_user: "{{ username }}"
+
+- name: Enable true color support in tmux
+  ansible.builtin.lineinfile:
+    path: "/home/{{ username }}/.tmux.conf"
+    regexp: "^set-option -a terminal-features"
+    line: "set-option -a terminal-features 'screen-256color:RGB'"
+    create: true
+  become: true
+  become_user: "{{ username }}"

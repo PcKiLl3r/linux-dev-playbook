@@ -5,6 +5,18 @@
     state: present
   become: no
 
+- name: Install global JavaScript tooling
+  npm:
+    name: "{{ item }}"
+    global: yes
+    state: present
+  become: no
+  loop:
+    - prettier
+    - "@fsouza/prettierd"
+    - tree-sitter-cli
+    - neovim
+
 # - name: Install Angular CLI via npm command
 #   shell: npm install -g @angular/cli
 #   args:

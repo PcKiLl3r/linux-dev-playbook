@@ -23,6 +23,13 @@
     state: present
     use: "{{ pkg_mgr }}"
 
+- name: Install Lua 5.1 compatibility packages for NeoVim
+  ansible.builtin.package:
+    name: "{{ neovim_lua_compat_packages | default([]) }}"
+    state: present
+    use: "{{ pkg_mgr }}"
+  when: (neovim_lua_compat_packages | default([])) | length > 0
+
 - name: Plenary
   ansible.builtin.git:
     repo: "https://github.com/nvim-lua/plenary.nvim.git"
@@ -68,6 +75,14 @@
 - name: Install Stylua
   ansible.builtin.command: cargo install stylua
   changed_when: false
+  become: true
+  become_user: "{{ username }}"
+
+- name: Install pynvim for Python provider
+  ansible.builtin.pip:
+    name: pynvim
+    extra_args: --user
+    executable: pip3
   become: true
   become_user: "{{ username }}"
 

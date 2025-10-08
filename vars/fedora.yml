@@ -43,6 +43,7 @@ utils_packages:
   - trash-cli
   - openvpn
   - NetworkManager-tui
+  - fd-find
 
 install_networkmanager_tui: true
 
@@ -177,6 +178,10 @@ neovim_dependencies_packages:
   - libevent
   - readline
   - ncurses
+
+neovim_lua_compat_packages:
+  - lua5.1
+  - lua5.1-devel
 
 neovim_rust_packages:
   - rust
