@@ -47,6 +47,7 @@ utils_packages:
   - shutter
   - trash-cli
   - openvpn
+  - fd
 
 virtualization_kernel_deps_packages:
   - base-devel
@@ -182,6 +183,8 @@ neovim_rust_packages:
 
 neovim_luarocks_package:
   - luarocks
+
+neovim_lua_compat_packages: []
 
 gui_dependencies_packages:
   - base-devel
