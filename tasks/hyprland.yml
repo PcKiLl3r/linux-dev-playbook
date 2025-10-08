@@ -1,4 +1,16 @@
 ---
+- name: Detect existing Hyprland installation
+  ansible.builtin.stat:
+    path: "{{ item }}"
+  loop:
+    - /usr/bin/Hyprland
+    - /usr/bin/hyprland
+  register: hyprland_binary_checks
+
+- name: Record Hyprland installation state before changes
+  ansible.builtin.set_fact:
+    hyprland_preinstalled: "{{ ((hyprland_binary_checks.results | selectattr('stat.exists') | list | length) > 0) | bool }}"
+
 - name: Install Hyprland packages
   block:
     - name: Install Hyprland packages
@@ -37,7 +49,8 @@
           {{ (
                 hyprland_install_changed | default(false)
                 or (
-                  hyprland_package_install is defined
+                  (not (hyprland_preinstalled | default(false) | bool))
+                  and hyprland_package_install is defined
                   and (hyprland_package_install.changed | default(false))
                 )
               ) | bool }}
@@ -45,7 +58,8 @@
           {{ (
                 desktop_install_changed | default(false)
                 or (
-                  hyprland_package_install is defined
+                  (not (hyprland_preinstalled | default(false) | bool))
+                  and hyprland_package_install is defined
                   and (hyprland_package_install.changed | default(false))
                 )
               ) | bool }}
