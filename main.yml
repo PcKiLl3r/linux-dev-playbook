@@ -293,12 +293,11 @@
     #     file: ./tasks/presets.yml
 
   post_tasks:
-    - name: Reboot after Hyprland installation
+    - name: Reboot after desktop environment installation
       ansible.builtin.reboot:
-        msg: "Rebooting to complete Hyprland installation"
+        msg: "Rebooting to complete desktop environment installation"
       when:
-        - window_manager == 'hyprland'
-        - hyprland_install_changed | default(false)
+        - desktop_install_changed | default(false)
 
   handlers:
     - name: Restart bluetooth service
