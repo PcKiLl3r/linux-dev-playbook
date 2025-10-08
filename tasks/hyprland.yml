@@ -64,6 +64,27 @@
                 )
               ) | bool }}
 
+    - name: Record Hyprland reboot reason when packages were installed
+      ansible.builtin.set_fact:
+        desktop_install_change_reason: >-
+          {{ desktop_install_change_reason | default([]) + [
+               'Hyprland packages were installed because no Hyprland binary was detected before the playbook ran. '
+               ~ 'The role only checks /usr/bin/Hyprland and /usr/bin/hyprland, so installations in other paths '
+               ~ 'will trigger a reinstall and the subsequent reboot.'
+             ] }}
+      when:
+        - not (hyprland_preinstalled | default(false) | bool)
+        - hyprland_package_install is defined
+        - hyprland_package_install.changed | default(false)
+
+    - name: Report Hyprland installation summary
+      ansible.builtin.debug:
+        msg:
+          - "Hyprland binaries detected before run: {{ hyprland_preinstalled | default(false) | bool }}"
+          - "Hyprland package task reported changes: {{ hyprland_package_install.changed | default(false) }}"
+          - "desktop_install_changed: {{ desktop_install_changed | default(false) }}"
+      when: hyprland_package_install is defined
+
 - name: Add user to input group
   ansible.builtin.user:
     name: "{{ username }}"

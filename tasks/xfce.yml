@@ -13,3 +13,18 @@
             desktop_install_changed | default(false)
             or (xfce_install.changed | default(false))
           ) | bool }}
+
+- name: Record XFCE reboot reason when packages were installed
+  ansible.builtin.set_fact:
+    desktop_install_change_reason: >-
+      {{ desktop_install_change_reason | default([]) + [
+           'XFCE packages were installed or updated during this run.'
+         ] }}
+  when: xfce_install.changed | default(false)
+
+- name: Report XFCE installation summary
+  ansible.builtin.debug:
+    msg:
+      - "XFCE package task reported changes: {{ xfce_install.changed | default(false) }}"
+      - "desktop_install_changed: {{ desktop_install_changed | default(false) }}"
+  when: xfce_install is defined
