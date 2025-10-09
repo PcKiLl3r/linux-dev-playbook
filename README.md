@@ -129,63 +129,13 @@ That's it. No config files, no templates, no duplication.
 
 ## FAQ
 
-### Why was my ThinkPad T16 Gen 2 rebooted even though Hyprland was already installed?
+### Does the playbook automatically reboot after installing a desktop environment?
 
-The `thinkpad_t16_gen2` preset drives the Hyprland role, and the playbook
-performs a reboot whenever a desktop environment or window manager is freshly
-installed. The reboot is gated on the `desktop_install_changed` fact, which is
-set by `tasks/hyprland.yml` only when the Hyprland binaries are missing before
-the package task runs. The detection checks `/usr/bin/Hyprland` and
-`/usr/bin/hyprland`, so if Hyprland was previously installed somewhere else
-(e.g., from a manual build or a non-standard package), the playbook assumes it
-needs to install Hyprland and marks `desktop_install_changed` as true. That flag
-triggers the reboot defined in the post tasks to ensure the new desktop stack is
-started cleanly. Aligning the existing Hyprland installation with one of the
-detected binary paths (or letting the playbook manage the packages) prevents the
-extra reboot. The Hyprland role now prints a summary block (`Report Hyprland
-installation summary`) that lists whether the binaries were detected before the
-run and whether the package task reported changes. Immediately before the
-reboot, the playbook also echoes the collected `desktop_install_change_reason`
-messages (for Hyprland, KDE, or XFCE) so your log file clearly states why the
-reboot is happening. Look for output like:
-
-```
-TASK [Report Hyprland installation summary] ************************
-ok: [localhost] => {
-    "msg": [
-        "Hyprland binaries detected before run: False",
-        "Hyprland package task reported changes: True",
-        "desktop_install_changed: True"
-    ]
-}
-TASK [Show desktop installation change reasons] ********************
-ok: [localhost] => {
-    "msg": "Hyprland packages were installed because no Hyprland binary was detected before the playbook ran. The role only checks /usr/bin/Hyprland and /usr/bin/hyprland, so installations in other paths will trigger a reinstall and the subsequent reboot."
-}
-```
-
-In the sample log you shared, the `Install Hyprland packages` step finished with
-`ok`, which means the playbook did not reinstall Hyprland on that particular
-run. The reboot you observed happened earlier, when the packages were actually
-installed and the new summary output would have shown `Hyprland binaries
-detected before run: False`. 【F:main.yml†L276-L309】【F:tasks/hyprland.yml†L1-L92】
-
-### Can I review the playbook logs after the reboot happens?
-
-The bootstrap script pipes Ansible's output directly to your terminal, so once
-the machine reboots that scrollback is gone. Capture a log before you rerun the
-playbook by exporting `ANSIBLE_LOG_PATH` to a writable location:
-
-```bash
-mkdir -p ~/.ansible/logs
-ANSIBLE_LOG_PATH=~/.ansible/logs/linux-dev-playbook-$(date +%Y%m%d%H%M%S).log \
-  ./scripts/bootstrap.sh --preset thinkpad_t16_gen2
-```
-
-After the reboot you can inspect that log file to review everything the playbook
-changed. For additional system context around the reboot itself, use
-`journalctl -b -1` (or add `-u sshd`, `-u systemd-logind`, etc.) to see the
-previous boot's journal entries. 【F:scripts/bootstrap.sh†L1-L41】
+No. Earlier revisions attempted to reboot whenever a desktop environment or
+window manager reported changes, but that automation has been removed. If a
+fresh desktop installation requires a reboot, trigger it manually once the
+playbook finishes. This keeps the run non-disruptive and avoids unexpected
+interruptions.【F:main.yml†L251-L295】【F:tasks/hyprland.yml†L1-L27】【F:tasks/kde.yml†L1-L4】【F:tasks/xfce.yml†L1-L4】
 
 ## Secrets and Automated Logins
 
