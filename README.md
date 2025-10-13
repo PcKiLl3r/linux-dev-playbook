@@ -72,10 +72,18 @@ Presets enable the GUI applications you want via boolean flags. Set a flag to `t
 | `install_chatgpt_desktop` | Download the ChatGPT Desktop AppImage and install a `/usr/local/bin/chatgpt-desktop` wrapper. |
 | `install_mattermost` | Install the Mattermost desktop client from Flathub and add a `/usr/local/bin/mattermost` launcher. |
 | `install_pgmodeler` | Install pgModeler from the native package repositories. |
+| `enable_virtual_mic` | Install the PipeWire stack dependencies and drop a PipeWire Pulse configuration that creates a `VirtualSink` + `VirtualMic` pair for loopback recording. |
 | `install_zen` | Install Zen Browser (RPM on Fedora, AppImage fallback on Arch) and provide `/usr/local/bin/zen`. |
 | `install_chrome` | Install Google Chrome from the official repositories (Fedora) or direct Debian package (Debian/Ubuntu). |
 
 All shipped presets default these flags to `true`, but you can flip them to `false` if you prefer to skip any of the tools.
+
+### Hardware-specific fixes
+
+Some laptops need additional firmware or remediation steps that are unrelated to optional application toggles. Presets can define
+`hardware_packages` (installed via the distro package manager) and `hardware_commands` (shell commands executed as root) to apply
+those tweaks early in the playbook run. For example, the `thinkpad_t16_gen2` preset installs `alsa-sof-firmware` and re-runs the
+PipeWire stack reinstall so the built-in microphone and speakers appear even without the virtual microphone feature enabled.
 
 ## Adding a New Machine
 

@@ -69,6 +69,10 @@
       vars:
         machine_upgrade: "{{ restore_last_ssh }}"
 
+    - name: Apply hardware enablement fixes
+      ansible.builtin.import_tasks:
+        file: ./tasks/hardware.yml
+
     - name: Import Utility Packages Install
       ansible.builtin.import_tasks:
         file: ./tasks/utils.yml
@@ -272,6 +276,11 @@
       ansible.builtin.import_tasks:
         file: ./tasks/keyboard.yml
       tags: keyboard
+
+    - name: Configure virtual microphone support
+      ansible.builtin.import_tasks:
+        file: ./tasks/virtual-mic.yml
+      when: enable_virtual_mic | default(false) | bool
 
     - name: Import Bluetooth & audio setup
       ansible.builtin.import_tasks:
