@@ -1,0 +1,13 @@
+---
+- name: Install hardware enablement packages
+  ansible.builtin.package:
+    name: "{{ hardware_packages }}"
+    state: present
+    use: "{{ pkg_mgr }}"
+  when: hardware_packages | length > 0
+
+- name: Apply hardware remediation commands
+  ansible.builtin.command: "{{ item }}"
+  loop: "{{ hardware_commands }}"
+  when: hardware_commands | length > 0
+  changed_when: false

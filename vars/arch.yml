@@ -22,6 +22,16 @@ pipewire_user_services:
   - pipewire-pulse.service
   - wireplumber.service
 
+virtual_mic_packages:
+  - pipewire
+  - pipewire-alsa
+  - pipewire-pulse
+  - wireplumber
+
+hardware_packages: []
+
+hardware_commands: []
+
 mobile_dev_packages:
   - scrcpy
 

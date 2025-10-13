@@ -42,8 +42,16 @@ Each preset exposes boolean flags that control optional GUI software. Set any of
 - `install_mattermost` – installs the Mattermost desktop client from Flathub and exposes it through `/usr/local/bin/mattermost`.
 - `install_pgmodeler` – installs pgModeler from the distro repositories.
 - `install_zen` – installs Zen Browser (RPM on Fedora, AppImage fallback on Arch) with `/usr/local/bin/zen`.
+- `enable_virtual_mic` – installs the PipeWire stack packages and writes a PulseAudio-on-PipeWire configuration that loads
+  `VirtualSink` and `VirtualMic` modules for loopback/virtual microphone use.
 
 These flags live alongside the other `install_*` options in each preset file.
+
+### Hardware-specific fixes
+
+If a machine needs firmware or remedial commands to make built-in devices work, add `hardware_packages` and `hardware_commands`
+to its preset. These run near the start of the playbook so audio, input, and similar subsystems come up correctly (the
+`thinkpad_t16_gen2` preset demonstrates installing `alsa-sof-firmware` and re-running the PipeWire stack reinstall).
 
 ## 3. Apply the playbook
 

@@ -44,12 +44,20 @@ install_graphviz: false
 install_dia: false
 install_bluetooth: true
 install_codecs: true
+enable_virtual_mic: false
 install_spotify: true
 install_obsidian: true
 install_chatgpt_desktop: false
 install_mattermost: true
 install_intel_wifi_firmware: true
 install_docker_desktop: false
+
+# Hardware-specific tweaks
+hardware_packages:
+  - alsa-sof-firmware
+
+hardware_commands:
+  - "dnf reinstall -y pipewire pipewire-alsa pipewire-pulseaudio wireplumber"
 
 # Hyprland specific
 add_input_group: true
